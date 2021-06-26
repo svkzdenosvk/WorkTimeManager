@@ -6,24 +6,26 @@
         public $paused;
         public $running;
         public $total;
+        public $message;
 
         /**
          * StopWatch constructor.
          * @param $running
          * @param $total
          */
-        public function __construct($running, $total)
+        public function __construct($running, $total, $message="Stopky stoja")
         {
             $this->running = $running;
             $this->total = $total;
+            $this->message=$message;
         }
 
 
         public function starting(){
             $this->start=hrtime()[0];
             $this->running=true;
-            echo ("Stopky bežia");
-            echo $this->total;
+            $this->message= "Stopky bežia";
+
         }
 
         public function pausing(){
@@ -32,16 +34,14 @@
             $this->running=false;
 
             $this->total+=$this->paused - $this->start;
-            echo ("Stopky stoja");
-            echo $this->total;
+            $this->message= "Stopky stoja";
 
         }
 
         public function reset(){
             $this->total=0;
-            echo $this->total;
 
-            echo ("Stopky sa resetli");
+            $this->message= "Stopky sa resetli";
 
         }
     }

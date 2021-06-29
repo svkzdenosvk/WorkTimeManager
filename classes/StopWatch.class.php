@@ -2,6 +2,7 @@
 
 
     class StopWatch{
+        private $name_obj;
         private $start;
         private $paused;
         private $running;
@@ -45,18 +46,19 @@
          * @param $running
          * @param $total
          */
-        public function __construct($running, $total, $message="Stopky stoja")
+        public function __construct($name_obj, $total=0, $running=false, $message="stojí")
         {
-            $this->running = $running;
+            $this->name_obj=$name_obj;
             $this->total = $total;
-            $this->message=$message;
+            $this->running = $running;
+            $this->message="Čas pre ".$name_obj." ".$message;
         }
 
 
         public function starting(){
             $this->start=hrtime()[0];
             $this->running=true;
-            $this->message= "Stopky bežia";
+            $this->message= "Stopky pre ".$this->name_obj." bežia";
 
         }
 
@@ -66,7 +68,7 @@
             $this->running=false;
 
             $this->total+=$this->paused - $this->start;
-            $this->message= "Stopky stoja";
+            $this->message= "Stopky pre ".$this->name_obj." stoja";
 
         }
 

@@ -3,37 +3,96 @@
 
     session_start();
 
-    $stopWatch_obj=isset($_SESSION['stopWatch_object'])?$_SESSION['stopWatch_object']:new StopWatch(false,0);
+    $zak_a_obj=isset($_SESSION['$zak_a_obj'])?$_SESSION['$zak_a_obj']:new StopWatch("Zákazník_A");
+    $zak_b_obj=isset($_SESSION['$zak_b_obj'])?$_SESSION['$zak_b_obj']:new StopWatch("Zákazník_B");
+    $pause_obj=isset($_SESSION['$pause_obj'])?$_SESSION['$pause_obj']:new StopWatch("Pauza");
 
 
 
     /**
-     * if button start was clicked ..stopwatch is running
+     * if button zak_a was clicked ..stopwatch for zak_a is running and others are stopped
      */
-    if(isset($_POST['start'])&&$stopWatch_obj->getRunning()==false){
-        $stopWatch_obj->starting();
+//    if(isset($_POST['zak_a'])&&$zak_b_obj->getRunning()==false&&$pause_obj->getRunning()==false){
+    if(isset($_POST['zak_a'])){
 
-        $_SESSION['stopWatch_object']=$stopWatch_obj;
+        $zak_a_obj->starting();
+        $_SESSION['$zak_a_obj']=$zak_a_obj;
+
+        if($zak_b_obj->getRunning()==true){
+            $zak_b_obj->pausing();
+            $_SESSION['$zak_b_obj']=$zak_b_obj;
+        }
+
+        if($pause_obj->getRunning()==true){
+            $pause_obj->pausing();
+            $_SESSION['$pause_obj']=$pause_obj;
+        }
+
     }
 
 
     /**
-     * if button pause was clicked ..stopwatch is stop
+     * if button pause was clicked ..stopwatch for pause is running and others are stopped
      */
-    if(isset($_POST['pause'])&&($stopWatch_obj->getRunning())){
+    if(isset($_POST['pause'])){
 
-       $stopWatch_obj->pausing();
-       $_SESSION['stopWatch_object']=$stopWatch_obj;
+        $pause_obj->starting();
+        $_SESSION['$pause_obj']=$pause_obj;
+
+        if($zak_b_obj->getRunning()==true){
+            $zak_b_obj->pausing();
+            $_SESSION['$zak_b_obj']=$zak_b_obj;
+        }
+
+        if($zak_a_obj->getRunning()==true){
+            $zak_a_obj->pausing();
+            $_SESSION['$zak_a_obj']=$zak_a_obj;
+        }
     }
 
+    /**
+     * if button zak_b was clicked ..stopwatch for zak_b is running and others are stopped
+     */
+    if(isset($_POST['zak_b'])){
+
+        $zak_b_obj->starting();
+        $_SESSION['$zak_b_obj']=$zak_b_obj;
+
+        if($zak_a_obj->getRunning()==true){
+            $zak_a_obj->pausing();
+            $_SESSION['$zak_a_obj']=$zak_a_obj;
+        }
+
+        if($pause_obj->getRunning()==true){
+            $pause_obj->pausing();
+            $_SESSION['$pause_obj']=$pause_obj;
+        }
+    }
 
     /**
-     * if button reset was clicked ..stopwatch reset second to zero
+     * if button uloz was clicked ..stopwatch of all objects paused and their values save to DB->tables
      */
-    if(isset($_POST['reset'])&&(!$stopWatch_obj->getRunning())){
+    if(isset($_POST['uloz'])&&($zak_b_obj->getRunning()||$zak_a_obj->getRunning()||$pause_obj->getRunning())){
+            //nastaviť pauzu pre všetky objekty
+            //a ich príslušné hodnoty odoslať do príslušných databáz
 
-        $stopWatch_obj->reset();
-        $_SESSION['stopWatch_object']=$stopWatch_obj;
+
+    }
+
+    /**
+     * if button reset was clicked ..stopwatch of all objects and their time values are set to zero(0)
+     */
+    if(isset($_POST['reset'])){
+        $pause_obj->reset();
+        $_SESSION['$pause_obj']=$pause_obj;
+
+        $zak_a_obj->reset();
+        $_SESSION['$zak_a_obj']=$zak_a_obj;
+
+        $zak_b_obj->reset();
+        $_SESSION['$zak_b_obj']=$zak_b_obj;
+    //        $stopWatch_obj->reset();
+    //        $_SESSION['stopWatch_object']=$stopWatch_obj;
     }
 ?>
 
@@ -59,13 +118,13 @@
         <div class="row w-50 mx-auto mt-5 ">
             <div>
                 <form class="col-4 text-center"action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                    <button type="submit" name="start" class="btn btn-success mt-5 ">
+                    <button type="submit" name="zak_a" class="btn btn-success mt-5 ">
                         <i class="fa fa-play fa-lg"></i> Zákazník_A
                     </button>
                 </form>
 
                 <form  class="col-4 text-center" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                    <button type="submit" name="pause" class="btn btn-success mt-5 ">
+                    <button type="submit" name="zak_b" class="btn btn-success mt-5 ">
                         <i class="fa fa-play fa-lg"></i> Zákazník_B
                     </button>
                 </form>
@@ -76,19 +135,26 @@
                     <i class="fa fa-pause fa-lg"></i> Pauza
                 </button>
             </form>
-            <h5 class="w-100 text-center mt-5"> <?php echo  $stopWatch_obj->getMessage() ;?></h5>
+            <h5 class="w-100 text-center mt-5"> <?php echo  $zak_a_obj->getMessage() ;?></h5>
+            <h5 class="w-100 text-center mt-5"> <?php echo  $zak_b_obj->getMessage() ;?></h5>
+            <h5 class="w-100 text-center mt-5"> <?php echo  $pause_obj->getMessage() ;?></h5>
 
-            <h5 class="w-100 mt-5 "><span class="mr-5">Zákazník_A</span><?php   echo gmdate("H:i:s",$stopWatch_obj->getTotal())  ;?></h5>
-            <h5 class="w-100 mt-1 "><span class="mr-5">Zákazník_B</span><?php   echo gmdate("H:i:s",$stopWatch_obj->getTotal())  ;?></h5>
-            <h5 class="w-100 mt-1"><span class="mr-5">Pauza</span><span class="ml-5"><?php   echo gmdate("H:i:s",$stopWatch_obj->getTotal())  ;?></span></h5>
+            <h5 class="w-100 mt-5 "><span class="mr-5">Zákazník_A</span><?php   echo gmdate("H:i:s",$zak_a_obj->getTotal())  ;?></h5>
+            <h5 class="w-100 mt-1 "><span class="mr-5">Zákazník_B</span><?php   echo gmdate("H:i:s",$zak_b_obj->getTotal())  ;?></h5>
+            <h5 class="w-100 mt-1"><span class="mr-5">Pauza</span><span class="ml-5"><?php   echo gmdate("H:i:s",$pause_obj->getTotal())  ;?></span></h5>
 
         </div>
             <form  class=" text-center  float-right mt-5 mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                <button type="submit" name="reset" class="btn btn-danger mt-5">
+                <button type="submit" name="uloz" class="btn btn-info mt-5">
                     <i class="fa fa-fast-backward fa-lg"></i> Reset
                 </button>
             </form>
 
+        <form  class=" text-center  float-right mt-5 mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <button type="submit" name="reset" class="btn btn-danger mt-5">
+                <i class="fa fa-fast-backward fa-lg"></i> Reset
+            </button>
+        </form>
 
 
 

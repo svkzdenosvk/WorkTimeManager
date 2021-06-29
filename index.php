@@ -10,7 +10,7 @@
     /**
      * if button start was clicked ..stopwatch is running
      */
-    if(isset($_POST['start'])&&$stopWatch_obj->running==false){
+    if(isset($_POST['start'])&&$stopWatch_obj->getRunning()==false){
         $stopWatch_obj->starting();
 
         $_SESSION['stopWatch_object']=$stopWatch_obj;
@@ -20,7 +20,7 @@
     /**
      * if button pause was clicked ..stopwatch is stop
      */
-    if(isset($_POST['pause'])&&($stopWatch_obj->running)){
+    if(isset($_POST['pause'])&&($stopWatch_obj->getRunning())){
 
        $stopWatch_obj->pausing();
        $_SESSION['stopWatch_object']=$stopWatch_obj;
@@ -30,7 +30,7 @@
     /**
      * if button reset was clicked ..stopwatch reset second to zero
      */
-    if(isset($_POST['reset'])&&(!$stopWatch_obj->running)){
+    if(isset($_POST['reset'])&&(!$stopWatch_obj->getRunning())){
 
         $stopWatch_obj->reset();
         $_SESSION['stopWatch_object']=$stopWatch_obj;
@@ -57,28 +57,39 @@
         ?>
 
         <div class="row w-50 mx-auto mt-5 ">
-            <form class="col-4 text-center"action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                <button type="submit" name="start" class="btn btn-success mt-5 ">
-                    <i class="fa fa-play fa-lg"></i> Start
+            <div>
+                <form class="col-4 text-center"action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                    <button type="submit" name="start" class="btn btn-success mt-5 ">
+                        <i class="fa fa-play fa-lg"></i> Zákazník_A
+                    </button>
+                </form>
+
+                <form  class="col-4 text-center" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                    <button type="submit" name="pause" class="btn btn-success mt-5 ">
+                        <i class="fa fa-play fa-lg"></i> Zákazník_B
+                    </button>
+                </form>
+            </div>
+
+            <form  class="col-4 text-center ml-5 mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <button type="submit" name="pause" class="btn btn-warning mt-5 ">
+                    <i class="fa fa-pause fa-lg"></i> Pauza
                 </button>
             </form>
+            <h5 class="w-100 text-center mt-5"> <?php echo  $stopWatch_obj->getMessage() ;?></h5>
 
-            <form  class="col-4 text-center" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                <button type="submit" name="pause" class="btn btn-success mt-5 ">
-                    <i class="fa fa-pause fa-lg"></i> Pause
-                </button>
-            </form>
+            <h5 class="w-100 mt-5 "><span class="mr-5">Zákazník_A</span><?php   echo gmdate("H:i:s",$stopWatch_obj->getTotal())  ;?></h5>
+            <h5 class="w-100 mt-1 "><span class="mr-5">Zákazník_B</span><?php   echo gmdate("H:i:s",$stopWatch_obj->getTotal())  ;?></h5>
+            <h5 class="w-100 mt-1"><span class="mr-5">Pauza</span><span class="ml-5"><?php   echo gmdate("H:i:s",$stopWatch_obj->getTotal())  ;?></span></h5>
 
-            <form  class="col-4 text-center" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                <button type="submit" name="reset" class="btn btn-success mt-5">
+        </div>
+            <form  class=" text-center  float-right mt-5 mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <button type="submit" name="reset" class="btn btn-danger mt-5">
                     <i class="fa fa-fast-backward fa-lg"></i> Reset
                 </button>
             </form>
 
-            <h5 class="w-100 text-center mt-5"> <?php echo  $stopWatch_obj->message ;?></h5>
 
-            <h3 class="mx-auto mt-5">Strávený čas (H:M:S) <?php   echo gmdate("H:i:s",$stopWatch_obj->total)  ;?></h3>
-        </div>
 
 
         <!-- Optional JavaScript -->

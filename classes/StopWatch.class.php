@@ -2,11 +2,43 @@
 
 
     class StopWatch{
-        public $start;
-        public $paused;
-        public $running;
-        public $total;
-        public $message;
+        private $start;
+        private $paused;
+        private $running;
+        private $total;
+
+        /**
+         * @return mixed
+         */
+        public function getTotal()
+        {
+            return $this->total;
+        }
+        private $message;
+
+        /**
+         * @return string
+         */
+        public function getMessage()
+        {
+            return $this->message;
+        }
+
+        /**
+         * @return mixed
+         */
+        public function getRunning()
+        {
+            return $this->running;
+        }
+
+        /**
+         * @param mixed $running
+         */
+        public function setRunning($running)
+        {
+            $this->running = $running;
+        }
 
         /**
          * StopWatch constructor.

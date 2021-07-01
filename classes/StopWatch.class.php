@@ -7,6 +7,22 @@
         private $paused;
         private $running;
         private $total;
+        private $message;
+
+        /**
+         * StopWatch constructor.
+         * @param $name_obj
+         * @param int $total
+         * @param bool $running
+         * @param string $message
+         */
+        public function __construct($name_obj, $total=0, $running=false, $message="stojí")
+        {
+            $this->name_obj= $name_obj;
+            $this->total = $total;
+            $this->running = $running;
+            $this->message="Čas pre ".$name_obj." ".$message;
+        }
 
         /**
          * @return mixed
@@ -15,7 +31,7 @@
         {
             return $this->total;
         }
-        private $message;
+
 
         /**
          * @return string
@@ -41,18 +57,7 @@
             $this->running = $running;
         }
 
-        /**
-         * StopWatch constructor.
-         * @param $running
-         * @param $total
-         */
-        public function __construct($name_obj, $total=0, $running=false, $message="stojí")
-        {
-            $this->name_obj=$name_obj;
-            $this->total = $total;
-            $this->running = $running;
-            $this->message="Čas pre ".$name_obj." ".$message;
-        }
+
 
 
         public function starting(){
@@ -75,7 +80,7 @@
         public function reset(){
             $this->total=0;
 
-            $this->message= "Stopky sa resetli";
+            $this->message= "Stopky pre ".$this->name_obj." resetli";
 
         }
     }

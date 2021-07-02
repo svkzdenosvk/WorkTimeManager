@@ -18,10 +18,9 @@
 //        $zak_b_obj = isset($_COOKIE[$zak_b_obj])? unserialize($_COOKIE[$zak_b_obj]):new StopWatch("Zákazník_B");
 //        $pause_obj = isset($_COOKIE[$pause_obj])? unserialize($_COOKIE[$pause_obj]):new StopWatch("Pauza");
 
-        $zak_a_obj = isset($_COOKIE[$zak_a_obj])? $_COOKIE[$zak_a_obj]:new StopWatch("Zákazník_A");
-        $zak_b_obj = isset($_COOKIE[$zak_b_obj])? $_COOKIE[$zak_b_obj]:new StopWatch("Zákazník_B");
-        $pause_obj = isset($_COOKIE[$pause_obj])? $_COOKIE[$pause_obj]:new StopWatch("Pauza");
-        print_r($zak_a_obj);
+        $zak_a_obj = isset($_COOKIE["zak_a_obj"])? unserialize($_COOKIE["zak_a_obj"]):new StopWatch("Zákazník_A");
+        $zak_b_obj = isset($_COOKIE["zak_b_obj"])? unserialize($_COOKIE["zak_b_obj"]):new StopWatch("Zákazník_B");
+        $pause_obj = isset($_COOKIE["pause_obj"])? unserialize($_COOKIE["pause_obj"]):new StopWatch("Pauza");
     /**
      * if button zak_a was clicked ..stopwatch for zak_a is running and others are stopped
      */
@@ -29,19 +28,19 @@
     if(isset($_POST['zak_a'])){
 
         $zak_a_obj->starting();
-        setcookie($zak_a_obj, serialize($zak_a_obj), time()+86400, '/');
+        setcookie("zak_a_obj", serialize($zak_a_obj), time()+86400, '/');
         //$_SESSION['$zak_a_obj']=$zak_a_obj;
 
         if($zak_b_obj->getRunning()==true){
             $zak_b_obj->pausing();
-            setcookie($zak_b_obj,serialize($zak_b_obj), time()+86400, '/');
+            setcookie("zak_b_obj", serialize($zak_b_obj), time()+86400, '/');
 
          //   $_SESSION['$zak_b_obj']=$zak_b_obj;
         }
 
         if($pause_obj->getRunning()==true){
             $pause_obj->pausing();
-            setcookie($pause_obj, serialize($pause_obj), time()+86400, '/');
+            setcookie("pause_obj", serialize($pause_obj), time()+86400, '/');
 
             // $_SESSION['$pause_obj']=$pause_obj;
         }
@@ -55,20 +54,20 @@
     if(isset($_POST['pause'])){
 
         $pause_obj->starting();
-        setcookie($pause_obj, serialize($pause_obj), time()+86400, '/');
+        setcookie("pause_obj", serialize($pause_obj), time()+86400, '/');
 
 //        $_SESSION['$pause_obj']=$pause_obj;
 
         if($zak_b_obj->getRunning()==true){
             $zak_b_obj->pausing();
-            setcookie($zak_b_obj,serialize($zak_b_obj), time()+86400, '/');
+            setcookie("zak_b_obj", serialize($zak_b_obj), time()+86400, '/');
 
 //            $_SESSION['$zak_b_obj']=$zak_b_obj;
         }
 
         if($zak_a_obj->getRunning()==true){
             $zak_a_obj->pausing();
-            setcookie($zak_a_obj, serialize($zak_a_obj), time()+86400, '/');
+            setcookie("zak_a_obj", serialize($zak_a_obj), time()+86400, '/');
 
 //            $_SESSION['$zak_a_obj']=$zak_a_obj;
         }
@@ -80,20 +79,20 @@
     if(isset($_POST['zak_b'])){
 
         $zak_b_obj->starting();
-        setcookie($zak_b_obj,serialize($zak_b_obj), time()+86400, '/');
+        setcookie("zak_b_obj", serialize($zak_b_obj), time()+86400, '/');
 
 //        $_SESSION['$zak_b_obj']=$zak_b_obj;
 
         if($zak_a_obj->getRunning()==true){
             $zak_a_obj->pausing();
-            setcookie($zak_a_obj, serialize($zak_a_obj), time()+86400, '/');
+            setcookie("zak_a_obj", serialize($zak_a_obj), time()+86400, '/');
 
 //            $_SESSION['$zak_a_obj']=$zak_a_obj;
         }
 
         if($pause_obj->getRunning()==true){
             $pause_obj->pausing();
-            setcookie($pause_obj, serialize($pause_obj), time()+86400, '/');
+            setcookie("pause_obj", serialize($pause_obj), time()+86400, '/');
 
 //            $_SESSION['$pause_obj']=$pause_obj;
         }
@@ -114,17 +113,17 @@
      */
     if(isset($_POST['reset'])){
         $pause_obj->reset();
-        setcookie($pause_obj, serialize($pause_obj), time()+86400, '/');
+        setcookie("pause_obj", serialize($pause_obj), time()+86400, '/');
 
 //        $_SESSION['$pause_obj']=$pause_obj;
 
         $zak_a_obj->reset();
-        setcookie($zak_a_obj, serialize($zak_a_obj), time()+86400, '/');
+        setcookie("zak_a_obj", serialize($zak_a_obj), time()+86400, '/');
 
 //        $_SESSION['$zak_a_obj']=$zak_a_obj;
 
         $zak_b_obj->reset();
-        setcookie($zak_b_obj,serialize($zak_b_obj), time()+86400, '/');
+        setcookie("zak_b_obj", serialize($zak_b_obj), time()+86400, '/');
 
 //        $_SESSION['$zak_b_obj']=$zak_b_obj;
 
@@ -236,13 +235,13 @@
 
         //check if page was reload
 
-        $pageRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) &&($_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0' ||  $_SERVER['HTTP_CACHE_CONTROL'] == 'no-cache');
-        if($pageRefreshed == 1){
-            echo "Yes page Refreshed";
-        }else{
-            //enter code here
-            echo "No";
-        }
+//        $pageRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) &&($_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0' ||  $_SERVER['HTTP_CACHE_CONTROL'] == 'no-cache');
+//        if($pageRefreshed == 1){
+//            echo "Yes page Refreshed";
+//        }else{
+//            //enter code here
+//            echo "No";
+//        }
 
 
 //        }

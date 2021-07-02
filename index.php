@@ -167,7 +167,7 @@
         </div>
             <form  class=" text-center  float-right mt-5 mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                 <button type="submit" name="uloz" class="btn btn-info mt-5">
-                    <i class="fa fa-fast-backward fa-lg"></i> Reset
+                    <i class="fa fa-fast-backward fa-lg"></i> Uloziť
                 </button>
             </form>
 
@@ -194,6 +194,16 @@
 
             array_map("myfunction2",$array_obj);
 
+        }
+
+        //check if page was reload
+
+        $pageRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) &&($_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0' ||  $_SERVER['HTTP_CACHE_CONTROL'] == 'no-cache');
+        if($pageRefreshed == 1){
+            echo "Yes page Refreshed";
+        }else{
+            //enter code here
+            echo "No";
         }
 
 

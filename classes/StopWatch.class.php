@@ -24,6 +24,15 @@
             $this->message="Čas pre ".$name_obj." ".$message;
         }
 
+
+        /**
+         * @return mixed
+         */
+        public function getNameObj()
+        {
+            return $this->name_obj;
+        }
+
         /**
          * @return mixed
          */

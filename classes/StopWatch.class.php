@@ -87,8 +87,10 @@
         }
 
         public function reset(){
+            if($this->getRunning()==true){
+                $this->pausing();
+            }
             $this->total=0;
-
             $this->message= "Stopky pre ".$this->name_obj." resetli";
 
         }

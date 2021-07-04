@@ -6,150 +6,17 @@
     const ZAK_A = "zakaznik_a_obj";
     const ZAK_B = "zakaznik_b_obj";
     const PAUSA = "pausa_obj";
-    //session_start();
-//$cookie_name = "user";
-//$cookie_value = "John Doe";
-//setcookie($cookie_name, $cookie_value, time() + (86400 * 30), "/");
-////bude sa doplnat - ak nie je session tak :?cookiecs ? cookies: new StopWatch ..
-//setcookie ($name, serialize($object));   // set object
-//
-//$object = unserialize($_COOKIE[$name]);
-
-//    $zak_a_obj=isset($_SESSION['$zak_a_obj'])?$_SESSION['$zak_a_obj']:new StopWatch("Zákazník_A");
-//    $zak_b_obj=isset($_SESSION['$zak_b_obj'])?$_SESSION['$zak_b_obj']:new StopWatch("Zákazník_B");
-//    $pause_obj=isset($_SESSION['$pause_obj'])?$_SESSION['$pause_obj']:new StopWatch("Pauza");
-
-//        $zak_a_obj = isset($_COOKIE[$zak_a_obj])? unserialize($_COOKIE[$zak_a_obj]):new StopWatch("Zákazník_A");
-//        $zak_b_obj = isset($_COOKIE[$zak_b_obj])? unserialize($_COOKIE[$zak_b_obj]):new StopWatch("Zákazník_B");
-//        $pause_obj = isset($_COOKIE[$pause_obj])? unserialize($_COOKIE[$pause_obj]):new StopWatch("Pauza");
-
-if(count($_COOKIE) > 0) {
-    echo "Cookies are enabled.";
-} else {
-    echo "Cookies are disabled.";
-}
 
         $zakaznik_a_obj = isset($_COOKIE[ZAK_A])? unserialize($_COOKIE[ZAK_A]):new StopWatch("Zákazník_A");
         $zakaznik_b_obj = isset($_COOKIE[ZAK_B])? unserialize($_COOKIE[ZAK_B]):new StopWatch("Zákazník_B");
         $pausa_obj = isset($_COOKIE[PAUSA])? unserialize($_COOKIE[PAUSA]):new StopWatch("Pauza");
 
+        $array_obj=array( $zakaznik_a_obj, $zakaznik_b_obj, $pausa_obj);
 
 //try it again with sessions and destruct -a pred destruct ulozit do databazy alebo !!!!!
 
 
-    /**
-     * if button zak_a was clicked ..stopwatch for zak_a is running and others are stopped
-     */
-//    if(isset($_POST['zak_a'])&&$zak_b_obj->getRunning()==false&&$pause_obj->getRunning()==false){
-    if(isset($_POST['zak_a'])){
-
-        $zakaznik_a_obj->starting();
-        setcookie(ZAK_A, serialize($zakaznik_a_obj), time()+86400, '/');
-        //$_SESSION['$zak_a_obj']=$zak_a_obj;
-
-        if($zakaznik_b_obj->getRunning()==true){
-            $zakaznik_b_obj->pausing();
-            setcookie(ZAK_B, serialize($zakaznik_b_obj), time()+86400, '/');
-
-         //   $_SESSION['$zak_b_obj']=$zak_b_obj;
-        }
-
-
-
-        if($pausa_obj->getRunning()==true){
-            $pausa_obj->pausing();
-            setcookie(PAUSA, serialize($pausa_obj), time()+86400, '/');
-
-            // $_SESSION['$pause_obj']=$pause_obj;
-        }
-
-
-    }
-
-
-    /**
-     * if button pause was clicked ..stopwatch for pause is running and others are stopped
-     */
-    if(isset($_POST['pause'])){
-
-        $pausa_obj->starting();
-        setcookie(PAUSA, serialize($pausa_obj), time()+86400, '/');
-
-//        $_SESSION['$pause_obj']=$pause_obj;
-
-        if($zakaznik_b_obj->getRunning()==true){
-            $zakaznik_b_obj->pausing();
-            setcookie(ZAK_B, serialize($zakaznik_b_obj), time()+86400, '/');
-
-//            $_SESSION['$zak_b_obj']=$zak_b_obj;
-        }
-
-        if($zakaznik_a_obj->getRunning()==true){
-            $zakaznik_a_obj->pausing();
-            setcookie(ZAK_A, serialize($zakaznik_a_obj), time()+86400, '/');
-
-//            $_SESSION['$zak_a_obj']=$zak_a_obj;
-        }
-    }
-
-    /**
-     * if button zak_b was clicked ..stopwatch for zak_b is running and others are stopped
-     */
-    if(isset($_POST['zak_b'])){
-
-        $zakaznik_b_obj->starting();
-        setcookie(ZAK_B, serialize($zakaznik_b_obj), time()+86400, '/');
-
-//        $_SESSION['$zak_b_obj']=$zak_b_obj;
-
-        if($zakaznik_a_obj->getRunning()==true){
-            $zakaznik_a_obj->pausing();
-            setcookie(ZAK_A, serialize($zakaznik_a_obj), time()+86400, '/');
-
-//            $_SESSION['$zak_a_obj']=$zak_a_obj;
-        }
-
-        if($pausa_obj->getRunning()==true){
-            $pausa_obj->pausing();
-            setcookie(PAUSA, serialize($pausa_obj), time()+86400, '/');
-
-//            $_SESSION['$pause_obj']=$pause_obj;
-        }
-    }
-
-    /**
-     * if button uloz was clicked ..stopwatch of all objects paused and their values save to DB->tables
-     */
-    if(isset($_POST['uloz'])&&($zakaznik_b_obj->getRunning()||$zakaznik_a_obj->getRunning()||$pausa_obj->getRunning())){
-            //nastaviť pauzu pre všetky objekty
-            //a ich príslušné hodnoty odoslať do príslušných databáz
-
-
-    }
-
-    /**
-     * if button reset was clicked ..stopwatch of all objects and their time values are set to zero(0)
-     */
-    if(isset($_POST['reset'])){
-        $pausa_obj->reset();
-        setcookie(PAUSA, serialize($pausa_obj), time()+86400, '/');
-
-//        $_SESSION['$pause_obj']=$pause_obj;
-
-        $zakaznik_a_obj->reset();
-        setcookie(ZAK_A, serialize($zakaznik_a_obj), time()+86400, '/');
-
-//        $_SESSION['$zak_a_obj']=$zak_a_obj;
-
-        $zakaznik_b_obj->reset();
-        setcookie(ZAK_B, serialize($zakaznik_b_obj), time()+86400, '/');
-
-//        $_SESSION['$zak_b_obj']=$zak_b_obj;
-
-
-    //        $stopWatch_obj->reset();
-    //        $_SESSION['stopWatch_object']=$stopWatch_obj;
-    }
+    require_once "inc/inc.post.php";
 ?>
 
     <!doctype html>
@@ -193,8 +60,6 @@ if(count($_COOKIE) > 0) {
                     <i class="fa fa-pause fa-lg"></i> Pauza
                 </button>
             </form>
-<!--            <h5 class="w-100 text-center mt-5">-->
-
 
 <!--                <div class=" text-center col-12 p-3 mt-5 alert --><?php //if($_SERVER['REQUEST_METHOD']=="POST"){echo " alert-primary ";}  ?><!-- mx-auto " role="alert">-->
 
@@ -202,20 +67,14 @@ if(count($_COOKIE) > 0) {
 
                     <?php
 
-                    $array_obj=array( $zakaznik_a_obj, $zakaznik_b_obj, $pausa_obj);
-
-                        function myfunction($obj)
+                        //$array_obj[] - this array is defined on top
+                        function anonymFunction1($obj)
                         {
                             if ($obj->getRunning()) echo $obj->getMessage();
                     }
-                    array_map("myfunction",$array_obj);
+                    array_map("anonymFunction1",$array_obj);
                     ?>
                 </div>
-
-
-
-
-<!--            </h5>-->
 
 
             <h5 class="w-100 mt-5 "><span class="mr-5">Zákazník_A</span><?php   echo gmdate("H:i:s",$zakaznik_a_obj->getTotal())  ;?></h5>
@@ -243,7 +102,8 @@ if(count($_COOKIE) > 0) {
         if (connection_aborted()){//this maybe not working
 // ulouime do cookies if is aborted uvidime či t pojde
 
-            function myfunction2($obj)
+            //$array_obj[] - this array is defined on top
+            function anonymFunction2($obj)
             {
                 if ($obj->getRunning()) {$obj->pausing();}
 
@@ -252,12 +112,10 @@ if(count($_COOKIE) > 0) {
                  *   - example: COOKIE['zakaznik_b_obj']
                  */
                 setcookie(strtolower(remove_accents($obj->getNameObj())).'_obj', serialize($obj), time()+86400, '/');
-
-
-              //  $_SESSION['$obj']=$obj;
+                //  $_SESSION['$obj']=$obj;
             }
 
-            array_map("myfunction2",$array_obj);
+            array_map("anonymFunction2",$array_obj);
 
         }
 

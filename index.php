@@ -5,13 +5,13 @@
     //this would be in config file
     const ZAK_A = "zakaznik_a_obj";
     const ZAK_B = "zakaznik_b_obj";
-    const PAUSA = "pausa_obj";
+    const PAUZA = "pauza_obj";
 
         $zakaznik_a_obj = isset($_COOKIE[ZAK_A])? unserialize($_COOKIE[ZAK_A]):new StopWatch("Zákazník_A");
         $zakaznik_b_obj = isset($_COOKIE[ZAK_B])? unserialize($_COOKIE[ZAK_B]):new StopWatch("Zákazník_B");
-        $pausa_obj = isset($_COOKIE[PAUSA])? unserialize($_COOKIE[PAUSA]):new StopWatch("Pauza");
+        $pauza_obj = isset($_COOKIE[PAUZA])? unserialize($_COOKIE[PAUZA]):new StopWatch("Pauza");
 
-        $array_obj=array( $zakaznik_a_obj, $zakaznik_b_obj, $pausa_obj);
+        $array_obj=array( $zakaznik_a_obj, $zakaznik_b_obj, $pauza_obj);
 
 //try it again with sessions and destruct -a pred destruct ulozit do databazy alebo !!!!!
 
@@ -79,7 +79,7 @@
 
             <h5 class="w-100 mt-5 "><span class="mr-5">Zákazník_A</span><?php   echo gmdate("H:i:s",$zakaznik_a_obj->getTotal())  ;?></h5>
             <h5 class="w-100 mt-1 "><span class="mr-5">Zákazník_B</span><?php   echo gmdate("H:i:s",$zakaznik_b_obj->getTotal())  ;?></h5>
-            <h5 class="w-100 mt-1"><span class="mr-5">Pauza</span><span class="ml-5"><?php   echo gmdate("H:i:s",$pausa_obj->getTotal())  ;?></span></h5>
+            <h5 class="w-100 mt-1"><span class="mr-5">Pauza</span><span class="ml-5"><?php   echo gmdate("H:i:s",$pauza_obj->getTotal())  ;?></span></h5>
 
         </div>
             <form  class=" text-center  float-right mt-5 mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">

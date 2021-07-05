@@ -18,9 +18,9 @@
             //  $_SESSION['$zak_b_obj']=$zak_b_obj;
         }
 
-        if($pausa_obj->getRunning()==true){
-            $pausa_obj->pausing();
-            setcookie(PAUSA, serialize($pausa_obj), time()+86400, '/');
+        if($pauza_obj->getRunning()==true){
+            $pauza_obj->pausing();
+            setcookie(PAUZA, serialize($pauza_obj), time()+86400, '/');
             //  $_SESSION['$pause_obj']=$pause_obj;
         }
     }
@@ -31,10 +31,10 @@
      */
     if(isset($_POST['pause'])){
 
-        if($pausa_obj->getRunning()==false){
+        if($pauza_obj->getRunning()==false){
 
-            $pausa_obj->starting();
-            setcookie(PAUSA, serialize($pausa_obj), time()+86400, '/');
+            $pauza_obj->starting();
+            setcookie(PAUZA, serialize($pauza_obj), time()+86400, '/');
             //  $_SESSION['$pause_obj']=$pause_obj;
         }
 
@@ -69,9 +69,9 @@
             //  $_SESSION['$zak_a_obj']=$zak_a_obj;
         }
 
-        if($pausa_obj->getRunning()==true){
-            $pausa_obj->pausing();
-            setcookie(PAUSA, serialize($pausa_obj), time()+86400, '/');
+        if($pauza_obj->getRunning()==true){
+            $pauza_obj->pausing();
+            setcookie(PAUZA, serialize($pauza_obj), time()+86400, '/');
             //  $_SESSION['$pause_obj']=$pause_obj;
         }
     }
@@ -79,7 +79,7 @@
     /**
      * if button uloz was clicked ..stopwatch of all objects paused and their values save to DB->tables
      */
-    if(isset($_POST['uloz'])&&($zakaznik_b_obj->getRunning()||$zakaznik_a_obj->getRunning()||$pausa_obj->getRunning())){
+    if(isset($_POST['uloz'])&&($zakaznik_b_obj->getRunning()||$zakaznik_a_obj->getRunning()||$pauza_obj->getRunning())){
         //nastaviť pauzu pre všetky objekty
         //a ich príslušné hodnoty odoslať do príslušných databáz
 
@@ -89,20 +89,36 @@
      * if button reset was clicked ..stopwatch of all objects and their time values are set to zero(0)
      */
     if(isset($_POST['reset'])){
+        
+//        $pausa_obj->reset();
+//        setcookie(PAUSA, serialize($pausa_obj), time()+86400, '/');
+//        //  $_SESSION['$pause_obj']=$pause_obj;
+//
+//
+//        $zakaznik_a_obj->reset();
+//        setcookie(ZAK_A, serialize($zakaznik_a_obj), time()+86400, '/');
+//        //  $_SESSION['$zak_a_obj']=$zak_a_obj;
+//
+//        $zakaznik_b_obj->reset();
+//        setcookie(ZAK_B, serialize($zakaznik_b_obj), time()+86400, '/');
+//        //  $_SESSION['$zak_b_obj']=$zak_b_obj;
 
-        //!!!!!!!!!!!!!!!!!!!!!!toto ešte zautomatizovať !!!!!!!!!!!!!!!!!!!!!!!!!
-
-        $pausa_obj->reset();
-        setcookie(PAUSA, serialize($pausa_obj), time()+86400, '/');
-        //  $_SESSION['$pause_obj']=$pause_obj;
 
 
-        $zakaznik_a_obj->reset();
-        setcookie(ZAK_A, serialize($zakaznik_a_obj), time()+86400, '/');
-        //  $_SESSION['$zak_a_obj']=$zak_a_obj;
+        function anonymFunction2($obj)
+        {
+            $obj->reset();
+            /**
+             *  $obj->name_obj (without ´ˇ)
+             *   - example: from Zákazník_B to COOKIE['zakaznik_b_obj']
+             */
+            setcookie(strtolower(remove_accents($obj->getNameObj())).'_obj', serialize($obj), time()+86400, '/');
+            //  $_SESSION['$obj']=$obj;
+            echo strtolower(remove_accents($obj->getNameObj())).'_obj';
+        }
 
-        $zakaznik_b_obj->reset();
-        setcookie(ZAK_B, serialize($zakaznik_b_obj), time()+86400, '/');
-        //  $_SESSION['$zak_b_obj']=$zak_b_obj;
+        array_map("anonymFunction2",$array_obj);
+
+
 
     }

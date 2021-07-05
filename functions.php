@@ -1,4 +1,11 @@
 <?php
+
+    function objPropertyName_to_varString(StopWatch $stopwatch_obj){
+
+        return strtolower(remove_accents($stopwatch_obj->getNameObj()));
+
+    }
+
     /**
      * this f. makes from "á"->"a"...
      * @param $string

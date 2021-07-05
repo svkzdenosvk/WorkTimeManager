@@ -3,7 +3,7 @@
      * if button zak_a was clicked ..stopwatch for zak_a is running and others are stopped
      */
     //    if(isset($_POST['zak_a'])&&$zak_b_obj->getRunning()==false&&$pause_obj->getRunning()==false){
-    if(isset($_POST['zak_a'])){
+    if(isset($_POST[objPropertyName_to_varString($zakaznik_a_obj)])){
 
         if($zakaznik_a_obj->getRunning()==false){
 
@@ -29,7 +29,7 @@
     /**
      * if button pause was clicked ..stopwatch for pause is running and others are stopped
      */
-    if(isset($_POST['pause'])){
+    if(isset($_POST[objPropertyName_to_varString($pauza_obj)])){
 
         if($pauza_obj->getRunning()==false){
 
@@ -54,7 +54,7 @@
     /**
      * if button zak_b was clicked ..stopwatch for zak_b is running and others are stopped
      */
-    if(isset($_POST['zak_b'])){
+    if(isset($_POST[objPropertyName_to_varString($zakaznik_b_obj)])){
 
         if($zakaznik_b_obj->getRunning()==false){
 
@@ -89,21 +89,11 @@
      * if button reset was clicked ..stopwatch of all objects and their time values are set to zero(0)
      */
     if(isset($_POST['reset'])){
-        
+
 //        $pausa_obj->reset();
 //        setcookie(PAUSA, serialize($pausa_obj), time()+86400, '/');
 //        //  $_SESSION['$pause_obj']=$pause_obj;
 //
-//
-//        $zakaznik_a_obj->reset();
-//        setcookie(ZAK_A, serialize($zakaznik_a_obj), time()+86400, '/');
-//        //  $_SESSION['$zak_a_obj']=$zak_a_obj;
-//
-//        $zakaznik_b_obj->reset();
-//        setcookie(ZAK_B, serialize($zakaznik_b_obj), time()+86400, '/');
-//        //  $_SESSION['$zak_b_obj']=$zak_b_obj;
-
-
 
         function anonymFunction2($obj)
         {
@@ -112,9 +102,9 @@
              *  $obj->name_obj (without ´ˇ)
              *   - example: from Zákazník_B to COOKIE['zakaznik_b_obj']
              */
-            setcookie(strtolower(remove_accents($obj->getNameObj())).'_obj', serialize($obj), time()+86400, '/');
+            setcookie(objPropertyName_to_varString($obj).'_obj', serialize($obj), time()+86400, '/');
             //  $_SESSION['$obj']=$obj;
-            echo strtolower(remove_accents($obj->getNameObj())).'_obj';
+            //echo strtolower(remove_accents($obj->getNameObj())).'_obj';
         }
 
         array_map("anonymFunction2",$array_obj);

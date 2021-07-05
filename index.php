@@ -42,21 +42,21 @@
 
         <div class="row w-50 mx-auto mt-5 ">
             <div>
-                <form class=" <?php if(isset($_POST['zak_a'])){ echo "invisible";} ?> col-4 text-center" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                    <button type="submit" name="zak_a" class="btn btn-success mt-5  ">
+                <form class=" <?php if(isset($_POST[objPropertyName_to_varString($zakaznik_a_obj)])){ echo "invisible";} ?> col-4 text-center" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                    <button type="submit" name="<?php echo objPropertyName_to_varString($zakaznik_a_obj)?>" class="btn btn-success mt-5  ">
                         <i class="fa fa-play fa-lg"></i> Zákazník_A
                     </button>
                 </form>
 
-                <form  class="  <?php if(isset($_POST['zak_b'])){ echo "invisible";}?>  col-4 text-center" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                    <button type="submit" name="zak_b" class="btn btn-success mt-5 ">
+                <form  class="  <?php if(isset($_POST[objPropertyName_to_varString($zakaznik_b_obj)])){ echo "invisible";}?>  col-4 text-center" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                    <button type="submit" name="<?php echo objPropertyName_to_varString($zakaznik_b_obj)?>" class="btn btn-success mt-5 ">
                         <i class="fa fa-play fa-lg"></i> Zákazník_B
                     </button>
                 </form>
             </div>
 
-            <form  class="  <?php if(isset($_POST['pause'])){ echo "invisible";}?> col-4 text-center ml-5 mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                <button type="submit" id="pause_id" name="pause" class="btn btn-warning mt-5 ">
+            <form  class="  <?php if(isset($_POST[objPropertyName_to_varString($pauza_obj)])){ echo "invisible";}?> col-4 text-center ml-5 mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <button type="submit" name="<?php echo objPropertyName_to_varString($pauza_obj)?>" class="btn btn-warning mt-5 ">
                     <i class="fa fa-pause fa-lg"></i> Pauza
                 </button>
             </form>

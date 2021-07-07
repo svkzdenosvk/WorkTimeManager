@@ -34,12 +34,7 @@
 
         </head>
         <body>
-        <?php
-
-
-
-        ?>
-
+      
         <div class="row w-50 mx-auto mt-5 ">
             <div>
                 <form class=" <?php if(isset($_POST[objPropertyName_to_varString($zakaznik_a_obj)])){ echo "invisible";} ?> col-4 text-center" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
@@ -68,11 +63,17 @@
                     <?php
 
                         //$array_obj[] - this array is defined on top
-                        function anonymFunction1($obj)
-                        {
-                            if ($obj->getRunning()) echo $obj->getMessage();
-                    }
-                    array_map("anonymFunction1",$array_obj);
+//                        function anonymFunction1($obj)
+//                        {
+//                            if ($obj->getRunning()) echo $obj->getMessage();
+//                    }
+//                    array_map("anonymFunction1",$array_obj);
+
+                    array_map(function($obj) {
+
+                        if ($obj->getRunning()) echo $obj->getMessage();
+
+                    },$array_obj);
                     ?>
                 </div>
 
@@ -119,18 +120,7 @@
 
         }
 
-        //check if page was reload
 
-//        $pageRefreshed = isset($_SERVER['HTTP_CACHE_CONTROL']) &&($_SERVER['HTTP_CACHE_CONTROL'] === 'max-age=0' ||  $_SERVER['HTTP_CACHE_CONTROL'] == 'no-cache');
-//        if($pageRefreshed == 1){
-//            echo "Yes page Refreshed";
-//        }else{
-//            //enter code here
-//            echo "No";
-//        }
-
-
-//        }
         ?>
 
         <!-- Optional JavaScript -->

@@ -90,24 +90,31 @@
      */
     if(isset($_POST['reset'])){
 
-//        $pausa_obj->reset();
-//        setcookie(PAUSA, serialize($pausa_obj), time()+86400, '/');
-//        //  $_SESSION['$pause_obj']=$pause_obj;
 //
+//        function anonymFunction2($obj)
+//        {
+//            $obj->reset();
+//            /**
+//             *  $obj->name_obj (without ´ˇ)
+//             *   - example: from Zákazník_B to COOKIE['zakaznik_b_obj']
+//             */
+//            setcookie(objPropertyName_to_varString($obj).'_obj', serialize($obj), time()+86400, '/');
+//            //  $_SESSION['$obj']=$obj;
+//        }
+//
+//        //array_map("anonymFunction2",$array_obj);
 
-        function anonymFunction2($obj)
-        {
+        array_map(function($obj) {
+
             $obj->reset();
             /**
              *  $obj->name_obj (without ´ˇ)
              *   - example: from Zákazník_B to COOKIE['zakaznik_b_obj']
              */
             setcookie(objPropertyName_to_varString($obj).'_obj', serialize($obj), time()+86400, '/');
-            //  $_SESSION['$obj']=$obj;
-            //echo strtolower(remove_accents($obj->getNameObj())).'_obj';
-        }
 
-        array_map("anonymFunction2",$array_obj);
+
+        },$array_obj);
 
 
 

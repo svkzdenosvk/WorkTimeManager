@@ -115,7 +115,13 @@
 
 
         },$array_obj);
-
-
-
     }
+
+
+                                                        /**
+                                                         *
+                                                         * DB - posts
+                                                         *
+                                                         */
+
+    require_once "inc.post.db.php";

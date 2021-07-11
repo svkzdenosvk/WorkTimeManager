@@ -113,8 +113,10 @@
     if(isset($_POST['day_range'])){
         if (isset($_POST['od_date'])){
 
-            $od= date('Y-j-n', strtotime($_POST['od_date']));
-            $do =!empty($_POST['do_date'])? date('Y-j-n', strtotime($_POST['do_date'])):date("Y-j-n");
+
+            $od= date('Y-m-d', strtotime($_POST['od_date']));
+            $do= date('Y-m-d H:i:s', strtotime($_POST['do_date'].' 23:59:59.993'));
+
 
             $stmt = $conn->prepare("SELECT SUM(zakaznik_a), SUM(zakaznik_b) FROM day_work WHERE datum BETWEEN :od AND :do ");
             $stmt->bindParam(':od',  $od );
@@ -125,7 +127,9 @@
             // set the resulting array to associative
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $data =$stmt->fetchAll();
-            print_r($data);
+
+            $spec_period_zak_a = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_a)"]));
+            $spec_period_zak_b = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_b)"]));
         }
 
     }

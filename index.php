@@ -138,6 +138,10 @@
             <input type="date"  name="do_date">
 
         </form>
+            <div style="margin-left:15%;"class=" mt-2">
+                <p class=" m-0"><?php if(isset($_POST["day_range"])) echo "Za vybraté obdobie ste na Zákazníka A odpracovali <span class='font-weight-bold'>". (empty( $spec_period_zak_a)?"": $spec_period_zak_a)."</span>"?></p>
+                <p class=" m-0"><?php if(isset($_POST["day_range"])) echo "Za vybraté obdobie ste na Zákazníka B odpracovali <span class='font-weight-bold'>".(empty($spec_period_zak_b)?"":$spec_period_zak_b)."</span>"?></p>
+            </div>
         <!-- Optional JavaScript -->
 
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

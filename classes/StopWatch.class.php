@@ -24,9 +24,10 @@
             $this->message="Čas pre ".$name_obj." ".$message;
         }
 
+/******************************************** GETTERS AND SETTERS ******************************************************
 
         /**
-         * @return mixed
+         * @return string
          */
         public function getNameObj()
         {
@@ -34,13 +35,12 @@
         }
 
         /**
-         * @return mixed
+         * @return number (total seconds of work)
          */
         public function getTotal()
         {
             return $this->total;
         }
-
 
         /**
          * @return string
@@ -51,7 +51,7 @@
         }
 
         /**
-         * @return mixed
+         * @return boolean
          */
         public function getRunning()
         {
@@ -59,16 +59,20 @@
         }
 
         /**
-         * @param mixed $running
+         * @param boolean $running
+         * @return void
          */
         public function setRunning($running)
         {
             $this->running = $running;
         }
 
+/******************************************** OWN FUNCTIONS ************************************************************
 
-
-
+        /**
+         * this f. start count seconds for selected thread
+         * @return void
+         */
         public function starting(){
             $this->start=hrtime()[0];
             $this->running=true;
@@ -76,6 +80,10 @@
 
         }
 
+        /**
+         * this f. stop count seconds for selected thread and sum seconds in property total
+         * @return void
+         */
         public function pausing(){
 
             $this->paused=hrtime()[0];
@@ -83,9 +91,12 @@
 
             $this->total+=$this->paused - $this->start;
             $this->message= "Stopky pre ".$this->name_obj." stoja";
-
         }
 
+        /**
+         * this f. stop count seconds for selected thread and set property total (total seconds) to zero
+         * @return void
+         */
         public function reset(){
             if($this->getRunning()==true){
                 $this->pausing();

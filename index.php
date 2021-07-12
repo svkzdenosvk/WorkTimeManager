@@ -122,8 +122,8 @@
             </button>
             </form>
             <div class="ml-5 mt-2">
-                <p class="m-0"><?php if(isset($_POST["last-month"])) echo "V minulom mesiaci ste na Zákazníka A odpracovali <span class='font-weight-bold'>". (empty($last_month_zak_a)?"":$last_month_zak_a)."</span>"?></p>
-                <p class="m-0"><?php if(isset($_POST["last-month"])) echo "V minulom mesiaci ste na Zákazníka B odpracovali <span class='font-weight-bold'>".(empty($last_month_zak_b)?"":$last_month_zak_b)."</span>"?></p>
+                <p class="m-0"><?php if(isset($_POST["last-month"])) echo "V minulom mesiaci ste na Zákazníka A odpracovali <span class='font-weight-bold'>". ($last_month_zak_a??"")."</span>"?></p>
+                <p class="m-0"><?php if(isset($_POST["last-month"])) echo "V minulom mesiaci ste na Zákazníka B odpracovali <span class='font-weight-bold'>".($last_month_zak_b??"")."</span>"?></p>
             </div>
         </div>
         <form  class=" text-left  ml-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">

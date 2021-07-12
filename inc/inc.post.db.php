@@ -1,8 +1,8 @@
 <?php
-    /**
-     *save
-     */
 
+    /*******************************************************************************************************************
+     *save post
+     */
     if(isset($_POST['save'])){
 
         /**
@@ -37,6 +37,7 @@
         array_map(function($obj) {
 
             $obj->reset();
+
             /**
              *  $obj->name_obj (without ´ˇ)
              *   - example: from Zákazník_B to COOKIE['zakaznik_b_obj']
@@ -45,6 +46,7 @@
 
 
         },$array_obj);
+
         /**
          * add flash message
          */
@@ -59,13 +61,13 @@
     }
 
 
-    /**
-     *actual-month
+    /*******************************************************************************************************************
+     *actual-month post
      */
-
     if(isset($_POST['actual-month'])){
+
         /**
-         *
+         *select actual month
          */
         $actual_month=date('m');
 
@@ -77,17 +79,23 @@
         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $data =$stmt->fetchAll();
 
+        /**
+         *add data from DB to variables to show in index
+         */
         $act_month_zak_a = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_a)"]));
         $act_month_zak_b = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_b)"]));
 
     }
 
-    /**
-     *last-month
+
+    /*******************************************************************************************************************
+     *last-month post
      */
-
-
     if(isset($_POST['last-month'])){
+
+        /**
+         *select previous month
+         */
         $actual_month=date('m');
         if ($actual_month==1) {$actual_month=13;}
 
@@ -101,16 +109,23 @@
         $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
         $data =$stmt->fetchAll();
 
+        /**
+         *add data from DB to variables to show in index
+         */
         $last_month_zak_a = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_a)"]));
         $last_month_zak_b = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_b)"]));
 
     }
 
-    /**
-     *day_range
-     */
 
+    /*******************************************************************************************************************
+     *day_range post
+     */
     if(isset($_POST['day_range'])){
+
+        /**
+         *from_date is required, if to_date is not set(applies acctual date)
+         */
         if (isset($_POST['od_date'])){
 
 
@@ -128,6 +143,9 @@
             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
             $data =$stmt->fetchAll();
 
+            /**
+             *add data from DB to variables to show in index
+             */
             $spec_period_zak_a = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_a)"]));
             $spec_period_zak_b = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_b)"]));
         }

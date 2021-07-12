@@ -111,8 +111,8 @@
                 </button>
             </form>
             <div class="ml-5 mt-2">
-                <p class="m-0"><?php if(isset($_POST["actual-month"])) echo "V aktuálnom mesiaci ste na Zákazníka A odpracovali <span class='font-weight-bold'>". (empty($act_month_zak_a)?"":$act_month_zak_a)."</span>"?></p>
-                <p class="m-0"><?php if(isset($_POST["actual-month"])) echo "V aktuálnom mesiaci ste na Zákazníka B odpracovali <span class='font-weight-bold'>".(empty($act_month_zak_b)?"":$act_month_zak_b)."</span>"?></p>
+                <p class="m-0"><?php if(isset($_POST["actual-month"])) echo "V aktuálnom mesiaci ste na Zákazníka A odpracovali <span class='font-weight-bold'>". ($act_month_zak_a??"")."</span>"?></p>
+                <p class="m-0"><?php if(isset($_POST["actual-month"])) echo "V aktuálnom mesiaci ste na Zákazníka B odpracovali <span class='font-weight-bold'>".($act_month_zak_b??"")."</span>"?></p>
             </div>
         </div>
         <div class="row ml-5">

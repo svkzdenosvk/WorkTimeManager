@@ -1,8 +1,7 @@
 <?php
-    /**
+    /*******************************************************************************************************************
      * if button zak_a was clicked ..stopwatch for zak_a is running and others are stopped
      */
-    //    if(isset($_POST['zak_a'])&&$zak_b_obj->getRunning()==false&&$pause_obj->getRunning()==false){
     if(isset($_POST[objPropertyName_to_varString($zakaznik_a_obj)])){
 
         if($zakaznik_a_obj->getRunning()==false){

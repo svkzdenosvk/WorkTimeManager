@@ -8,7 +8,7 @@
     $username = "root";
     $password = "";
 
-//        settings for localhost
+//        settings for live server
 //        $servername = "sql4.webzdarma.cz";
 //        $username = "prikladywzsk0510";
 //        $password = "8Oj4.e2tfRq(pT(w,Pky";

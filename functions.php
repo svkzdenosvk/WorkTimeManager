@@ -1,11 +1,10 @@
 <?php
-
-    function objPropertyName_to_varString(StopWatch $stopwatch_obj){
-
-        return strtolower(remove_accents($stopwatch_obj->getNameObj()));
-
-    }
-
+    /*******************************************************************************************************************
+     * f. is copied from stackoverflow
+     * this f. makes from number of seconds -> 00:00:00 (Hours:Minutes:Second)
+     * @param number
+     * @return string
+     */
     function timeFormat ($seconds){
         $hours = floor($seconds / 3600);
         $mins = floor($seconds / 60 % 60);
@@ -14,8 +13,21 @@
         return sprintf('%02d:%02d:%02d', $hours, $mins, $secs);
     }
 
-    /**
-     * this f. makes from "á"->"a"...
+
+    /*******************************************************************************************************************
+     * this f. is just formating StopWatch object property name to lowercase without diacritics using f. remove_accents()
+     * @param StopWatch object
+     * @return string
+     */
+    function objPropertyName_to_varString(StopWatch $stopwatch_obj){
+
+        return strtolower(remove_accents($stopwatch_obj->getNameObj()));
+    }
+
+
+    /*******************************************************************************************************************
+     * f. is copied from stackoverflow
+     * this f. remove diacritics -> from "á"->"a"...
      * @param $string
      * @return string
      */

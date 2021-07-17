@@ -36,6 +36,14 @@
 
     </head>
     <body>
+            <?php
+            /**
+             * login
+             */
+            if (!isset($_SESSION['name'])): ?>
+                <a class="float-right mr-5" href="login.php" title="Prihlás sa a veď si vlastnú štatistiku">Prihlásiť / Registrovať</a>
+
+            <?php endif;?>
 
             <?php
             /**

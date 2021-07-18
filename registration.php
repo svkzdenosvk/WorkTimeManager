@@ -1,12 +1,16 @@
 
 <?php
-
-    //require_once "inc/inc.db.setting.php";
+//session_start();
+    require_once "inc/inc.db.setting.php";
+    require_once "functions.php";
 
 //    $errors=array('name'=>'','title'=>'','password'=>'','re_password'=>'');
-//    $nameErr = $emailErr = $passErr = $passConfErr ="";
+    $nameErr = $emailErr = $passErr = $passConfErr ="";
 //    $name = $email = $pass = $passConf = "";
 
+    /**
+     * if form was submit
+     */
     if(isset($_POST['register'])){
 
         if (empty($_POST['name'])){
@@ -54,6 +58,59 @@
         }
 
     }else{ echo "nepreslo to"; echo $_SERVER['PHP_SELF'];}
+
+   // if(empty($nameErr))echo "funguje empty";
+    /**
+     * if form pass without error then control email and if pass, save user to DB
+     */
+  if($_SERVER['REQUEST_METHOD'] === 'POST'&& empty($nameErr) && empty($emailErr) && empty($passErr) && empty($passConfErr) ){
+     // echo "prešiel formulár";
+
+      $stmt = $conn->prepare("SELECT email FROM users  ");
+      $stmt->execute();
+
+      // set the resulting array to associative
+      $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+      $data =$stmt->fetchAll();
+      if ($data){
+          foreach ($data as $value) {
+
+              if (strcasecmp(trim($email),$value['email']) == 0){
+                  $emailErr="Email je už zaregistrovaný";
+
+              }else{
+                  goto next; // treba odskušať !!
+              }
+          }
+      }else {
+
+          goto next; // treba odskušať !!
+
+          next:
+          echo "som tu";
+          //toto by mohla byt samotná funkcia/ vytvoriť classu s funckiami !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+          $salt = makeSalt();//vytvoriť funkciu
+
+          /*dopisat toto!!*/
+          $password = $pass + $salt; /*možno aj funckia*/
+
+          $stmt = $conn->prepare("INSERT INTO users (meno, email, heslo, salt)  VALUES(:name, :email, :password, :salt)");
+          $stmt->bindParam(':name', $name);
+          $stmt->bindParam(':email', $email);
+          $stmt->bindParam(':password', $password);
+          $stmt->bindParam(':salt', $salt);
+
+          $stmt->execute();
+
+          header('login.php');
+          exit;
+
+      }
+          }
+
+
+     // echo trim($email);
+
 ?>
 
 
@@ -82,19 +139,19 @@
             <h1 class="h3 mb-3 font-weight-normal">Registrácia</h1>
             <label for="inputPassword" class="sr-only ">Meno</label>
             <input name="name" type="text" id="inputPassword" minlength="3" maxlength="30"class="form-control mt-4" placeholder="Meno" required value="<?php echo $name??"";?>" >
-            <span class="text-danger"> <?php echo $nameErr??"";?></span>
+            <span class="text-danger"> <?php echo $nameErr;?></span>
 
             <label for="inputEmail" class="sr-only">Email address</label>
             <input name="email" type="email" id="inputEmail" class="form-control mt-4" placeholder="Email" required value="<?php echo $email??"";?>">
-            <span class="text-danger"> <?php echo $emailErr??"";?></span>
+            <span class="text-danger"> <?php echo $emailErr;?></span>
 
             <label for="inputPassword" class="sr-only ">Password</label>
             <input name="password" type="password" id="inputPassword" class="form-control mt-4" placeholder="Heslo" required value="<?php echo $pass??"";?>">
-            <span class="text-danger"> <?php echo $passErr??"";?></span>
+            <span class="text-danger"> <?php echo $passErr;?></span>
 
             <label for="RePassword" class="sr-only">Password</label>
             <input name="password_confirm" type="password" id="RePassword" class="form-control mt-4 mb-2" placeholder="Potvrď heslo" required value="<?php echo $passConf??"";?>">
-            <span class="text-danger"> <?php echo $passConfErr??"";?></span>
+            <span class="text-danger"> <?php echo $passConfErr;?></span>
 
 <!--            <div class="checkbox mb-3">-->
 <!--                <label>-->

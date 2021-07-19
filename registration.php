@@ -74,26 +74,27 @@
        * if db is not empty
        */
       if ($data){
-          foreach ($data as $value) {
-
-              if (strcasecmp($email,trim($value['email']) === 0)){
+          foreach($data as $key => $value) {
+               $emailVal=trim($value['email']);
+               $email=trim($email);
+              if (strcasecmp($email,$emailVal) == 0){
                   $emailErr="Email je už zaregistrovaný";
-
-              }else{
-                  /**
-                   * save user to DB
-                   */
-                  save($conn,$name,$email,$pass);
               }
+          }
+          if($emailErr==""){
+              /**
+               * save user to DB
+               */
+              save($conn,$name,$email,$pass);
           }
       }else {
           /**
            * save user to DB
            */
           save($conn,$name,$email,$pass);
-          }
-    }
 
+    }
+}
 ?>
 
 

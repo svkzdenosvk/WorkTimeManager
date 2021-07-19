@@ -11,7 +11,9 @@
      * if form was submit
      */
     if(isset($_POST['register'])){
-
+        /**
+         * validation
+         */
         if (empty($_POST['name'])){
             $nameErr ='Zadaj meno!';
         }else{
@@ -56,45 +58,45 @@
 
         }
 
-    }
+        /**
+         * if form pass without error then control email and if pass, save user to DB
+         */
+      if( empty($nameErr) && empty($emailErr) && empty($passErr) && empty($passConfErr) ){
 
-    /**
-     * if form pass without error then control email and if pass, save user to DB
-     */
-  if($_SERVER['REQUEST_METHOD'] === 'POST'&& empty($nameErr) && empty($emailErr) && empty($passErr) && empty($passConfErr) ){
+          $stmt = $conn->prepare("SELECT email FROM users  ");
+          $stmt->execute();
 
-      $stmt = $conn->prepare("SELECT email FROM users  ");
-      $stmt->execute();
+          // set the resulting array to associative
+          $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+          $data =$stmt->fetchAll();
 
-      // set the resulting array to associative
-      $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-      $data =$stmt->fetchAll();
-
-      /**
-       * if db is not empty
-       */
-      if ($data){
-          foreach($data as $key => $value) {
-               $emailVal=trim($value['email']);
-               $email=trim($email);
-              if (strcasecmp($email,$emailVal) == 0){
-                  $emailErr="Email je už zaregistrovaný";
+          /**
+           * if db is not empty
+           */
+          if($data){
+              foreach($data as $key => $value) {
+                   $emailVal=trim($value['email']);
+                  if (strcasecmp($email,$emailVal) == 0){
+                       $emailErr="Email je už zaregistrovaný";
+                  }
               }
-          }
-          if($emailErr==""){
+              if(empty($emailErr)){
+                  /**
+                   * save user to DB
+                   */
+                  save($conn,$name,$email,$pass);
+              }
+          }else {
               /**
                * save user to DB
                */
               save($conn,$name,$email,$pass);
-          }
-      }else {
-          /**
-           * save user to DB
-           */
-          save($conn,$name,$email,$pass);
 
+        }
+      }
     }
-}
+
+
 ?>
 
 

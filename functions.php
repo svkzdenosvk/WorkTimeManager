@@ -141,7 +141,21 @@
 /********************************************REGISTRATION FUNCTIONS*************************************************
 /*******************************************************************************************************************/
 
-    function makeSalt($something){
-        //dopísať od aplicable programming
-        return;
+    /*******************************************************************************************************************
+     * this f. save user from registration form to DB
+     * @param string string string string
+     * @return void
+     */
+    function save($conn, $name, $email, $pass){
+        $password = password_hash($pass,PASSWORD_DEFAULT);
+
+        $stmt = $conn->prepare("INSERT INTO users (meno, email, heslo)  VALUES(:meno, :email, :password)");
+        $stmt->bindParam(':meno', $name);
+        $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':password', $password);
+
+        $stmt->execute();
+
+        header("Location: login.php");
+        die();
     }

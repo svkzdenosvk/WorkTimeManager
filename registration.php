@@ -3,7 +3,6 @@
 //session_start();
     require_once "inc/inc.db.setting.php";
     require_once "functions.php";
-
 //    $errors=array('name'=>'','title'=>'','password'=>'','re_password'=>'');
     $nameErr = $emailErr = $passErr = $passConfErr ="";
 //    $name = $email = $pass = $passConf = "";
@@ -16,7 +15,7 @@
         if (empty($_POST['name'])){
             $nameErr ='Zadaj meno!';
         }else{
-            $name = $_POST['name'];
+            $name = trim($_POST['name']);
 
             if(!ctype_alnum($name)){
              $nameErr ='V mene používaj len písmená a číslice.';
@@ -25,10 +24,11 @@
             if(strlen($name)<3){ $nameErr ='Meno musí obsahovať minimálne 3 znaky!';}
             if(strlen($name)>30){ $nameErr ='Meno nesmie obsahovať viac ako 30 znakov!';}
         }
+
         if (empty($_POST['email'])){
             $emailErr ='Zadaj email!';
         }else{
-            $email=$_POST['email'];
+            $email=trim($_POST['email']);
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $emailErr = "Email nie je v platnom formáte.";
             }
@@ -44,8 +44,7 @@
             if(strlen($pass)<3){ $passErr ='Heslo musí mať minimálne 3 znaky';}
             if(strlen($pass)>150){ $passErr ='Heslo je príliš dlhé.';}
 
-            if (empty($_POST['password_confirm'])){
-
+            if(empty($_POST['password_confirm'])){
                 $passConfErr ='Zopakuj heslo';
             }else{
                 $passConf=$_POST['password_confirm'];
@@ -57,14 +56,12 @@
 
         }
 
-    }else{ echo "nepreslo to"; echo $_SERVER['PHP_SELF'];}
+    }
 
-   // if(empty($nameErr))echo "funguje empty";
     /**
      * if form pass without error then control email and if pass, save user to DB
      */
   if($_SERVER['REQUEST_METHOD'] === 'POST'&& empty($nameErr) && empty($emailErr) && empty($passErr) && empty($passConfErr) ){
-     // echo "prešiel formulár";
 
       $stmt = $conn->prepare("SELECT email FROM users  ");
       $stmt->execute();
@@ -72,44 +69,30 @@
       // set the resulting array to associative
       $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
       $data =$stmt->fetchAll();
+
+      /**
+       * if db is not empty
+       */
       if ($data){
           foreach ($data as $value) {
 
-              if (strcasecmp(trim($email),$value['email']) == 0){
+              if (strcasecmp($email,trim($value['email']) === 0)){
                   $emailErr="Email je už zaregistrovaný";
 
               }else{
-                  goto next; // treba odskušať !!
+                  /**
+                   * save user to DB
+                   */
+                  save($conn,$name,$email,$pass);
               }
           }
       }else {
-
-          goto next; // treba odskušať !!
-
-          next:
-          echo "som tu";
-          //toto by mohla byt samotná funkcia/ vytvoriť classu s funckiami !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-          $salt = makeSalt();//vytvoriť funkciu
-
-          /*dopisat toto!!*/
-          $password = $pass + $salt; /*možno aj funckia*/
-
-          $stmt = $conn->prepare("INSERT INTO users (meno, email, heslo, salt)  VALUES(:name, :email, :password, :salt)");
-          $stmt->bindParam(':name', $name);
-          $stmt->bindParam(':email', $email);
-          $stmt->bindParam(':password', $password);
-          $stmt->bindParam(':salt', $salt);
-
-          $stmt->execute();
-
-          header('login.php');
-          exit;
-
-      }
+          /**
+           * save user to DB
+           */
+          save($conn,$name,$email,$pass);
           }
-
-
-     // echo trim($email);
+    }
 
 ?>
 
@@ -123,15 +106,13 @@
         <meta name="author" content="">
         <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-        <title>Signin Template for Bootstrap</title>
+        <title>Registration</title>
 
         <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
 
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" >
 
-        <!-- Custom styles for this template -->
-<!--        <link href="signin.css" rel="stylesheet">-->
     </head>
 
     <body class="text-center ">

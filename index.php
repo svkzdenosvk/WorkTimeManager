@@ -3,6 +3,18 @@
     require_once "functions.php";
     require_once "inc/inc.db.setting.php";
 
+    /**
+     * GET current URL -> parse param 'path'(if not exist->guess SET !!!!!!!!!!!) ->encrypt() -> unserialise() -> SET SESSION/COOKIE
+     */
+    $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+    parse_url($actual_link, PHP_URL_QUERY);
+    parse_str(parse_url($actual_link, PHP_URL_QUERY));
+    $path=$path??"";
+    $decrypt= str_replace(" ","+",$path);
+   // echo $decrypt;
+    $decrypted_string=openssl_decrypt($decrypt,"AES-128-ECB",$password);
+   var_dump(unserialize($decrypted_string));
+
     session_start();
     //this would be in config file
     const ZAK_A = "zakaznik_a_obj";
@@ -41,7 +53,7 @@
              * login
              */
             if (!isset($_SESSION['name'])): ?>
-                <a class="float-right mr-5" href="login.php" title="Prihlás sa a veď si vlastnú štatistiku">Prihlásiť / Registrovať</a>
+                <a class="float-right mr-5" href="/login.php" title="Prihlás sa a veď si vlastnú štatistiku">Prihlásiť / Registrovať</a>
 
             <?php endif;?>
 

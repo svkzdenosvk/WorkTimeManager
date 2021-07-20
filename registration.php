@@ -3,9 +3,9 @@
 //session_start();
     require_once "inc/inc.db.setting.php";
     require_once "functions.php";
+
 //    $errors=array('name'=>'','title'=>'','password'=>'','re_password'=>'');
     $nameErr = $emailErr = $passErr = $passConfErr ="";
-//    $name = $email = $pass = $passConf = "";
 
     /**
      * if form was submit
@@ -119,14 +119,14 @@
     </head>
 
     <body class="text-center ">
-        <form style="margin-top: 7%;" class="form-signin w-25 mx-auto " action="registration.php" method="POST">
+        <form style="margin-top: 7%;" class="form-signin w-25 mx-auto " action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
             <h1 class="h3 mb-3 font-weight-normal">Registrácia</h1>
             <label for="inputPassword" class="sr-only ">Meno</label>
             <input name="name" type="text" id="inputPassword" minlength="3" maxlength="30"class="form-control mt-4" placeholder="Meno" required value="<?php echo $name??"";?>" >
             <span class="text-danger"> <?php echo $nameErr;?></span>
 
             <label for="inputEmail" class="sr-only">Email address</label>
-            <input name="email" type="email" id="inputEmail" class="form-control mt-4" placeholder="Email" required value="<?php echo $email??"";?>">
+            <input name="email" type="email" id="inputEmail" minlength="3" class="form-control mt-4" placeholder="Email" required value="<?php echo $email??"";?>">
             <span class="text-danger"> <?php echo $emailErr;?></span>
 
             <label for="inputPassword" class="sr-only ">Password</label>
@@ -134,7 +134,7 @@
             <span class="text-danger"> <?php echo $passErr;?></span>
 
             <label for="RePassword" class="sr-only">Password</label>
-            <input name="password_confirm" type="password" id="RePassword" class="form-control mt-4 mb-2" placeholder="Potvrď heslo" required value="<?php echo $passConf??"";?>">
+            <input name="password_confirm" type="password" id="RePassword" class="form-control mt-4 mb-4" placeholder="Potvrď heslo" required value="<?php echo $passConf??"";?>">
             <span class="text-danger"> <?php echo $passConfErr;?></span>
 
 <!--            <div class="checkbox mb-3">-->

@@ -1,6 +1,8 @@
 
     <?php
-        require_once "inc/inc.db.setting.php";
+    require_once "autoloader.inc.php";
+
+    require_once "inc/inc.db.setting.php";
 
         $emailErr = $passErr ="";
 
@@ -58,21 +60,16 @@
                              */
     //                            echo $dataLogin[0]['email'];
                             if(password_verify($pass,$dataLogin[0]['heslo'])){
-                                $user=[ 'meno'=> $dataLogin[0]['meno'], 'email'=> $dataLogin[0]['email']];
-                               // echo $user['email']; echo$user['meno']; echo'<br>';
+//                                $user=[ 'meno'=> $dataLogin[0]['meno'], 'email'=> $dataLogin[0]['email']];
+                                $user=new User($dataLogin[0]['meno'],$dataLogin[0]['email']);
                                 $serializeUser=serialize($user);
                                 /**
                                  * encrypt to URL serialize array of data
                                  */
                                 $encrypted_string=openssl_encrypt($serializeUser,"AES-128-ECB",$password);
-//                                echo $encrypted_string;
-//                                $decrypted_string=openssl_decrypt($encrypted_string,"AES-128-ECB",$password);
-//echo $decrypted_string;
-                                // echo'<br>';echo $encrypted_string; echo'<br>';
-                                //echo $decrypted_string;
+//
                                 header("Location: index.php/?path=$encrypted_string");
-//                                header("Location: index.php/$encrypted_string");
-                                //die();
+                                die();
                             }else{
                                 $passErr="Heslo pre tento zaregistrovaný email nie je správne! ";
                             }

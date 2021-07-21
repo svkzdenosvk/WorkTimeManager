@@ -11,9 +11,23 @@
     parse_str(parse_url($actual_link, PHP_URL_QUERY));
     $path=$path??"";
     $decrypt= str_replace(" ","+",$path);
-   // echo $decrypt;
+
     $decrypted_string=openssl_decrypt($decrypt,"AES-128-ECB",$password);
-   var_dump(unserialize($decrypted_string));
+    $user=unserialize($decrypted_string);
+
+    /**
+     * some own control 
+     */
+    if(!$user instanceof User){
+        header("Location: /login.php");
+    }
+
+    if (!filter_var($user->getEmail(), FILTER_VALIDATE_EMAIL)) {
+            header("Location: /login.php");
+        }
+
+   // $user=new User($loginAr['meno'],$loginAr['email']);
+
 
     session_start();
     //this would be in config file
@@ -48,6 +62,8 @@
 
     </head>
     <body>
+
+
             <?php
             /**
              * login
@@ -114,83 +130,92 @@
                 },$array_obj);
                 ?>
             </div>
-            <?php
-                /**
-                 * show time in actual day spending on Zákazník_A/Zákazník_B/Pauza
-                 */?>
-            <h2 style="margin-left:-30%;" class="mt-3">DENNÁ ŠTATISTIKA</h2>
-            <h5 class="w-100 mt-3 "><span class="mr-5 ">Zákazník_A</span><?php   echo gmdate("H:i:s",$zakaznik_a_obj->getTotal())  ;?></h5>
-            <h5 class="w-100 mt-1 "><span class="mr-5 ">Zákazník_B</span><?php   echo gmdate("H:i:s",$zakaznik_b_obj->getTotal())  ;?></h5>
-            <h5 class="w-100 mt-1"><span class="mr-5 ">Pauza</span><span class=" ml-5"><?php   echo gmdate("H:i:s",$pauza_obj->getTotal()) ;?></span></h5>
-        </div>
+        </div >
+        <div class="container">
+                <?php
+                    /**
+                     * show time in actual day spending on Zákazník_A/Zákazník_B/Pauza
+                     */?>
+                <h2 class="mt-3 ">DENNÁ ŠTATISTIKA</h2>
+                <div class="ml-5">
+                    <h5 class="w-100 mt-3 "><span class="mr-5 ">Zákazník_A</span><?php   echo gmdate("H:i:s",$zakaznik_a_obj->getTotal())  ;?></h5>
+                    <h5 class="w-100 mt-1 "><span class="mr-5 ">Zákazník_B</span><?php   echo gmdate("H:i:s",$zakaznik_b_obj->getTotal())  ;?></h5>
+                    <h5 class="w-100 mt-1 "><span class="mr-5 ">Pauza</span><span class=" ml-5"><?php   echo gmdate("H:i:s",$pauza_obj->getTotal()) ;?></span></h5>
+                </div>
 
-        <?php /**
-                * form Save
-                */?>
-        <form style="margin-top:-5%;"  class=" text-center  float-right  mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-            <button type="submit" name="save" class="btn btn-info mt-5">
-                <i class="	fa fa-archive fa-lg"></i> Uloziť
-            </button>
-        </form>
-
-        <?php /**
-                * form Reset
-                */?>
-        <form style="margin-top:-5%;" class=" text-center  float-right  mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-            <button type="submit" name="reset" class="btn btn-danger mt-5">
-                <i class="	fa fa-refresh fa-lg"></i> Reset
-            </button>
-        </form>
-        <h2 style="margin-left:10%;" class="mt-5">DLHODOBÁ ŠTATISTIKA</h2>
-        <div class="row ml-5">
 
             <?php /**
-                    * actual month form
+                    * form Save
                     */?>
-            <form  class=" text-left   " action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-                <button type="submit" name="actual-month" class="btn btn-primary mt-3">
-                    <i class="fa fa-bar-chart fa-lg"></i> Aktuálny mesiac
+            <form style="margin-top:-5%;"  class=" text-center  float-right  mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <button type="submit" name="save" class="btn btn-info mt-5">
+                    <i class="	fa fa-archive fa-lg"></i> Uloziť
                 </button>
             </form>
-            <div class="ml-5 mt-2">
-                <p class="m-0"><?php if(isset($_POST["actual-month"])) echo "V aktuálnom mesiaci ste na Zákazníka A odpracovali <span class='font-weight-bold'>". ($act_month_zak_a??"")."</span>"?></p>
-                <p class="m-0"><?php if(isset($_POST["actual-month"])) echo "V aktuálnom mesiaci ste na Zákazníka B odpracovali <span class='font-weight-bold'>".($act_month_zak_b??"")."</span>"?></p>
-            </div>
-        </div>
-        <div class="row ml-5">
+
             <?php /**
-                    * last month form
+                    * form Reset
                     */?>
-            <form  class=" text-left  " action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-            <button type="submit" name="last-month" class="btn btn-primary mt-3   ">
-                <i class="fa fa-bar-chart fa-lg"></i> Minulý mesiac
-            </button>
+            <form style="margin-top:-5%;" class=" text-center  float-right  mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <button type="submit" name="reset" class="btn btn-danger mt-5">
+                    <i class="fa fa-refresh fa-lg"></i> Reset
+                </button>
             </form>
-            <div class="ml-5 mt-2">
-                <p class="m-0"><?php if(isset($_POST["last-month"])) echo "V minulom mesiaci ste na Zákazníka A odpracovali <span class='font-weight-bold'>". ($last_month_zak_a??"")."</span>"?></p>
-                <p class="m-0"><?php if(isset($_POST["last-month"])) echo "V minulom mesiaci ste na Zákazníka B odpracovali <span class='font-weight-bold'>".($last_month_zak_b??"")."</span>"?></p>
+            <h2  class="mt-5 ">DLHODOBÁ ŠTATISTIKA</h2>
+            <div class=" ml-5">
+
+                <?php /**
+                        * actual month form
+                        */?>
+                <form  class=" text-left " action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                    <button type="submit" name="actual-month" class="btn btn-primary mt-3">
+                        <i class="fa fa-bar-chart fa-lg"></i> Aktuálny mesiac
+                    </button>
+                </form>
+                <div class="ml-5 mt-2">
+                    <p class="m-0"><?php if(isset($_POST["actual-month"])) echo "V aktuálnom mesiaci ste na Zákazníka A odpracovali <span class='font-weight-bold'>". ($act_month_zak_a??"")."</span>"?></p>
+                    <p class="m-0"><?php if(isset($_POST["actual-month"])) echo "V aktuálnom mesiaci ste na Zákazníka B odpracovali <span class='font-weight-bold'>".($act_month_zak_b??"")."</span>"?></p>
+                </div>
+            </div>
+            <div class=" ml-5">
+                <?php /**
+                        * last month form
+                        */?>
+                <form  class=" text-left  " action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <button type="submit" name="last-month" class="btn btn-primary mt-3">
+                    <i class="fa fa-bar-chart fa-lg"></i> Minulý mesiac
+                </button>
+                </form>
+                <div class="ml-5 mt-2">
+                    <p class="m-0"><?php if(isset($_POST["last-month"])) echo "V minulom mesiaci ste na Zákazníka A odpracovali <span class='font-weight-bold'>". ($last_month_zak_a??"")."</span>"?></p>
+                    <p class="m-0"><?php if(isset($_POST["last-month"])) echo "V minulom mesiaci ste na Zákazníka B odpracovali <span class='font-weight-bold'>".($last_month_zak_b??"")."</span>"?></p>
+                </div>
+            </div>
+
+            <div class=" ml-5">
+
+                <?php /**
+                        * days range form
+                        */?>
+                <form  class=" text-left  " action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                    <button type="submit" name="day_range" class="btn btn-primary">
+                        <i class="fa fa-bar-chart fa-lg"></i> Za obdobie
+                    </button>
+
+                    <label class="mt-3" >Od: </label>
+                    <input type="date" name="od_date" required>
+
+                    <label class="mt-3" >Do: </label>
+                    <input type="date"  name="do_date">
+
+                </form>
+                    <div class=" mt-2">
+                        <p class=" m-0"><?php if(isset($_POST["day_range"])) echo "Za vybraté obdobie ste na Zákazníka A odpracovali <span class='font-weight-bold'>". (empty( $spec_period_zak_a)?"": $spec_period_zak_a)."</span>"?></p>
+                        <p class=" m-0"><?php if(isset($_POST["day_range"])) echo "Za vybraté obdobie ste na Zákazníka B odpracovali <span class='font-weight-bold'>".(empty($spec_period_zak_b)?"":$spec_period_zak_b)."</span>"?></p>
+                    </div>
+
             </div>
         </div>
-
-        <?php /**
-                * days range form
-                */?>
-        <form  class=" text-left  ml-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-            <button type="submit" name="day_range" class="btn btn-primary   ">
-                <i class="fa fa-bar-chart fa-lg"></i> Za obdobie
-            </button>
-
-            <label class="mt-3" >Od: </label>
-            <input type="date" name="od_date" required>
-
-            <label class="mt-3" >Do: </label>
-            <input type="date"  name="do_date">
-
-        </form>
-            <div style="margin-left:15%;"class=" mt-2">
-                <p class=" m-0"><?php if(isset($_POST["day_range"])) echo "Za vybraté obdobie ste na Zákazníka A odpracovali <span class='font-weight-bold'>". (empty( $spec_period_zak_a)?"": $spec_period_zak_a)."</span>"?></p>
-                <p class=" m-0"><?php if(isset($_POST["day_range"])) echo "Za vybraté obdobie ste na Zákazníka B odpracovali <span class='font-weight-bold'>".(empty($spec_period_zak_b)?"":$spec_period_zak_b)."</span>"?></p>
-            </div>
         <!-- Optional JavaScript -->
 
         <!-- jQuery first, then Popper.js, then Bootstrap JS -->

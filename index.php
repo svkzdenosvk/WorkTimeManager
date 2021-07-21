@@ -3,20 +3,45 @@
     require_once "functions.php";
     require_once "inc/inc.db.setting.php";
 
+
+    session_start();
+    if(isset($_POST['logout'])){
+        session_destroy();
+    }
+    if(!isset($_SESSION['logged'])){
+        header("Location: /login.php");
+    }
+
     /**
      * GET current URL -> parse param 'path'(if not exist->guess SET !!!!!!!!!!!) ->encrypt() -> unserialise() -> SET SESSION/COOKIE
      */
     $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
+
     parse_url($actual_link, PHP_URL_QUERY);
     parse_str(parse_url($actual_link, PHP_URL_QUERY));
-    $path=$path??"";
+    //$path=$path??"";
     $decrypt= str_replace(" ","+",$path);
 
     $decrypted_string=openssl_decrypt($decrypt,"AES-128-ECB",$password);
     $user=unserialize($decrypted_string);
+    var_dump($user);
+
+//    $auth = new Auth();
+//
+//    if($_POST['logout']){
+//        $auth->setLogedIn(false);
+//    }
+//
+//    if(!$auth->getLogedIn()){
+//
+//    }
+        if(isset($_POST['logout'])){
+            $user->setLoged(false);
+            header("Location: /login.php");
+        }
 
     /**
-     * some own control 
+     * some own control
      */
     if(!$user instanceof User){
         header("Location: /login.php");
@@ -28,8 +53,8 @@
 
    // $user=new User($loginAr['meno'],$loginAr['email']);
 
+    $_SESSION['name']=$user->getName();
 
-    session_start();
     //this would be in config file
     const ZAK_A = "zakaznik_a_obj";
     const ZAK_B = "zakaznik_b_obj";
@@ -70,8 +95,10 @@
              */
             if (!isset($_SESSION['name'])): ?>
                 <a class="float-right mr-5" href="/login.php" title="Prihlás sa a veď si vlastnú štatistiku">Prihlásiť / Registrovať</a>
-
-            <?php endif;?>
+            <?php else:?>
+                <form action="<?php echo $actual_link ?>" method="post"><button type="submit" class="btn btn-danger float-right mr-5" name="logout" >Odhlásiť</button></form>
+<!--                <a class="float-right mr-5" href="/index.php" title="Odhlásiť">Odhlásiť</a>-->
+            <?php endif ?>
 
             <?php
             /**
@@ -91,7 +118,7 @@
                 <?php /**
                         * form Zákazník_A
                         */?>
-                <form class=" <?php if(isset($_POST[objPropertyName_to_varString($zakaznik_a_obj)])){ echo "invisible";} ?> col-4 text-center" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <form class=" <?php if(isset($_POST[objPropertyName_to_varString($zakaznik_a_obj)])){ echo "invisible";} ?> col-4 text-center" action="<?php echo $actual_link; ?>" method="post">
                     <button type="submit" name="<?php echo objPropertyName_to_varString($zakaznik_a_obj)?>" class="btn btn-success mt-5  ">
                         <i class="fa fa-play fa-lg"></i> Zákazník_A
                     </button>
@@ -100,7 +127,7 @@
                 <?php /**
                         * form Zákazník_B
                         */?>
-                <form  class="  <?php if(isset($_POST[objPropertyName_to_varString($zakaznik_b_obj)])){ echo "invisible";}?>  col-4 text-center" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <form  class="  <?php if(isset($_POST[objPropertyName_to_varString($zakaznik_b_obj)])){ echo "invisible";}?>  col-4 text-center" action="<?php echo $actual_link; ?>" method="post">
                     <button type="submit" name="<?php echo objPropertyName_to_varString($zakaznik_b_obj)?>" class="btn btn-success mt-5 ">
                         <i class="fa fa-play fa-lg"></i> Zákazník_B
                     </button>
@@ -110,7 +137,7 @@
             <?php /**
                     * form Pauza
                     */?>
-            <form  class="  <?php if(isset($_POST[objPropertyName_to_varString($pauza_obj)])){ echo "invisible";}?> col-4 text-center ml-5 mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <form  class="  <?php if(isset($_POST[objPropertyName_to_varString($pauza_obj)])){ echo "invisible";}?> col-4 text-center ml-5 mr-5" action="<?php echo $actual_link; ?>" method="post">
                 <button type="submit" name="<?php echo objPropertyName_to_varString($pauza_obj)?>" class="btn btn-warning mt-5 ">
                     <i class="fa fa-pause fa-lg"></i> Pauza
                 </button>
@@ -147,7 +174,7 @@
             <?php /**
                     * form Save
                     */?>
-            <form style="margin-top:-5%;"  class=" text-center  float-right  mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <form style="margin-top:-5%;"  class=" text-center  float-right  mr-5" action="<?php echo $actual_link; ?>" method="post">
                 <button type="submit" name="save" class="btn btn-info mt-5">
                     <i class="	fa fa-archive fa-lg"></i> Uloziť
                 </button>
@@ -156,7 +183,7 @@
             <?php /**
                     * form Reset
                     */?>
-            <form style="margin-top:-5%;" class=" text-center  float-right  mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <form style="margin-top:-5%;" class=" text-center  float-right  mr-5" action="<?php echo $actual_link; ?>" method="post">
                 <button type="submit" name="reset" class="btn btn-danger mt-5">
                     <i class="fa fa-refresh fa-lg"></i> Reset
                 </button>
@@ -167,7 +194,7 @@
                 <?php /**
                         * actual month form
                         */?>
-                <form  class=" text-left " action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <form  class=" text-left " action="<?php echo $actual_link; ?>" method="post">
                     <button type="submit" name="actual-month" class="btn btn-primary mt-3">
                         <i class="fa fa-bar-chart fa-lg"></i> Aktuálny mesiac
                     </button>
@@ -181,7 +208,7 @@
                 <?php /**
                         * last month form
                         */?>
-                <form  class=" text-left  " action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <form  class=" text-left  " action="<?php echo $actual_link; ?>" method="post">
                 <button type="submit" name="last-month" class="btn btn-primary mt-3">
                     <i class="fa fa-bar-chart fa-lg"></i> Minulý mesiac
                 </button>
@@ -197,7 +224,7 @@
                 <?php /**
                         * days range form
                         */?>
-                <form  class=" text-left  " action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <form  class=" text-left  " action="<?php echo $actual_link; ?>" method="post">
                     <button type="submit" name="day_range" class="btn btn-primary">
                         <i class="fa fa-bar-chart fa-lg"></i> Za obdobie
                     </button>

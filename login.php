@@ -63,6 +63,10 @@
 //                                $user=[ 'meno'=> $dataLogin[0]['meno'], 'email'=> $dataLogin[0]['email']];
                                 $user=new User($dataLogin[0]['meno'],$dataLogin[0]['email']);
                                 $serializeUser=serialize($user);
+
+                                session_start();
+                                $_SESSION['logged']=true;
+
                                 /**
                                  * encrypt to URL serialize array of data
                                  */

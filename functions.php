@@ -159,3 +159,58 @@
         header("Location: login.php");
         die();
     }
+    /*******************************************************************************************************************
+     * this f. unset all cookies
+     * @return void
+     */
+    function unsetCookies(){
+
+        if (isset($_SERVER['HTTP_COOKIE'])) {
+            $cookies = explode(';', $_SERVER['HTTP_COOKIE']);
+            foreach($cookies as $cookie) {
+                $parts = explode('=', $cookie);
+                $name = trim($parts[0]);
+                setcookie($name, '', time()-1000);
+                setcookie($name, '', time()-1000, '/');
+            }
+        }
+    }
+
+    /*******************************************************************************************************************
+     * f. automaticly redirect to index when find out COOKIE exist
+     * @param string ($cookie_obj)
+     * @param string ($password)
+     */
+    function logByCookie($cookie_obj, $password){
+        if(!empty($cookie_obj)){
+            $obj=unserialize($cookie_obj);
+            $user_obj=$obj->getUser();
+            $serializeUser=serialize($user_obj);
+
+            session_start();
+            $_SESSION['logged']=true;
+            /**
+             * encrypt to URL serialize array of data
+             */
+            $encrypted_string=openssl_encrypt($serializeUser,"AES-128-ECB",$password);
+//
+            header("Location: index.php/?path=$encrypted_string");
+            die();
+
+        };
+    }
+
+    /**
+     * f. automaticly redirect to index when find out COOKIE and check ALL COOKIES
+     * @param string $cookie_a
+     * @param string $cookie_b
+     * @param string $cookie_pauza
+     * @param string $password
+     */
+    function logByAllCookies($cookie_a,$cookie_b,$cookie_pauza,$password){
+        if(!empty($cookie_a)||!empty($cookie_b)||!empty($cookie_pauza)){
+            logByCookie($cookie_a,$password);
+            logByCookie($cookie_b,$password);
+            logByCookie($cookie_pauza,$password);
+        }
+    }

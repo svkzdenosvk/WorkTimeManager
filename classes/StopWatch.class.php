@@ -1,5 +1,5 @@
 <?php
-
+require_once "User.class.php";
 
     class StopWatch{
         private $name_obj;
@@ -8,23 +8,34 @@
         private $running;
         private $total;
         private $message;
+        private User $user;
+
 
         /**
          * StopWatch constructor.
          * @param $name_obj
+         * @param User $user
          * @param int $total
          * @param bool $running
          * @param string $message
          */
-        public function __construct($name_obj, $total=0, $running=false, $message="stojí")
+        public function __construct($name_obj, User $user, $total=0, $running=false, $message="stojí")
         {
             $this->name_obj= $name_obj;
+            $this->user=$user;
             $this->total = $total;
             $this->running = $running;
             $this->message="Čas pre ".$name_obj." ".$message;
         }
 
 /******************************************** GETTERS AND SETTERS ******************************************************
+        /**
+         * @return User
+         */
+        public function getUser(): User
+        {
+            return $this->user;
+        }
 
         /**
          * @return string

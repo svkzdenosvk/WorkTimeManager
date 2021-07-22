@@ -1,12 +1,18 @@
 <?php
     require_once "autoloader.inc.php";
     require_once "functions.php";
-    require_once "inc/inc.db.setting.php";
+    require_once "inc/inc.setting.php";
 
 
     session_start();
     if(isset($_POST['logout'])){
+        /**
+         * destroy all SESSIONS and COOKIES and redirect to login.php
+         */
         session_destroy();
+        unsetCookies();
+        header("Location: /login.php");
+
     }
     if(!isset($_SESSION['logged'])){
         header("Location: /login.php");
@@ -55,18 +61,25 @@
 
     $_SESSION['name']=$user->getName();
 
-    //this would be in config file
-    const ZAK_A = "zakaznik_a_obj";
-    const ZAK_B = "zakaznik_b_obj";
-    const PAUZA = "pauza_obj";
+//    //this would be in config file
+//    const ZAK_A = "zakaznik_a_obj";
+//    const ZAK_B = "zakaznik_b_obj";
+//    const PAUZA = "pauza_obj";
+
+//    if(isset($_COOKIE[ZAK_A])){
+//        $cookie_a_obj = unserialize($_COOKIE[ZAK_A]);
+//        echo $cookie_a_obj->getUser()->getEmail();
+//        echo $user->getEmail();
+//        //if (strcasecmp($cookie_a_obj->user->getEmail(),$user->getEmail()) == 0$user->getEmail())
+//    }
 
         /**
          * set array of objects
          * object is from $_COOKIE or created new
          */
-        $zakaznik_a_obj = isset($_COOKIE[ZAK_A])? unserialize($_COOKIE[ZAK_A]):new StopWatch("Zákazník_A");
-        $zakaznik_b_obj = isset($_COOKIE[ZAK_B])? unserialize($_COOKIE[ZAK_B]):new StopWatch("Zákazník_B");
-        $pauza_obj = isset($_COOKIE[PAUZA])? unserialize($_COOKIE[PAUZA]):new StopWatch("Pauza");
+        $zakaznik_a_obj = isset($_COOKIE[ZAK_A])? unserialize($_COOKIE[ZAK_A]):new StopWatch("Zákazník_A",$user);
+        $zakaznik_b_obj = isset($_COOKIE[ZAK_B])? unserialize($_COOKIE[ZAK_B]):new StopWatch("Zákazník_B",$user);
+        $pauza_obj = isset($_COOKIE[PAUZA])? unserialize($_COOKIE[PAUZA]):new StopWatch("Pauza",$user);
 
         $array_obj=array( $zakaznik_a_obj, $zakaznik_b_obj, $pauza_obj);
 

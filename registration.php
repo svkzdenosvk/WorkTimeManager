@@ -1,8 +1,13 @@
 
 <?php
 //session_start();
-    require_once "inc/inc.db.setting.php";
+    require_once "inc/inc.setting.php";
     require_once "functions.php";
+
+    /**
+     * auto redirect to logged user after check all cookies
+     */
+    logByAllCookies($_COOKIE[ZAK_A]??"",$_COOKIE[ZAK_B]??"",$_COOKIE[PAUZA]??"",$password);
 
 //    $errors=array('name'=>'','title'=>'','password'=>'','re_password'=>'');
     $nameErr = $emailErr = $passErr = $passConfErr ="";

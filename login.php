@@ -1,8 +1,15 @@
 
     <?php
     require_once "autoloader.inc.php";
+    require_once "inc/inc.setting.php";
+    require_once "functions.php";
 
-    require_once "inc/inc.db.setting.php";
+
+    /**
+     * auto redirect to logged user after check all cookies
+     */
+    logByAllCookies($_COOKIE[ZAK_A]??"",$_COOKIE[ZAK_B]??"",$_COOKIE[PAUZA]??"",$password);
+
 
         $emailErr = $passErr ="";
 
@@ -66,6 +73,8 @@
 
                                 session_start();
                                 $_SESSION['logged']=true;
+                                //set session !!
+                                setsesion
 
                                 /**
                                  * encrypt to URL serialize array of data

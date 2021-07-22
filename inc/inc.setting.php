@@ -1,6 +1,14 @@
 <?php
 
     /**
+     *   settings for constants
+     */
+    //this would be in config file
+    const ZAK_A = "zakaznik_a_obj";
+    const ZAK_B = "zakaznik_b_obj";
+    const PAUZA = "pauza_obj";
+
+    /**
      *   settings for PDO database connection
      */
     //settings for localhost

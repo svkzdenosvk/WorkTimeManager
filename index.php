@@ -61,10 +61,7 @@
 
     $_SESSION['name']=$user->getName();
 
-//    //this would be in config file
-//    const ZAK_A = "zakaznik_a_obj";
-//    const ZAK_B = "zakaznik_b_obj";
-//    const PAUZA = "pauza_obj";
+
 
 //    if(isset($_COOKIE[ZAK_A])){
 //        $cookie_a_obj = unserialize($_COOKIE[ZAK_A]);

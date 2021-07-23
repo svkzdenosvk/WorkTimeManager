@@ -5,7 +5,7 @@
         private $name;
         private $email;
 //        private $loged;
-
+//
 //        /**
 //         * @return mixed
 //         */
@@ -13,7 +13,7 @@
 //        {
 //            return $this->loged;
 //        }
-
+//
 //        /**
 //         * @param mixed $loged
 //         */
@@ -22,9 +22,11 @@
 //            $this->loged = $loged;
 //        }
 
-        public function __construct($name, $email){
+        public function __construct($name, $email/*,$loged*/){
             $this->name= $name;
             $this->email = $email;
+           // $this->loged = $loged;
+
         }
 
         /**

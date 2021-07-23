@@ -8,7 +8,8 @@
     /**
      * auto redirect to logged user after check all cookies
      */
-    logByAllCookies($_COOKIE[ZAK_A]??"",$_COOKIE[ZAK_B]??"",$_COOKIE[PAUZA]??"",$password);
+    logByAllCookiesStopwatchObj($_COOKIE[ZAK_A]??"",$_COOKIE[ZAK_B]??"",$_COOKIE[PAUZA]??"",$password,$_COOKIE['logged']);
+
 
 
         $emailErr = $passErr ="";
@@ -70,11 +71,8 @@
 //                                $user=[ 'meno'=> $dataLogin[0]['meno'], 'email'=> $dataLogin[0]['email']];
                                 $user=new User($dataLogin[0]['meno'],$dataLogin[0]['email']);
                                 $serializeUser=serialize($user);
-
-                                session_start();
-                                $_SESSION['logged']=true;
-                                //set session !!
-                                setsesion
+//                                                                                //expire after cca 5 year
+                                setcookie('logged', $serializeUser, time()+ (5 * 365 * 24 * 60 * 60), '/');
 
                                 /**
                                  * encrypt to URL serialize array of data

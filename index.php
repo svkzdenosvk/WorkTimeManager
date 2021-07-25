@@ -5,70 +5,41 @@
 
 
     session_start();
+
+    /**
+     * if POST logout ->unset ALL COOKIES and redirect to login
+     */
     if(isset($_POST['logout'])){
         /**
-         * destroy all SESSIONS and COOKIES and redirect to login.php
+         * destroy all COOKIES and redirect to login.php
          */
         session_destroy();
         unsetCookies();
         header("Location: /login.php");
+    }
 
-    }
-    if(!isset($_SESSION['logged'])){
-        header("Location: /login.php");
-    }
+//    // GET CURRENT page
+//     $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
     /**
-     * GET current URL -> parse param 'path'(if not exist->guess SET !!!!!!!!!!!) ->encrypt() -> unserialise() -> SET SESSION/COOKIE
+     * redirect to login when COOKIE is not set
      */
-    $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-
-    parse_url($actual_link, PHP_URL_QUERY);
-    parse_str(parse_url($actual_link, PHP_URL_QUERY));
-    //$path=$path??"";
-    $decrypt= str_replace(" ","+",$path);
-
-    $decrypted_string=openssl_decrypt($decrypt,"AES-128-ECB",$password);
-    $user=unserialize($decrypted_string);
-    var_dump($user);
-
-//    $auth = new Auth();
-//
-//    if($_POST['logout']){
-//        $auth->setLogedIn(false);
-//    }
-//
-//    if(!$auth->getLogedIn()){
-//
-//    }
-        if(isset($_POST['logout'])){
-            $user->setLoged(false);
-            header("Location: /login.php");
-        }
+      if(!isset($_COOKIE['logged'])){
+          header("Location: /login.php");
+      }else{
+          $user=unserialize($_COOKIE['logged']);
+      }
 
     /**
-     * some own control
+     * some own 2 controlS -> if object user and his email is not in relevant form redirect to login -> MAY BE THIS IS UNNECESSARY
      */
     if(!$user instanceof User){
-        header("Location: /login.php");
+       header("Location: /login.php");
     }
 
     if (!filter_var($user->getEmail(), FILTER_VALIDATE_EMAIL)) {
-            header("Location: /login.php");
+           header("Location: /login.php");
         }
-
-   // $user=new User($loginAr['meno'],$loginAr['email']);
-
-    $_SESSION['name']=$user->getName();
-
-
-
-//    if(isset($_COOKIE[ZAK_A])){
-//        $cookie_a_obj = unserialize($_COOKIE[ZAK_A]);
-//        echo $cookie_a_obj->getUser()->getEmail();
-//        echo $user->getEmail();
-//        //if (strcasecmp($cookie_a_obj->user->getEmail(),$user->getEmail()) == 0$user->getEmail())
-//    }
 
         /**
          * set array of objects
@@ -98,19 +69,15 @@
     </head>
     <body>
 
-
             <?php
             /**
-             * login
+             * logout form
              */
-            if (!isset($_SESSION['name'])): ?>
-                <a class="float-right mr-5" href="/login.php" title="Prihlás sa a veď si vlastnú štatistiku">Prihlásiť / Registrovať</a>
-            <?php else:?>
-                <form action="<?php echo $actual_link ?>" method="post"><button type="submit" class="btn btn-danger float-right mr-5" name="logout" >Odhlásiť</button></form>
-<!--                <a class="float-right mr-5" href="/index.php" title="Odhlásiť">Odhlásiť</a>-->
-            <?php endif ?>
+            ?>
+            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"><button type="submit" class="btn btn-danger float-right mr-5" name="logout" >Odhlásiť</button></form>
 
             <?php
+
             /**
              * flash message after save to DB
              */
@@ -128,7 +95,7 @@
                 <?php /**
                         * form Zákazník_A
                         */?>
-                <form class=" <?php if(isset($_POST[objPropertyName_to_varString($zakaznik_a_obj)])){ echo "invisible";} ?> col-4 text-center" action="<?php echo $actual_link; ?>" method="post">
+                <form class=" <?php if(isset($_POST[objPropertyName_to_varString($zakaznik_a_obj)])){ echo "invisible";} ?> col-4 text-center" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                     <button type="submit" name="<?php echo objPropertyName_to_varString($zakaznik_a_obj)?>" class="btn btn-success mt-5  ">
                         <i class="fa fa-play fa-lg"></i> Zákazník_A
                     </button>
@@ -137,7 +104,7 @@
                 <?php /**
                         * form Zákazník_B
                         */?>
-                <form  class="  <?php if(isset($_POST[objPropertyName_to_varString($zakaznik_b_obj)])){ echo "invisible";}?>  col-4 text-center" action="<?php echo $actual_link; ?>" method="post">
+                <form  class="  <?php if(isset($_POST[objPropertyName_to_varString($zakaznik_b_obj)])){ echo "invisible";}?>  col-4 text-center" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                     <button type="submit" name="<?php echo objPropertyName_to_varString($zakaznik_b_obj)?>" class="btn btn-success mt-5 ">
                         <i class="fa fa-play fa-lg"></i> Zákazník_B
                     </button>
@@ -147,7 +114,7 @@
             <?php /**
                     * form Pauza
                     */?>
-            <form  class="  <?php if(isset($_POST[objPropertyName_to_varString($pauza_obj)])){ echo "invisible";}?> col-4 text-center ml-5 mr-5" action="<?php echo $actual_link; ?>" method="post">
+            <form  class="  <?php if(isset($_POST[objPropertyName_to_varString($pauza_obj)])){ echo "invisible";}?> col-4 text-center ml-5 mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                 <button type="submit" name="<?php echo objPropertyName_to_varString($pauza_obj)?>" class="btn btn-warning mt-5 ">
                     <i class="fa fa-pause fa-lg"></i> Pauza
                 </button>
@@ -184,7 +151,7 @@
             <?php /**
                     * form Save
                     */?>
-            <form style="margin-top:-5%;"  class=" text-center  float-right  mr-5" action="<?php echo $actual_link; ?>" method="post">
+            <form style="margin-top:-5%;"  class=" text-center  float-right  mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                 <button type="submit" name="save" class="btn btn-info mt-5">
                     <i class="	fa fa-archive fa-lg"></i> Uloziť
                 </button>
@@ -193,7 +160,7 @@
             <?php /**
                     * form Reset
                     */?>
-            <form style="margin-top:-5%;" class=" text-center  float-right  mr-5" action="<?php echo $actual_link; ?>" method="post">
+            <form style="margin-top:-5%;" class=" text-center  float-right  mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                 <button type="submit" name="reset" class="btn btn-danger mt-5">
                     <i class="fa fa-refresh fa-lg"></i> Reset
                 </button>
@@ -204,7 +171,7 @@
                 <?php /**
                         * actual month form
                         */?>
-                <form  class=" text-left " action="<?php echo $actual_link; ?>" method="post">
+                <form  class=" text-left " action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                     <button type="submit" name="actual-month" class="btn btn-primary mt-3">
                         <i class="fa fa-bar-chart fa-lg"></i> Aktuálny mesiac
                     </button>
@@ -218,7 +185,7 @@
                 <?php /**
                         * last month form
                         */?>
-                <form  class=" text-left  " action="<?php echo $actual_link; ?>" method="post">
+                <form  class=" text-left  " action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
                 <button type="submit" name="last-month" class="btn btn-primary mt-3">
                     <i class="fa fa-bar-chart fa-lg"></i> Minulý mesiac
                 </button>

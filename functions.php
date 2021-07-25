@@ -178,66 +178,113 @@
         }
     }
 
-    /*******************************************************************************************************************
-     * f. automaticly redirect to index when find out COOKIE of Stopwatch object exists
-     * @param (StopWatch) $cookie_obj
-     * @param string $password
-     */
-    function logByCookieStopwatchObj( $cookie_obj, $password){
-        if(!empty($cookie_obj)){
-            $obj=unserialize($cookie_obj);
-            $user_obj=$obj->getUser();
-            $serializeUser=serialize($user_obj);
-
-            /**
-             * encrypt to URL serialize array of data
-             */
-            $encrypted_string=openssl_encrypt($serializeUser,"AES-128-ECB",$password);
+//    /*******************************************************************************************************************
+//OLD VERSION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//     * f. automaticly redirect to index when find out COOKIE of Stopwatch object exists
+//     * @param (StopWatch) $cookie_obj
+//     * @param string $password
+//     */
+//    function logByCookieStopwatchObj( $cookie_obj, $password){
+//        if(!empty($cookie_obj)){
+//            $obj=unserialize($cookie_obj);
+//            $user_obj=$obj->getUser();
+//            $serializeUser=serialize($user_obj);
 //
-            header("Location: index.php/?path=$encrypted_string");
-            die();
-
-        };
-    }
-
-    /*******************************************************************************************************************
-     * f. automaticly redirect to index when find out COOKIE of User object exists
-     * @param (User) $cookie_obj
-     * @param string $password
-     */
-    function logByCookieUser( $cookie_obj,$password){
-        if(!empty($cookie_obj)){
-            $user_obj=unserialize($cookie_obj);
-            $serializeUser=serialize($user_obj);
-
-            /**
-             * serialize object is encrypted to URL
-             */
-            $encrypted_string=openssl_encrypt($serializeUser,"AES-128-ECB",$password);
+//            /**
+//             * encrypt to URL serialize array of data
+//             */
+//            $encrypted_string=openssl_encrypt($serializeUser,"AES-128-ECB",$password);
+////
+//            header("Location: index.php/?path=$encrypted_string");
+//            die();
 //
-            header("Location: index.php/?path=$encrypted_string");
-            die();
-        };
-    }
+//        };
+//    }
+        /*******************************************************************************************************************
+         * f. automaticly redirect to index when find out COOKIE of Stopwatch object exists
+         * @param (StopWatch) $cookie_obj
+         */
+        function logByCookieStopwatchObj( $cookie_obj){
+            if(!empty($cookie_obj)){
+                header("Location: index.php");
+                die();
 
-    /**
-     * f. automaticly redirect to index when find only one COOKIE and check ALL COOKIES
-     * @param (StopWatch) $cookie_a
-     * @param (StopWatch) $cookie_b
-     * @param (StopWatch) $cookie_pauza
-     * @param string $password
-     * @param (User) $cookie_user
-     */
-    function logByAllCookiesStopwatchObj( $cookie_a, $cookie_b, $cookie_pauza, $password, $cookie_user){
-        if(!empty($cookie_a))logByCookieStopwatchObj($cookie_a,$password);
-        if(!empty($cookie_b))logByCookieStopwatchObj($cookie_b,$password);
-        if(!empty($cookie_pauza))logByCookieStopwatchObj($cookie_pauza,$password);
-        if(!empty($cookie_user))logByCookieUser($cookie_user,$password);
+            };
+        }
 
-//        if(!empty($cookie_a)||!empty($cookie_b)||!empty($cookie_pauza)||!empty($cookie_user)){
-//            logByCookieStopwatchObj($cookie_a,$password);
-//            logByCookieStopwatchObj($cookie_b,$password);
-//            logByCookieStopwatchObj($cookie_pauza,$password);
-//            logByCookieUser($cookie_user,$password);
-//        }
-    }
+
+//    /*******************************************************************************************************************
+//        OLD VERSION !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+//     * f. automaticly redirect to index when find out COOKIE of User object exists
+//     * @param (User) $cookie_obj
+//     * @param string $password
+//     */
+//    function logByCookieUser( $cookie_obj,$password){
+//        if(!empty($cookie_obj)){
+//            $user_obj=unserialize($cookie_obj);
+//            $serializeUser=serialize($user_obj);
+//
+//            /**
+//             * serialize object is encrypted to URL
+//             */
+//            $encrypted_string=openssl_encrypt($serializeUser,"AES-128-ECB",$password);
+////
+//            header("Location: index.php/?path=$encrypted_string");
+//            die();
+//        };
+//    }
+
+        /*******************************************************************************************************************
+         * f. automaticly redirect to index when find out COOKIE of User object exists
+         * @param (User) $cookie_obj
+         */
+        function logByCookieUser( $cookie_obj){
+            if(!empty($cookie_obj)){
+                header("Location: index.php");
+                die();
+            };
+        }
+
+
+//    /**
+//     * f. automaticly redirect to index when find only one COOKIE and check ALL COOKIES
+//     * @param (StopWatch) $cookie_a
+//     * @param (StopWatch) $cookie_b
+//     * @param (StopWatch) $cookie_pauza
+//     * @param string $password
+//     * @param (User) $cookie_user
+//     */
+//    function logByAllCookiesStopwatchObj( $cookie_a, $cookie_b, $cookie_pauza, $password, $cookie_user){
+//        if(!empty($cookie_a))logByCookieStopwatchObj($cookie_a,$password);
+//        if(!empty($cookie_b))logByCookieStopwatchObj($cookie_b,$password);
+//        if(!empty($cookie_pauza))logByCookieStopwatchObj($cookie_pauza,$password);
+//        if(!empty($cookie_user))logByCookieUser($cookie_user,$password);
+//
+////        if(!empty($cookie_a)||!empty($cookie_b)||!empty($cookie_pauza)||!empty($cookie_user)){
+////            logByCookieStopwatchObj($cookie_a,$password);
+////            logByCookieStopwatchObj($cookie_b,$password);
+////            logByCookieStopwatchObj($cookie_pauza,$password);
+////            logByCookieUser($cookie_user,$password);
+////        }
+//    }
+        /**
+         * f. automaticly redirect to index when find only one COOKIE and check ALL COOKIES
+         * @param (StopWatch) $cookie_a
+         * @param (StopWatch) $cookie_b
+         * @param (StopWatch) $cookie_pauza
+         * @param (User) $cookie_user
+         */
+        function logByAllCookiesStopwatchObj( $cookie_a, $cookie_b, $cookie_pauza, $cookie_user){
+            if(!empty($cookie_a))logByCookieStopwatchObj($cookie_a);
+            if(!empty($cookie_b))logByCookieStopwatchObj($cookie_b);
+            if(!empty($cookie_pauza))logByCookieStopwatchObj($cookie_pauza);
+            if(!empty($cookie_user))logByCookieUser($cookie_user);
+
+        //        if(!empty($cookie_a)||!empty($cookie_b)||!empty($cookie_pauza)||!empty($cookie_user)){
+        //            logByCookieStopwatchObj($cookie_a,$password);
+        //            logByCookieStopwatchObj($cookie_b,$password);
+        //            logByCookieStopwatchObj($cookie_pauza,$password);
+        //            logByCookieUser($cookie_user,$password);
+        //        }
+        }

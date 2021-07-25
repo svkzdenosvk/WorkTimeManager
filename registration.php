@@ -7,7 +7,7 @@
     /**
      * auto redirect to logged user after check all cookies
      */
-    logByAllCookiesStopwatchObj($_COOKIE[ZAK_A]??"",$_COOKIE[ZAK_B]??"",$_COOKIE[PAUZA]??"",$password,$_COOKIE['logged']);
+    logByAllCookiesStopwatchObj($_COOKIE[ZAK_A]??"",$_COOKIE[ZAK_B]??"",$_COOKIE[PAUZA]??"",$_COOKIE['logged']??"");
 
 //    $errors=array('name'=>'','title'=>'','password'=>'','re_password'=>'');
     $nameErr = $emailErr = $passErr = $passConfErr ="";
@@ -76,7 +76,7 @@
           $data =$stmt->fetchAll();
 
           /**
-           * if db is not empty
+           * if db is NOT empty
            */
           if($data){
               foreach($data as $key => $value) {
@@ -91,12 +91,14 @@
                    */
                   save($conn,$name,$email,$pass);
               }
+          /**
+           * if db IS empty
+           */
           }else {
               /**
                * save user to DB
                */
               save($conn,$name,$email,$pass);
-
         }
       }
     }
@@ -112,11 +114,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta name="description" content="">
         <meta name="author" content="">
-        <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
         <title>Registration</title>
 
-        <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
+<!--        <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">-->
 
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" >
@@ -125,7 +126,7 @@
 
     <body class="text-center ">
         <form style="margin-top: 7%;" class="form-signin w-25 mx-auto " action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-            <h1 class="h3 mb-3 font-weight-normal">Registrácia</h1>
+            <h1 class="h3 mb-3 font-weight-normal">Registrovať sa alebo sa <a href="login.php">Prihlásiť</a></h1>
             <label for="inputPassword" class="sr-only ">Meno</label>
             <input name="name" type="text" id="inputPassword" minlength="3" maxlength="30"class="form-control mt-4" placeholder="Meno" required value="<?php echo $name??"";?>" >
             <span class="text-danger"> <?php echo $nameErr;?></span>

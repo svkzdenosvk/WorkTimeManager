@@ -8,7 +8,7 @@
     /**
      * auto redirect to logged user after check all cookies
      */
-    logByAllCookiesStopwatchObj($_COOKIE[ZAK_A]??"",$_COOKIE[ZAK_B]??"",$_COOKIE[PAUZA]??"",$password,$_COOKIE['logged']);
+    logByAllCookiesStopwatchObj($_COOKIE[ZAK_A]??"",$_COOKIE[ZAK_B]??"",$_COOKIE[PAUZA]??"",$_COOKIE['logged']??"");
 
 
 
@@ -63,35 +63,33 @@
                             // set the resulting array to associative
                             $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
                             $dataLogin =$stmt->fetchAll();
+
                             /**
-                             * check password to email
+                             * check password to email, if correct->set COOKIE and redirect
                              */
-    //                            echo $dataLogin[0]['email'];
                             if(password_verify($pass,$dataLogin[0]['heslo'])){
-//                                $user=[ 'meno'=> $dataLogin[0]['meno'], 'email'=> $dataLogin[0]['email']];
                                 $user=new User($dataLogin[0]['meno'],$dataLogin[0]['email']);
                                 $serializeUser=serialize($user);
-//                                                                                //expire after cca 5 year
+                                                                                 //expire after cca 5 year
                                 setcookie('logged', $serializeUser, time()+ (5 * 365 * 24 * 60 * 60), '/');
 
-                                /**
-                                 * encrypt to URL serialize array of data
-                                 */
-                                $encrypted_string=openssl_encrypt($serializeUser,"AES-128-ECB",$password);
-//
-                                header("Location: index.php/?path=$encrypted_string");
+//                                /**
+//                                 * encrypt to URL serialize array of data
+//                                 */
+//                                $encrypted_string=openssl_encrypt($serializeUser,"AES-128-ECB",$password);
+
+//                                header("Location: index.php/?path=$encrypted_string");
+                               header("Location: index.php");
                                 die();
                             }else{
                                 $passErr="Heslo pre tento zaregistrovaný email nie je správne! ";
                             }
 
-                        }else{
+                        }else{  //this have to be repaired !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                             $emailErr= "heslo k tomuto emailu nesedí, si vobec zaregistrovaný ?";
                         }
 
-                        //echo $dataLogin[0]['heslo'];
 
-                           // print_r($dataLogin);
 
 
                         }
@@ -110,11 +108,10 @@
             <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
             <meta name="description" content="">
             <meta name="author" content="">
-            <link rel="icon" href="/docs/4.0/assets/img/favicons/favicon.ico">
 
-            <title>Signin Template for Bootstrap</title>
+            <title>Login</title>
 
-            <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">
+<!--            <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">-->
 
             <!-- Bootstrap core CSS -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -133,12 +130,12 @@
                 <label for="inputPassword" class="sr-only">Password</label>
                 <input type="password" id="inputPassword" class="form-control mt-4" placeholder="Heslo" name="pass" required>
                 <span class="text-danger"> <?php echo $passErr;?></span>
-
-                <div class="checkbox mb-3">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
-                </div>
+<!---->
+<!--                <div class="checkbox mb-3">-->
+<!--                    <label>-->
+<!--                        <input type="checkbox" value="remember-me"> Remember me-->
+<!--                    </label>-->
+<!--                </div>-->
                 <button class="btn btn-lg btn-primary btn-block" type="submit" name="login">Prihlásiť sa</button>
                 <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
             </form>

@@ -21,6 +21,7 @@
 //    // GET CURRENT page
 //     $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 
+
     /**
      * redirect to login when COOKIE is not set
      */
@@ -29,7 +30,7 @@
       }else{
           $user=unserialize($_COOKIE['logged']);
       }
-
+//rint_r($user);
     /**
      * some own 2 controlS -> if object user and his email is not in relevant form redirect to login -> MAY BE THIS IS UNNECESSARY
      */
@@ -68,13 +69,21 @@
 
     </head>
     <body>
+            <div class="container  d-flex justify-content-around  ">
+                <?php
+                /**
+                 * logged user
+                 */
+                ?>
+                <button type="button" class="btn btn-outline-info mt-4 disabled font-weight-bold"><?php echo $user->getName(); ?></button>
 
-            <?php
-            /**
-             * logout form
-             */
-            ?>
-            <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"><button type="submit" class="btn btn-danger float-right mr-5" name="logout" >Odhlásiť</button></form>
+                <?php
+                /**
+                 * logout form
+                 */
+                ?>
+                <form class="  mt-4 " action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"><button type="submit" class="btn btn-danger    " name="logout" >Odhlásiť</button></form>
+            </div>
 
             <?php
 
@@ -89,7 +98,7 @@
             <?php endif;?>
 
 
-        <div class="row w-50 mx-auto mt-5 ">
+        <div class="row w-50 mx-auto mt-3 ">
             <div>
 
                 <?php /**

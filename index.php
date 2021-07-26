@@ -18,10 +18,6 @@
         header("Location: /login.php");
     }
 
-//    // GET CURRENT page
-//     $actual_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-
-
     /**
      * redirect to login when COOKIE is not set
      */

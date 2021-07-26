@@ -3,6 +3,7 @@
     /*******************************************************************************************************************
      *save post
      */
+    $userEmail=$zakaznik_a_obj->getUser()->getEmail();
     if(isset($_POST['save'])){
 
         /**
@@ -25,9 +26,11 @@
         $zak_b=$zakaznik_b_obj->getTotal();
 
 
-        $stmt = $conn->prepare("INSERT INTO day_work (zakaznik_a, zakaznik_b)  VALUES(:zakaznik_a, :zakaznik_b)");
+        $stmt = $conn->prepare("INSERT INTO day_work (zakaznik_a, zakaznik_b, user)  VALUES(:zakaznik_a, :zakaznik_b, :user)");
         $stmt->bindParam(':zakaznik_a',$zak_a );
         $stmt->bindParam(':zakaznik_b',  $zak_b);
+        $stmt->bindParam(':user',  $userEmail);
+
 
         $stmt->execute();
 
@@ -71,8 +74,10 @@
          */
         $actual_month=date('m');
 
-        $stmt = $conn->prepare("SELECT SUM(zakaznik_a), SUM(zakaznik_b) FROM day_work WHERE MONTH(datum) = :act_month ");
+        $stmt = $conn->prepare("SELECT SUM(zakaznik_a), SUM(zakaznik_b) FROM day_work WHERE MONTH(datum) = :act_month AND user = :user ");
         $stmt->bindParam(':act_month', $actual_month );
+        $stmt->bindParam(':user', $userEmail );
+
         $stmt->execute();
 
         // set the resulting array to associative
@@ -101,8 +106,10 @@
 
         $last_month=$actual_month-1;
 
-        $stmt = $conn->prepare("SELECT SUM(zakaznik_a), SUM(zakaznik_b) FROM day_work WHERE MONTH(datum) = :last_month ");
+        $stmt = $conn->prepare("SELECT SUM(zakaznik_a), SUM(zakaznik_b) FROM day_work WHERE MONTH(datum) = :last_month AND user = :user");
         $stmt->bindParam(':last_month', $last_month );
+        $stmt->bindParam(':user', $userEmail );
+
         $stmt->execute();
 
         // set the resulting array to associative
@@ -133,9 +140,11 @@
             $do= date('Y-m-d H:i:s', strtotime($_POST['do_date'].' 23:59:59.993'));
 
 
-            $stmt = $conn->prepare("SELECT SUM(zakaznik_a), SUM(zakaznik_b) FROM day_work WHERE datum BETWEEN :od AND :do ");
+            $stmt = $conn->prepare("SELECT SUM(zakaznik_a), SUM(zakaznik_b) FROM day_work WHERE datum BETWEEN :od AND :do AND user = :user ");
             $stmt->bindParam(':od',  $od );
             $stmt->bindParam(':do', $do);
+            $stmt->bindParam(':user', $userEmail );
+
 
             $stmt->execute();
 

@@ -128,14 +128,9 @@
                 <span class="text-danger"> <?php echo $emailErr;?></span>
 
                 <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" class="form-control mt-4" placeholder="Heslo" name="pass" required>
+                <input type="password" id="inputPassword" class="form-control mt-4 mb-4" placeholder="Heslo" name="pass" required>
                 <span class="text-danger"> <?php echo $passErr;?></span>
-<!---->
-<!--                <div class="checkbox mb-3">-->
-<!--                    <label>-->
-<!--                        <input type="checkbox" value="remember-me"> Remember me-->
-<!--                    </label>-->
-<!--                </div>-->
+
                 <button class="btn btn-lg btn-primary btn-block" type="submit" name="login">Prihlásiť sa</button>
                 <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
             </form>

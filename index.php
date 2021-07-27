@@ -71,7 +71,7 @@
                  * logged user
                  */
                 ?>
-                <button type="button" class="btn btn-outline-info mt-4 disabled font-weight-bold"><?php echo $user->getName(); ?></button>
+                <button type="button" class="btn btn-outline-info mt-4 disabled font-weight-bold"><?php echo htmlspecialchars($user->getName()); ?></button>
 
                 <?php
                 /**

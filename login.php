@@ -21,7 +21,7 @@
             /**
              * validation
              */
-            //toto(email validation) sa opakuje aj v registration 6 riadkov -> treba funkciu
+            //toto(email validation) sa opakuje aj v registration 6 riadkov -> treba funkciu !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
             if (empty($_POST['email'])){
                 $emailErr ='Zadaj email!';
@@ -41,7 +41,7 @@
              * if form pass without entry errors
              */
             if( empty($passErr) && empty($emailErr) ){
-                //toto sa opakuje aj v registration 7 riadkov -> treba funkciu
+                //toto sa opakuje aj v registration 7 riadkov -> treba funkciu!!!!!!!!!!!!!!!!!!!!!!!!!!!!
                 $stmt = $conn->prepare("SELECT email FROM users  ");
                 $stmt->execute();
 
@@ -79,7 +79,7 @@
 //                                $encrypted_string=openssl_encrypt($serializeUser,"AES-128-ECB",$password);
 
 //                                header("Location: index.php/?path=$encrypted_string");
-                               header("Location: index.php");
+                               redirect("/");
                                 die();
                             }else{
                                 $passErr="Heslo pre tento zaregistrovaný email nie je správne! ";
@@ -89,16 +89,10 @@
                             $emailErr= "heslo k tomuto emailu nesedí, si vobec zaregistrovaný ?";
                         }
 
-
-
-
-                        }
                     }
-                }
-
-
+                 }
+            }
         }
-
     ?>
 
     <!doctype html>
@@ -111,8 +105,6 @@
 
             <title>Login</title>
 
-<!--            <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">-->
-
             <!-- Bootstrap core CSS -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
@@ -121,7 +113,7 @@
 
         <body class="text-center">
             <form style="margin-top: 7%;" class="form-signin  w-25 mx-auto " action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
-                <h1 class="h3 mb-3 font-weight-normal ">Prihlásiť sa alebo <a href="registration.php">Registrovať</a></h1>
+                <h1 class="h3 mb-3 font-weight-normal ">Prihlásiť sa alebo <a href="/registracia">Registrovať</a></h1>
 
                 <label for="inputEmail" class="sr-only">Email address</label>
                 <input type="email" id="inputEmail" class="form-control mt-4" placeholder="Email" name="email" required autofocus value="<?php echo $email??"";?>">

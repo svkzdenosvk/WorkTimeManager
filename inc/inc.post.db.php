@@ -58,7 +58,9 @@
         /**
          * redirect to prevent re-post by refresh
          */
-        header('Location: /');
+        redirect("/");
+
+//        header('Location: /');
         exit;
 
     }

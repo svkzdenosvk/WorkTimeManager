@@ -1,0 +1,10 @@
+RewriteEngine on
+
+RewriteRule ^/?$ index.php
+
+RewriteRule ^registracia?$ registration.php
+
+RewriteRule ^prihlasenie?$ login.php
+
+
+

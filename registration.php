@@ -1,6 +1,6 @@
 
 <?php
-//session_start();
+
     require_once "inc/inc.setting.php";
     require_once "functions.php";
 
@@ -9,11 +9,10 @@
      */
     logByAllCookiesStopwatchObj($_COOKIE[ZAK_A]??"",$_COOKIE[ZAK_B]??"",$_COOKIE[PAUZA]??"",$_COOKIE['logged']??"");
 
-//    $errors=array('name'=>'','title'=>'','password'=>'','re_password'=>'');
     $nameErr = $emailErr = $passErr = $passConfErr ="";
 
     /**
-     * if form was submit
+     * if form register was submit
      */
     if(isset($_POST['register'])){
         /**
@@ -103,9 +102,7 @@
       }
     }
 
-
 ?>
-
 
     <!doctype html>
     <html lang="en">
@@ -116,8 +113,6 @@
         <meta name="author" content="">
 
         <title>Registration</title>
-
-<!--        <link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/sign-in/">-->
 
         <!-- Bootstrap core CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" >
@@ -143,11 +138,6 @@
             <input name="password_confirm" type="password" id="RePassword" class="form-control mt-4 mb-4" placeholder="Potvrď heslo" required value="<?php echo $passConf??"";?>">
             <span class="text-danger"> <?php echo $passConfErr;?></span>
 
-<!--            <div class="checkbox mb-3">-->
-<!--                <label>-->
-<!--                    <input type="checkbox" value="remember-me"> Remember me-->
-<!--                </label>-->
-<!--            </div>-->
             <button class="btn btn-lg btn-primary btn-block" type="submit"  name="register"  >Registrácia</button>
             <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
         </form>

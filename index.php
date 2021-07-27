@@ -15,14 +15,14 @@
          */
         session_destroy();
         unsetCookies();
-        header("Location: /login.php");
+        redirect("prihlasenie");
     }
 
     /**
      * redirect to login when COOKIE is not set
      */
       if(!isset($_COOKIE['logged'])){
-          header("Location: /login.php");
+          redirect("prihlasenie");
       }else{
           $user=unserialize($_COOKIE['logged']);
       }
@@ -31,11 +31,11 @@
      * some own 2 controlS -> if object user and his email is not in relevant form redirect to login -> MAY BE THIS IS UNNECESSARY
      */
     if(!$user instanceof User){
-       header("Location: /login.php");
+        redirect("prihlasenie");
     }
 
     if (!filter_var($user->getEmail(), FILTER_VALIDATE_EMAIL)) {
-           header("Location: /login.php");
+        redirect("prihlasenie");
         }
 
         /**
@@ -206,7 +206,7 @@
                 <?php /**
                         * days range form
                         */?>
-                <form  class=" text-left  " action="<?php echo $actual_link; ?>" method="post">
+                <form  class=" text-left  " action="<?php  echo $_SERVER['PHP_SELF']; ?>" method="post">
                     <button type="submit" name="day_range" class="btn btn-primary">
                         <i class="fa fa-bar-chart fa-lg"></i> Za obdobie
                     </button>

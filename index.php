@@ -78,7 +78,7 @@
                  * logout form
                  */
                 ?>
-                <form class="  mt-4 " action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post"><button type="submit" class="btn btn-danger    " name="logout" >Odhlásiť</button></form>
+                <form class="  mt-4 " action="/"method="post"><button type="submit" class="btn btn-danger    " name="logout" >Odhlásiť</button></form>
             </div>
 
             <?php
@@ -100,7 +100,7 @@
                 <?php /**
                         * form Zákazník_A
                         */?>
-                <form class=" <?php if(isset($_POST[objPropertyName_to_varString($zakaznik_a_obj)])){ echo "invisible";} ?> col-4 text-center" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <form class=" <?php if(isset($_POST[objPropertyName_to_varString($zakaznik_a_obj)])){ echo "invisible";} ?> col-4 text-center" action="/" method="post">
                     <button type="submit" name="<?php echo objPropertyName_to_varString($zakaznik_a_obj)?>" class="btn btn-success mt-5  ">
                         <i class="fa fa-play fa-lg"></i> Zákazník_A
                     </button>
@@ -109,7 +109,7 @@
                 <?php /**
                         * form Zákazník_B
                         */?>
-                <form  class="  <?php if(isset($_POST[objPropertyName_to_varString($zakaznik_b_obj)])){ echo "invisible";}?>  col-4 text-center" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <form  class="  <?php if(isset($_POST[objPropertyName_to_varString($zakaznik_b_obj)])){ echo "invisible";}?>  col-4 text-center" action="/" method="post">
                     <button type="submit" name="<?php echo objPropertyName_to_varString($zakaznik_b_obj)?>" class="btn btn-success mt-5 ">
                         <i class="fa fa-play fa-lg"></i> Zákazník_B
                     </button>
@@ -119,7 +119,7 @@
             <?php /**
                     * form Pauza
                     */?>
-            <form  class="  <?php if(isset($_POST[objPropertyName_to_varString($pauza_obj)])){ echo "invisible";}?> col-4 text-center ml-5 mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <form  class="  <?php if(isset($_POST[objPropertyName_to_varString($pauza_obj)])){ echo "invisible";}?> col-4 text-center ml-5 mr-5" action="/" method="post">
                 <button type="submit" name="<?php echo objPropertyName_to_varString($pauza_obj)?>" class="btn btn-warning mt-5 ">
                     <i class="fa fa-pause fa-lg"></i> Pauza
                 </button>
@@ -129,7 +129,7 @@
 
                 <?php
                 /**
-                 * show message about what thread is running
+                 * show message about which thread is running
                  */
                 //$array_obj[] - this array is defined on top
                 array_map(function($obj) {
@@ -156,7 +156,7 @@
             <?php /**
                     * form Save
                     */?>
-            <form style="margin-top:-5%;"  class=" text-center  float-right  mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <form style="margin-top:-5%;"  class=" text-center  float-right  mr-5" action="/" method="post">
                 <button type="submit" name="save" class="btn btn-info mt-5">
                     <i class="	fa fa-archive fa-lg"></i> Uloziť
                 </button>
@@ -165,7 +165,7 @@
             <?php /**
                     * form Reset
                     */?>
-            <form style="margin-top:-5%;" class=" text-center  float-right  mr-5" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+            <form style="margin-top:-5%;" class=" text-center  float-right  mr-5" action="/" method="post">
                 <button type="submit" name="reset" class="btn btn-danger mt-5">
                     <i class="fa fa-refresh fa-lg"></i> Reset
                 </button>
@@ -176,7 +176,7 @@
                 <?php /**
                         * actual month form
                         */?>
-                <form  class=" text-left " action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <form  class=" text-left " action="/" method="post">
                     <button type="submit" name="actual-month" class="btn btn-primary mt-3">
                         <i class="fa fa-bar-chart fa-lg"></i> Aktuálny mesiac
                     </button>
@@ -190,7 +190,7 @@
                 <?php /**
                         * last month form
                         */?>
-                <form  class=" text-left  " action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <form  class=" text-left " action="/" method="post">
                 <button type="submit" name="last-month" class="btn btn-primary mt-3">
                     <i class="fa fa-bar-chart fa-lg"></i> Minulý mesiac
                 </button>
@@ -206,7 +206,7 @@
                 <?php /**
                         * days range form
                         */?>
-                <form  class=" text-left  " action="<?php  echo $_SERVER['PHP_SELF']; ?>" method="post">
+                <form  class=" text-left  " action="/" method="post">
                     <button type="submit" name="day_range" class="btn btn-primary">
                         <i class="fa fa-bar-chart fa-lg"></i> Za obdobie
                     </button>

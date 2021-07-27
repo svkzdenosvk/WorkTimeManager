@@ -112,7 +112,12 @@
         </head>
 
         <body class="text-center">
-            <form style="margin-top: 7%;" class="form-signin  w-25 mx-auto " action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+        <!-- Button trigger modal -->
+        <button type="button" class="btn btn-outline-warning mt-5 mb-5" data-toggle="modal" data-target="#exampleModalLong">
+            Vyskúšaj bez registrácie
+        </button>
+        <?php include_once "inc/_partial_pages/modal.html"?>
+            <form  class="form-signin  w-25 mx-auto  " action="/prihlasenie" method="POST">
                 <h1 class="h3 mb-3 font-weight-normal ">Prihlásiť sa alebo <a href="/registracia">Registrovať</a></h1>
 
                 <label for="inputEmail" class="sr-only">Email address</label>

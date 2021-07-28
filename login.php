@@ -113,10 +113,15 @@
 
         <body class="text-center">
         <!-- Button trigger modal -->
-        <button type="button" class="btn btn-outline-warning mt-5 mb-5" data-toggle="modal" data-target="#exampleModalLong">
-            Vyskúšaj bez registrácie
-        </button>
-        <?php include_once "inc/_partial_pages/modal.html"?>
+            <?php
+            /**
+             * button on modal window ->content of modal window is included below
+             */
+            ?>
+            <button type="button" class="btn btn-outline-warning mt-5 mb-5" data-toggle="modal" data-target="#exampleModalLong">
+                Vyskúšaj bez registrácie
+            </button>
+            <?php include_once "inc/_partial_pages/modal.html"?>
             <form  class="form-signin  w-25 mx-auto  " action="/prihlasenie" method="POST">
                 <h1 class="h3 mb-3 font-weight-normal ">Prihlásiť sa alebo <a href="/registracia">Registrovať</a></h1>
 

@@ -1,5 +1,9 @@
 <?php
     /*******************************************************************************************************************
+    /************************************************COMMON FUNCTIONS***************************************************
+    /*******************************************************************************************************************/
+
+    /*******************************************************************************************************************
      * f. is copied from stackoverflow
      * this f. makes from number of seconds -> 00:00:00 (Hours:Minutes:Second)
      * @param number
@@ -138,16 +142,19 @@
     }
 
 
-/*******************************************************************************************************************
-/********************************************REGISTRATION FUNCTIONS*************************************************
-/*******************************************************************************************************************/
+/***********************************************************************************************************************
+/****************************************REGISTRATION, LOGIN, DB FUNCTIONS**********************************************
+/**********************************************************************************************************************/
 
-    /*******************************************************************************************************************
-     * this f. save user from registration form to DB
-     * @param string string string string
-     * @return void
-     */
-    function save($conn, $name, $email, $pass){
+/*******************************************************************************************************************
+ * this f. save user from registration form to DB
+ * @param PDO $conn
+ * @param $name
+ * @param $email
+ * @param $pass
+ * @return void
+ */
+    function save(PDO $conn, $name, $email, $pass){
         $password = password_hash($pass,PASSWORD_DEFAULT);
 
         $stmt = $conn->prepare("INSERT INTO users (meno, email, heslo)  VALUES(:meno, :email, :password)");
@@ -227,4 +234,26 @@
      */
     function redirect ($path_red){
         header("Location: $path_red");
+    }
+
+
+    /*******************************************************************************************************************
+     * f. select data from DB by MONTH
+     * ->this f. was created because of duplicated code in $_POST['actual_month'] and $_POST['last_month']
+     * @param PDO $conn
+     * @param string $month
+     * @param string $userEmail
+     * @return (associative) array $data
+     */
+    function selectWhereMonthFromDB(PDO $conn, $month, $userEmail){
+        $stmt = $conn->prepare("SELECT SUM(zakaznik_a), SUM(zakaznik_b) FROM day_work WHERE MONTH(datum) = :month AND user = :user");
+        $stmt->bindParam(':month', $month );
+        $stmt->bindParam(':user', $userEmail );
+
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $data =$stmt->fetchAll();
+        return $data;
     }

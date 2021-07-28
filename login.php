@@ -112,6 +112,7 @@
         </head>
 
         <body class="text-center">
+
         <!-- Button trigger modal -->
             <?php
             /**

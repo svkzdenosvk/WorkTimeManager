@@ -59,8 +59,7 @@
          * redirect to prevent re-post by refresh
          */
         redirect("/");
-
-//        header('Location: /');
+        
         exit;
 
     }
@@ -76,15 +75,16 @@
          */
         $actual_month=date('m');
 
-        $stmt = $conn->prepare("SELECT SUM(zakaznik_a), SUM(zakaznik_b) FROM day_work WHERE MONTH(datum) = :act_month AND user = :user ");
-        $stmt->bindParam(':act_month', $actual_month );
-        $stmt->bindParam(':user', $userEmail );
-
-        $stmt->execute();
-
-        // set the resulting array to associative
-        $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $data =$stmt->fetchAll();
+//        $stmt = $conn->prepare("SELECT SUM(zakaznik_a), SUM(zakaznik_b) FROM day_work WHERE MONTH(datum) = :act_month AND user = :user ");
+//        $stmt->bindParam(':act_month', $actual_month );
+//        $stmt->bindParam(':user', $userEmail );
+//
+//        $stmt->execute();
+//
+//        // set the resulting array to associative
+//        $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+//        $data =$stmt->fetchAll();
+          $data=selectWhereMonthFromDB($conn,$actual_month,$userEmail);
 
         /**
          *add data from DB to variables to show in index
@@ -108,15 +108,16 @@
 
         $last_month=$actual_month-1;
 
-        $stmt = $conn->prepare("SELECT SUM(zakaznik_a), SUM(zakaznik_b) FROM day_work WHERE MONTH(datum) = :last_month AND user = :user");
-        $stmt->bindParam(':last_month', $last_month );
-        $stmt->bindParam(':user', $userEmail );
-
-        $stmt->execute();
-
-        // set the resulting array to associative
-        $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-        $data =$stmt->fetchAll();
+//        $stmt = $conn->prepare("SELECT SUM(zakaznik_a), SUM(zakaznik_b) FROM day_work WHERE MONTH(datum) = :last_month AND user = :user");
+//        $stmt->bindParam(':last_month', $last_month );
+//        $stmt->bindParam(':user', $userEmail );
+//
+//        $stmt->execute();
+//
+//        // set the resulting array to associative
+//        $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+//        $data =$stmt->fetchAll();
+            $data=selectWhereMonthFromDB($conn,$last_month,$userEmail);
 
         /**
          *add data from DB to variables to show in index

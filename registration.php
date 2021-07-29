@@ -12,11 +12,12 @@
     $nameErr = $emailErr = $passErr = $passConfErr ="";
 
     /**
-     * if form register was submit
+     * if form register was submit -> validation
      */
     if(isset($_POST['register'])){
+
         /**
-         * validation
+         * name validation
          */
         if (empty($_POST['name'])){
             $nameErr ='Zadaj meno!';
@@ -34,15 +35,10 @@
          * email validation
          */
         require_once "inc/_duplicated_code/emailValidation.php";
-//        if (empty($_POST['email'])){
-//            $emailErr ='Zadaj email!';
-//        }else{
-//            $email=trim($_POST['email']);
-//            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-//                $emailErr = "Email nie je v platnom formáte.";
-//            }
-//        }
 
+        /**
+         * password validation
+         */
         if (isset($_POST['password'])){
             $pass = $_POST['password'];
 
@@ -53,6 +49,9 @@
             if(strlen($pass)<3){ $passErr ='Heslo musí mať minimálne 3 znaky';}
             if(strlen($pass)>150){ $passErr ='Heslo je príliš dlhé.';}
 
+            /**
+             * password_confirm validation
+             */
             if(empty($_POST['password_confirm'])){
                 $passConfErr ='Zopakuj heslo';
             }else{
@@ -62,17 +61,18 @@
                     $passConfErr='Heslá sa nezhodujú';
                 }
             }
-
         }
 
-        /**
-         * if form pass without error then control email and if pass, save user to DB
-         */
+    /**
+     * if form pass without error -> then control email against emails in table and if pass -> save user to DB
+     */
       if( empty($nameErr) && empty($emailErr) && empty($passErr) && empty($passConfErr) ){
+
           /**
-           * select registered emails from table users for next checking
+           * select registered emails from table users for next checking if already registered
            */
           $data=selectEmailsFromDB($conn);
+
           /**
            * if db is NOT empty
            */
@@ -84,13 +84,15 @@
                   }
               }
               if(empty($emailErr)){
+
                   /**
                    * save user to DB
                    */
                   save($conn,$name,$email,$pass);
               }
+
           /**
-           * if db IS empty
+           * if db IS empty -> immediately save
            */
           }else {
               /**
@@ -100,7 +102,6 @@
         }
       }
     }
-
 ?>
 
     <!doctype html>
@@ -137,7 +138,7 @@
             <input name="password_confirm" type="password" id="RePassword" class="form-control mt-4 mb-4" placeholder="Potvrď heslo" required value="<?php echo $passConf??"";?>">
             <span class="text-danger"> <?php echo $passConfErr;?></span>
 
-            <button class="btn btn-lg btn-primary btn-block" type="submit"  name="register"  >Registrácia</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit"  name="register" >Registrácia</button>
             <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
         </form>
 

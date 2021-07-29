@@ -6,7 +6,7 @@
     /*******************************************************************************************************************
      * f. is copied from stackoverflow
      * this f. makes from number of seconds -> 00:00:00 (Hours:Minutes:Second)
-     * @param number
+     * @param number $seconds
      * @return string
      */
     function timeFormat ($seconds){
@@ -32,8 +32,8 @@
     /*******************************************************************************************************************
      * f. is copied from stackoverflow
      * this f. remove diacritics -> from "á"->"a"...
-     * @param $string
-     * @return string
+     * @param string $string
+     * @return string $string
      */
     function remove_accents($string) {
         if ( !preg_match('/[\x80-\xff]/', $string) )
@@ -146,14 +146,14 @@
 /****************************************REGISTRATION, LOGIN, DB FUNCTIONS**********************************************
 /**********************************************************************************************************************/
 
-/*******************************************************************************************************************
- * this f. save user from registration form to DB
- * @param PDO $conn
- * @param $name
- * @param $email
- * @param $pass
- * @return void
- */
+    /*******************************************************************************************************************
+     * this f. save user from registration form to DB
+     * @param PDO $conn
+     * @param $name
+     * @param $email
+     * @param $pass
+     * @return void
+     */
     function save(PDO $conn, $name, $email, $pass){
         $password = password_hash($pass,PASSWORD_DEFAULT);
 

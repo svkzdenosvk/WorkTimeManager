@@ -22,7 +22,7 @@
     }
 
 
-    /**
+    /*******************************************************************************************************************
      * if button pause was clicked ..stopwatch for pause is running and others are stopped
      */
     if(isset($_POST[objPropertyName_to_varString($pauza_obj)])){
@@ -44,7 +44,8 @@
         }
     }
 
-    /**
+
+    /*******************************************************************************************************************
      * if button zak_b was clicked ..stopwatch for zak_b is running and others are stopped
      */
     if(isset($_POST[objPropertyName_to_varString($zakaznik_b_obj)])){
@@ -67,7 +68,7 @@
     }
 
 
-    /**
+    /*******************************************************************************************************************
      * if button reset was clicked ..stopwatch of all objects and their time values are set to zero(0)
      */
     if(isset($_POST['reset'])){
@@ -85,7 +86,7 @@
         },$array_obj);
     }
 
-
+/***********************************************************************************************************************
                                                         /**
                                                          *
                                                          * DB - posts

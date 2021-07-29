@@ -10,8 +10,6 @@
      */
     logByAllCookiesStopwatchObj($_COOKIE[ZAK_A]??"",$_COOKIE[ZAK_B]??"",$_COOKIE[PAUZA]??"",$_COOKIE['logged']??"");
 
-
-
         $emailErr = $passErr ="";
 
         /**
@@ -37,13 +35,7 @@
              * if form pass without entry errors
              */
             if( empty($passErr) && empty($emailErr) ){
-                //toto sa opakuje aj v registration 7 riadkov -> treba funkciu!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-//                $stmt = $conn->prepare("SELECT email FROM users  ");
-//                $stmt->execute();
-//
-//                // set the resulting array to associative
-//                $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-//                $data =$stmt->fetchAll();
+
                 /**
                  * select registered emails from table users for next checking
                  */
@@ -58,7 +50,7 @@
                     foreach($data as $key => $value) {
                         $emailVal=trim($value['email']);
                         /**
-                         * if email from table users and that written in input are equal
+                         * if email from table users and that written in input are equal ->then select all data by this email from table users
                          */
                         if (strcasecmp($email,$emailVal) == 0){
                             $stmt = $conn->prepare("SELECT meno, email, heslo FROM users WHERE email = :email");
@@ -70,7 +62,7 @@
                             $dataLogin =$stmt->fetchAll();
 
                             /**
-                             * check password to email, if correct->set COOKIE and redirect
+                             * check password towards email, if correct->set COOKIE['logged'] and redirect with logged user
                              */
                             if(password_verify($pass,$dataLogin[0]['heslo'])){
                                 $user=new User($dataLogin[0]['meno'],$dataLogin[0]['email']);
@@ -86,8 +78,7 @@
                                 break;
                             }
 
-                        }else{  //this have to be repaired !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                          //  $emailErr= "heslo k tomuto emailu nesedí, si vobec zaregistrovaný ?";
+                        }else{
                             $emailErr= "Tento email nie je registrovaný, skontrolujte či je napísaný správne alebo ho zaregistrujte! ";
 
                         }
@@ -111,15 +102,13 @@
             <!-- Bootstrap core CSS -->
             <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-            <!-- Custom styles for this template -->
         </head>
 
         <body class="text-center">
 
-        <!-- Button trigger modal -->
             <?php
             /**
-             * button on modal window ->content of modal window is included below
+             * Button trigger modal ->content of modal window is included below
              */
             ?>
             <button type="button" class="btn btn-outline-warning mt-5 mb-5" data-toggle="modal" data-target="#exampleModalLong">

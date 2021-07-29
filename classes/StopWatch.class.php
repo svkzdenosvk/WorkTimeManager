@@ -30,7 +30,7 @@ require_once "User.class.php";
 
 /******************************************** GETTERS AND SETTERS ******************************************************
         /**
-         * @return User
+         * @return User object
          */
         public function getUser(): User
         {

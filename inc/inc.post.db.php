@@ -4,10 +4,11 @@
      *save post
      */
     $userEmail=$zakaznik_a_obj->getUser()->getEmail();
+
     if(isset($_POST['save'])){
 
         /**
-         *if time for zakaznik_a going -> than pausing
+         *if time for zakaznik_a going -> then pausing
          * and save total seconds of work for zakaznik_a to var $zak_a
          */
         if($zakaznik_a_obj->getRunning()){
@@ -17,7 +18,7 @@
         $zak_a=$zakaznik_a_obj->getTotal();
 
         /**
-         *if time for zakaznik_b going -> than pausing
+         *if time for zakaznik_b going -> then pausing
          * and save total seconds of work for zakaznik_b to var $zak_b
          */
         if($zakaznik_b_obj->getRunning()){
@@ -35,7 +36,7 @@
         $stmt->execute();
 
         /**
-         * after save reset seconds
+         * after save -> reset seconds
          */
         array_map(function($obj) {
 
@@ -56,11 +57,11 @@
         $_SESSION['flash'] = 'Údaje sa uložili';
 
         /**
-         * redirect to prevent re-post by refresh
+         * redirect to prevent re-post by refresh page (f5)
          */
         redirect("/");
         
-        exit;
+        exit();
 
     }
 
@@ -75,16 +76,10 @@
          */
         $actual_month=date('m');
 
-//        $stmt = $conn->prepare("SELECT SUM(zakaznik_a), SUM(zakaznik_b) FROM day_work WHERE MONTH(datum) = :act_month AND user = :user ");
-//        $stmt->bindParam(':act_month', $actual_month );
-//        $stmt->bindParam(':user', $userEmail );
-//
-//        $stmt->execute();
-//
-//        // set the resulting array to associative
-//        $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-//        $data =$stmt->fetchAll();
-          $data=selectWhereMonthFromDB($conn,$actual_month,$userEmail);
+        /**
+         *f.-> select data from DB by MONTH
+         */
+        $data=selectWhereMonthFromDB($conn,$actual_month,$userEmail);
 
         /**
          *add data from DB to variables to show in index
@@ -108,16 +103,10 @@
 
         $last_month=$actual_month-1;
 
-//        $stmt = $conn->prepare("SELECT SUM(zakaznik_a), SUM(zakaznik_b) FROM day_work WHERE MONTH(datum) = :last_month AND user = :user");
-//        $stmt->bindParam(':last_month', $last_month );
-//        $stmt->bindParam(':user', $userEmail );
-//
-//        $stmt->execute();
-//
-//        // set the resulting array to associative
-//        $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-//        $data =$stmt->fetchAll();
-            $data=selectWhereMonthFromDB($conn,$last_month,$userEmail);
+        /**
+         *f.-> select data from DB by MONTH
+         */
+        $data=selectWhereMonthFromDB($conn,$last_month,$userEmail);
 
         /**
          *add data from DB to variables to show in index
@@ -134,10 +123,9 @@
     if(isset($_POST['day_range'])){
 
         /**
-         *from_date is required, if to_date is not set(applies acctual date)
+         *from_date is required, if to_date is not set(applies current date)
          */
         if (isset($_POST['od_date'])){
-
 
             $od= date('Y-m-d', strtotime($_POST['od_date']));
             $do= date('Y-m-d H:i:s', strtotime($_POST['do_date'].' 23:59:59.993'));
@@ -156,7 +144,7 @@
             $data =$stmt->fetchAll();
 
             /**
-             *add data from DB to variables to show in index
+             *add data from DB to variables to show in index("/")
              */
             $spec_period_zak_a = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_a)"]));
             $spec_period_zak_b = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_b)"]));

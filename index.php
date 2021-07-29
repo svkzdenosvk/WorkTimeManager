@@ -26,7 +26,7 @@
       }else{
           $user=unserialize($_COOKIE['logged']);
       }
-//rint_r($user);
+
     /**
      * some own 2 controlS -> if object user and his email is not in relevant form redirect to login -> MAY BE THIS IS UNNECESSARY
      */
@@ -93,7 +93,6 @@
         </div>
             <?php endif;?>
 
-
         <div class="row w-50 mx-auto mt-3 ">
             <div>
 
@@ -145,13 +144,12 @@
                     /**
                      * show time in actual day spending on Zákazník_A/Zákazník_B/Pauza
                      */?>
-                <h2 class="mt-3 ">DENNÁ ŠTATISTIKA</h2>
+                <h2 class="mt-3 mb-5">DENNÁ ŠTATISTIKA</h2>
                 <div class="ml-5">
-                    <h5 class="w-100 mt-3 "><span class="mr-5 ">Zákazník_A</span><?php   echo gmdate("H:i:s",$zakaznik_a_obj->getTotal())  ;?></h5>
-                    <h5 class="w-100 mt-1 "><span class="mr-5 ">Zákazník_B</span><?php   echo gmdate("H:i:s",$zakaznik_b_obj->getTotal())  ;?></h5>
-                    <h5 class="w-100 mt-1 "><span class="mr-5 ">Pauza</span><span class=" ml-5"><?php   echo gmdate("H:i:s",$pauza_obj->getTotal()) ;?></span></h5>
+                    <div class="row"><h5 class="col-6 col-sm-3 "><span class="mr-5 " >Zákazník_A</span></h5><h5 class="col-6 col-sm-3"><?php   echo gmdate("H:i:s",$zakaznik_a_obj->getTotal())  ;?></h5></div>
+                    <div class="row"><h5 class="col-6 col-sm-3"><span class="mr-5 ">Zákazník_B</span></h5><h5 class="col-6 col-sm-3"><?php   echo gmdate("H:i:s",$zakaznik_b_obj->getTotal())  ;?></h5></div>
+                    <div class="row"><h5 class="col-6 col-sm-3"><span class="mr-5 ">Pauza</span><span ></h5><h5 class="col-6 col-sm-3"><?php   echo gmdate("H:i:s",$pauza_obj->getTotal()) ;?></span></h5></div>
                 </div>
-
 
             <?php /**
                     * form Save

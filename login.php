@@ -23,7 +23,7 @@
              * email validation
              */
           require_once "inc/_duplicated_code/emailValidation.php";
-          
+
             /**
              * password validation
              */
@@ -82,6 +82,8 @@
                                 die();
                             }else{
                                 $passErr="Heslo pre tento zaregistrovaný email nie je správne! ";
+                                $emailErr="";
+                                break;
                             }
 
                         }else{  //this have to be repaired !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!

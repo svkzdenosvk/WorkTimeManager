@@ -257,3 +257,19 @@
         $data =$stmt->fetchAll();
         return $data;
     }
+
+    /*******************************************************************************************************************
+     * f. select data from DB by MONTH
+     * ->this f. was created because of duplicated code in $_POST['actual_month'] and $_POST['last_month']
+     * @param PDO $conn
+     * @return (associative) array $data
+     */
+    function selectEmailsFromDB($conn){
+        $stmt = $conn->prepare("SELECT email FROM users  ");
+        $stmt->execute();
+
+        // set the resulting array to associative
+        $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+        $data =$stmt->fetchAll();
+        return $data;
+    }

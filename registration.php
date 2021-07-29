@@ -30,15 +30,18 @@
             if(strlen($name)<3){ $nameErr ='Meno musí obsahovať minimálne 3 znaky!';}
             if(strlen($name)>30){ $nameErr ='Meno nesmie obsahovať viac ako 30 znakov!';}
         }
-
-        if (empty($_POST['email'])){
-            $emailErr ='Zadaj email!';
-        }else{
-            $email=trim($_POST['email']);
-            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $emailErr = "Email nie je v platnom formáte.";
-            }
-        }
+        /**
+         * email validation
+         */
+        require_once "inc/_duplicated_code/emailValidation.php";
+//        if (empty($_POST['email'])){
+//            $emailErr ='Zadaj email!';
+//        }else{
+//            $email=trim($_POST['email']);
+//            if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+//                $emailErr = "Email nie je v platnom formáte.";
+//            }
+//        }
 
         if (isset($_POST['password'])){
             $pass = $_POST['password'];
@@ -66,14 +69,10 @@
          * if form pass without error then control email and if pass, save user to DB
          */
       if( empty($nameErr) && empty($emailErr) && empty($passErr) && empty($passConfErr) ){
-
-          $stmt = $conn->prepare("SELECT email FROM users  ");
-          $stmt->execute();
-
-          // set the resulting array to associative
-          $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-          $data =$stmt->fetchAll();
-
+          /**
+           * select registered emails from table users for next checking
+           */
+          $data=selectEmailsFromDB($conn);
           /**
            * if db is NOT empty
            */

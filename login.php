@@ -15,22 +15,18 @@
         $emailErr = $passErr ="";
 
         /**
-         * if form was submit
+         * if form was submit->validation
          */
         if(isset($_POST['login'])){
-            /**
-             * validation
-             */
-            //toto(email validation) sa opakuje aj v registration 6 riadkov -> treba funkciu !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
-            if (empty($_POST['email'])){
-                $emailErr ='Zadaj email!';
-            }else{
-                $email=trim($_POST['email']);
-                if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                    $emailErr = "Email nie je v platnom formáte.";
-                }
-            }
+            /**
+             * email validation
+             */
+          require_once "inc/_duplicated_code/emailValidation.php";
+          
+            /**
+             * password validation
+             */
             if(empty($_POST['pass'])){
                 $passErr ='Napíš heslo';
             }else{
@@ -42,20 +38,29 @@
              */
             if( empty($passErr) && empty($emailErr) ){
                 //toto sa opakuje aj v registration 7 riadkov -> treba funkciu!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                $stmt = $conn->prepare("SELECT email FROM users  ");
-                $stmt->execute();
+//                $stmt = $conn->prepare("SELECT email FROM users  ");
+//                $stmt->execute();
+//
+//                // set the resulting array to associative
+//                $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
+//                $data =$stmt->fetchAll();
+                /**
+                 * select registered emails from table users for next checking
+                 */
+                $data=selectEmailsFromDB($conn);
 
-                // set the resulting array to associative
-                $result = $stmt->setFetchMode(PDO::FETCH_ASSOC);
-                $data =$stmt->fetchAll();
-
+                /**
+                 * if $data are empty ->table of registered emails is empty
+                 */
                 if(!$data){
-                    $emailErr="Email nie je registrovaný, najskor sa zaregistrujte!hore";
+                    $emailErr="Email nie je registrovaný, najskor sa zaregistrujte!";
                 }else{
                     foreach($data as $key => $value) {
                         $emailVal=trim($value['email']);
+                        /**
+                         * if email from table users and that written in input are equal
+                         */
                         if (strcasecmp($email,$emailVal) == 0){
-//                            $emailErr="Email nie je registrovaný, najskor sa zaregistrujte!dole";
                             $stmt = $conn->prepare("SELECT meno, email, heslo FROM users WHERE email = :email");
                             $stmt->bindParam(':email', $email );
                             $stmt->execute();
@@ -73,20 +78,16 @@
                                                                                  //expire after cca 5 year
                                 setcookie('logged', $serializeUser, time()+ (5 * 365 * 24 * 60 * 60), '/');
 
-//                                /**
-//                                 * encrypt to URL serialize array of data
-//                                 */
-//                                $encrypted_string=openssl_encrypt($serializeUser,"AES-128-ECB",$password);
-
-//                                header("Location: index.php/?path=$encrypted_string");
-                               redirect("/");
+                                redirect("/");
                                 die();
                             }else{
                                 $passErr="Heslo pre tento zaregistrovaný email nie je správne! ";
                             }
 
                         }else{  //this have to be repaired !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-                            $emailErr= "heslo k tomuto emailu nesedí, si vobec zaregistrovaný ?";
+                          //  $emailErr= "heslo k tomuto emailu nesedí, si vobec zaregistrovaný ?";
+                            $emailErr= "Tento email nie je registrovaný, skontrolujte či je napísaný správne alebo ho zaregistrujte! ";
+
                         }
 
                     }

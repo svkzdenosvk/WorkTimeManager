@@ -12,24 +12,24 @@
      *   settings for PDO database connection
      */
     //settings for localhost
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
+//    $servername = "localhost";
+//    $username = "root";
+//    $password = "";
 
 //        settings for live server
-//        $servername = "sql4.webzdarma.cz";
-//        $username = "prikladywzsk0510";
-//        $password = "8Oj4.e2tfRq(pT(w,Pky";
+        $servername = "sql4.webzdarma.cz";
+        $username = "worktimemana2127";
+        $password = "AcM2$#^126#)a1twt0.F";
 
-//    try {
-        $conn = new PDO("mysql:host=$servername;dbname=work_manager", $username, $password);
-    //    $conn = new PDO("mysql:host=$servername;dbname=prikladywzsk0510", $username, $password);
+    try {
+        $conn = new PDO("mysql:host=$servername;dbname=worktimemana2127", $username, $password);
 
-// set the PDO error mode to exception
+        // set the PDO error mode to exception
         $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         //echo "Connected successfully";
-//    } catch (PDOException $e) {
-//        //echo "Connection failed: " . $e->getMessage();
-//    }
+    } catch (PDOException $e) {
+        echo "Problém s pripojením na databázu, kontaktujte webmastra! ";
+        die();
+    }
 
 

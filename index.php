@@ -51,13 +51,11 @@
     require_once "inc/inc.post.php";
 ?>
 
-  <!doctype html>
-  <html lang="en">
+    <!doctype html>
+    <html lang="sk">
     <head>
-        <!-- Required meta tags -->
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -98,8 +96,9 @@
 
                 <?php /**
                         * form Zákazník_A
+                        **echo "invisible" means, that if thread is running, button is not shown
                         */?>
-                <form class=" <?php if(isset($_POST[objPropertyName_to_varString($zakaznik_a_obj)])){ echo "invisible";} ?> col-4 text-center" action="/" method="post">
+                <form class=" <?php if($zakaznik_a_obj->getRunning()){ echo "invisible";} ?> col-4 text-center" action="/" method="post">
                     <button type="submit" name="<?php echo objPropertyName_to_varString($zakaznik_a_obj)?>" class="btn btn-success mt-5  ">
                         <i class="fa fa-play fa-lg"></i> Zákazník_A
                     </button>
@@ -107,8 +106,9 @@
 
                 <?php /**
                         * form Zákazník_B
+                        **echo "invisible" means, that if thread is running, button is not shown
                         */?>
-                <form  class="  <?php if(isset($_POST[objPropertyName_to_varString($zakaznik_b_obj)])){ echo "invisible";}?>  col-4 text-center" action="/" method="post">
+                <form  class="  <?php if($zakaznik_b_obj->getRunning()){ echo "invisible";}?>  col-4 text-center" action="/" method="post">
                     <button type="submit" name="<?php echo objPropertyName_to_varString($zakaznik_b_obj)?>" class="btn btn-success mt-5 ">
                         <i class="fa fa-play fa-lg"></i> Zákazník_B
                     </button>
@@ -117,8 +117,9 @@
 
             <?php /**
                     * form Pauza
+                    **echo "invisible" means, that if thread is running, button is not shown
                     */?>
-            <form  class="  <?php if(isset($_POST[objPropertyName_to_varString($pauza_obj)])){ echo "invisible";}?> col-4 text-center ml-5 mr-5" action="/" method="post">
+            <form  class="  <?php if($pauza_obj->getRunning()){ echo "invisible";}?> col-4 text-center ml-5 mr-5" action="/" method="post">
                 <button type="submit" name="<?php echo objPropertyName_to_varString($pauza_obj)?>" class="btn btn-warning mt-5 ">
                     <i class="fa fa-pause fa-lg"></i> Pauza
                 </button>

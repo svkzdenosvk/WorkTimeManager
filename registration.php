@@ -104,13 +104,14 @@
     }
 ?>
 
-    <!doctype html>
-    <html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <meta name="description" content="">
-        <meta name="author" content="">
+    <?php
+    /**
+     * include header
+     */
+    include_once ("inc/_partial_pages/header.html")?>
+
+        <meta name="description" content="registration form">
+        <meta name="author" content="Zdeno">
 
         <title>Registration</title>
 
@@ -120,7 +121,7 @@
     </head>
 
     <body class="text-center ">
-        <form style="margin-top: 7%;" class="form-signin w-25 mx-auto " action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST">
+        <form style="margin-top: 7%;" class="form-signin w-25 mx-auto " action="<?php echo "/registracia" ?>" method="POST">
             <h1 class="h3 mb-3 font-weight-normal">Registrovať sa alebo sa <a href="login.php">Prihlásiť</a></h1>
             <label for="inputPassword" class="sr-only ">Meno</label>
             <input name="name" type="text" id="inputPassword" minlength="3" maxlength="30"class="form-control mt-4" placeholder="Meno" required value="<?php echo $name??"";?>" >
@@ -135,7 +136,7 @@
             <span class="text-danger"> <?php echo $passErr;?></span>
 
             <label for="RePassword" class="sr-only">Password</label>
-            <input name="password_confirm" type="password" id="RePassword" class="form-control mt-4 mb-4" placeholder="Potvrď heslo" required value="<?php echo $passConf??"";?>">
+            <input name="password_confirm" type="password" id="RePassword" class="form-control mt-4 mb-3" placeholder="Potvrď heslo" required value="<?php echo $passConf??"";?>">
             <span class="text-danger"> <?php echo $passConfErr;?></span>
 
             <button class="btn btn-lg btn-primary btn-block" type="submit"  name="register" >Registrácia</button>

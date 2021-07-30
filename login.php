@@ -89,13 +89,14 @@
         }
     ?>
 
-    <!doctype html>
-    <html lang="en">
-        <head>
-            <meta charset="utf-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-            <meta name="description" content="">
-            <meta name="author" content="">
+    <?php
+    /**
+     * include header
+     */
+    include_once ("inc/_partial_pages/header.html")?>
+
+            <meta name="description" content="login form">
+            <meta name="author" content="Zdeno">
 
             <title>Login</title>
 
@@ -119,14 +120,14 @@
                 <h1 class="h3 mb-3 font-weight-normal ">Prihlásiť sa alebo <a href="/registracia">Registrovať</a></h1>
 
                 <label for="inputEmail" class="sr-only">Email address</label>
-                <input type="email" id="inputEmail" class="form-control mt-4" placeholder="Email" name="email" required autofocus value="<?php echo $email??"";?>">
+                <input type="email" id="inputEmail" class="form-control mt-4 mb-3" placeholder="Email" name="email" required autofocus value="<?php echo $email??"";?>">
                 <span class="text-danger"> <?php echo $emailErr;?></span>
 
                 <label for="inputPassword" class="sr-only">Password</label>
-                <input type="password" id="inputPassword" class="form-control mt-4 mb-4" placeholder="Heslo" name="pass" required>
-                <span class="text-danger"> <?php echo $passErr;?></span>
+                <input type="password" id="inputPassword" class="form-control mt-4 mb-3 " placeholder="Heslo" name="pass" required>
+                <span class="text-danger "> <?php echo $passErr;?></span>
 
-                <button class="btn btn-lg btn-primary btn-block" type="submit" name="login">Prihlásiť sa</button>
+                <button class="btn btn-lg btn-primary btn-block mt-4" type="submit" name="login">Prihlásiť sa</button>
                 <p class="mt-5 mb-3 text-muted">&copy; 2021</p>
             </form>
             <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>

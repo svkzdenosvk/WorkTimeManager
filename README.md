@@ -1,0 +1,12 @@
+# WorkTimeManager
+work time manager website
+
+ Author :               Zdeno S.
+
+ Name of product:       Work time manager in Slovak language
+
+ About website:
+                        - this website is about time managing, self-control and statistics about time spendig on clients
+                        - if U have for example 2 clients on same time
+                        - or U want to know how U managing your time per day on one or 2 clients
+                        - or U want to know how looks your current month with spending time or previous month

@@ -3,7 +3,7 @@
 
  Name of product:       Work time manager in Slovak language
  
- URL : http://worktimemanager.wz.sk
+ URL :                  http://worktimemanager.wz.sk
 
  About website:
                         - this website is about time managing, self-control and statistics about time spendig on clients

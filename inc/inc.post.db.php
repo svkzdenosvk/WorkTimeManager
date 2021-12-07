@@ -3,7 +3,7 @@
     /*******************************************************************************************************************
      *save post
      */
-    $userEmail=$zakaznik_a_obj->getUser()->getEmail();
+    $userEmail=$customer_a_obj->getUser()->getEmail();
 
     if(isset($_POST['save'])){
 
@@ -11,20 +11,20 @@
          *if time for zakaznik_a going -> then pausing
          * and save total seconds of work for zakaznik_a to var $zak_a
          */
-        if($zakaznik_a_obj->getRunning()){
-            $zakaznik_a_obj->pausing();
+        if($customer_a_obj->getRunning()){
+            $customer_a_obj->pausing();
         }
 
-        $zak_a=$zakaznik_a_obj->getTotal();
+        $zak_a=$customer_a_obj->getTotal();
 
         /**
          *if time for zakaznik_b going -> then pausing
          * and save total seconds of work for zakaznik_b to var $zak_b
          */
-        if($zakaznik_b_obj->getRunning()){
-            $zakaznik_b_obj->pausing();
+        if($customer_b_obj->getRunning()){
+            $customer_b_obj->pausing();
         }
-        $zak_b=$zakaznik_b_obj->getTotal();
+        $zak_b=$customer_b_obj->getTotal();
 
 
         $stmt = $conn->prepare("INSERT INTO day_work (zakaznik_a, zakaznik_b, user)  VALUES(:zakaznik_a, :zakaznik_b, :user)");

@@ -140,6 +140,23 @@
 
         return $string;
     }
+    
+    /*******************************************************************************************************************
+     * this f. show message about which thread is running (customer_A|customer_B|pause)
+     * @param array
+     * @return void
+     */
+    function showRunningThread($array_obj){
+         /**
+          * show message about which thread is running
+          */
+         //$array_obj[] - this array is defined on top
+        array_map(function($obj) {
+
+            if ($obj->getRunning()) echo $obj->getMessage();
+
+        },$array_obj);
+    }
 
 
 /***********************************************************************************************************************
@@ -273,3 +290,16 @@
         $data =$stmt->fetchAll();
         return $data;
     }
+
+    /*******************************************************************************************************************
+     * logout function
+     */
+
+     function logOut(){
+          /**
+         * destroy all COOKIES and redirect to login.php
+         */
+        session_destroy();
+        unsetCookies();
+        redirect("prihlasenie");
+     }

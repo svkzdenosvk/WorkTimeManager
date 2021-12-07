@@ -2,22 +2,22 @@
     /*******************************************************************************************************************
      * if button zak_a was clicked ..stopwatch for zak_a is running and others are stopped
      */
-    if(isset($_POST[objPropertyName_to_varString($zakaznik_a_obj)])){
+    if(isset($_POST[objPropertyName_to_varString($customer_a_obj)])){
 
-        if($zakaznik_a_obj->getRunning()==false){
+        if($customer_a_obj->getRunning()==false){
 
-            $zakaznik_a_obj->starting();
-            setcookie(ZAK_A, serialize($zakaznik_a_obj), time()+86400, '/');
+            $customer_a_obj->starting();
+            setcookie(CUST_A, serialize($customer_a_obj), time()+86400, '/');
         }
 
-        if($zakaznik_b_obj->getRunning()==true){
+        if($customer_b_obj->getRunning()==true){
             $zakaznik_b_obj->pausing();
-            setcookie(ZAK_B, serialize($zakaznik_b_obj), time()+86400, '/');
+            setcookie(CUST_B, serialize($customer_b_obj), time()+86400, '/');
         }
 
-        if($pauza_obj->getRunning()==true){
-            $pauza_obj->pausing();
-            setcookie(PAUZA, serialize($pauza_obj), time()+86400, '/');
+        if($pause_obj->getRunning()==true){
+            $pause_obj->pausing();
+            setcookie(PAUSE, serialize($pause_obj), time()+86400, '/');
         }
     }
 
@@ -25,22 +25,22 @@
     /*******************************************************************************************************************
      * if button pause was clicked ..stopwatch for pause is running and others are stopped
      */
-    if(isset($_POST[objPropertyName_to_varString($pauza_obj)])){
+    if(isset($_POST[objPropertyName_to_varString($pause_obj)])){
 
-        if($pauza_obj->getRunning()==false){
+        if($pause_obj->getRunning()==false){
 
-            $pauza_obj->starting();
-            setcookie(PAUZA, serialize($pauza_obj), time()+86400, '/');
+            $pause_obj->starting();
+            setcookie(PAUSE, serialize($pause_obj), time()+86400, '/');
         }
 
-        if($zakaznik_b_obj->getRunning()==true){
-            $zakaznik_b_obj->pausing();
-            setcookie(ZAK_B, serialize($zakaznik_b_obj), time()+86400, '/');
+        if($customer_b_obj->getRunning()==true){
+            $customer_b_obj->pausing();
+            setcookie(CUST_B, serialize($customer_b_obj), time()+86400, '/');
         }
 
-        if($zakaznik_a_obj->getRunning()==true){
-            $zakaznik_a_obj->pausing();
-            setcookie(ZAK_A, serialize($zakaznik_a_obj), time()+86400, '/');
+        if($customer_a_obj->getRunning()==true){
+            $customer_a_obj->pausing();
+            setcookie(CUST_A, serialize($customer_a_obj), time()+86400, '/');
         }
     }
 
@@ -48,22 +48,22 @@
     /*******************************************************************************************************************
      * if button zak_b was clicked ..stopwatch for zak_b is running and others are stopped
      */
-    if(isset($_POST[objPropertyName_to_varString($zakaznik_b_obj)])){
+    if(isset($_POST[objPropertyName_to_varString($customer_b_obj)])){
 
-        if($zakaznik_b_obj->getRunning()==false){
+        if($customer_b_obj->getRunning()==false){
 
-            $zakaznik_b_obj->starting();
-            setcookie(ZAK_B, serialize($zakaznik_b_obj), time()+86400, '/');
+            $customer_b_obj->starting();
+            setcookie(CUST_B, serialize($customer_b_obj), time()+86400, '/');
         }
 
-        if($zakaznik_a_obj->getRunning()==true){
-            $zakaznik_a_obj->pausing();
-            setcookie(ZAK_A, serialize($zakaznik_a_obj), time()+86400, '/');
+        if($customer_a_obj->getRunning()==true){
+            $customer_a_obj->pausing();
+            setcookie(CUST_A, serialize($customer_a_obj), time()+86400, '/');
         }
 
-        if($pauza_obj->getRunning()==true){
-            $pauza_obj->pausing();
-            setcookie(PAUZA, serialize($pauza_obj), time()+86400, '/');
+        if($pause_obj->getRunning()==true){
+            $pause_obj->pausing();
+            setcookie(PAUSE, serialize($pause_obj), time()+86400, '/');
         }
     }
 

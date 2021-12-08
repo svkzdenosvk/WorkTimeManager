@@ -8,7 +8,7 @@
     /**
      * auto redirect to logged user after check all cookies
      */
-    logByAllCookiesStopwatchObj($_COOKIE[ZAK_A]??"",$_COOKIE[ZAK_B]??"",$_COOKIE[PAUZA]??"",$_COOKIE['logged']??"");
+    logByAllCookiesStopwatchObj($_COOKIE[CUST_A]??"",$_COOKIE[CUST_B]??"",$_COOKIE[PAUSE]??"",$_COOKIE['logged']??"");
 
         $emailErr = $passErr ="";
 

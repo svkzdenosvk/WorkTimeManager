@@ -11,7 +11,7 @@
         }
 
         if($customer_b_obj->getRunning()==true){
-            $zakaznik_b_obj->pausing();
+            $customer_b_obj->pausing();
             setcookie(CUST_B, serialize($customer_b_obj), time()+86400, '/');
         }
 

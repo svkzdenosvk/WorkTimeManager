@@ -43,6 +43,8 @@
 
         $array_obj=array( $customer_a_obj, $customer_b_obj, $pause_obj);
 
+        echo $customer_b_obj->getNameObj();
+
     require_once "inc/inc.post.php";
 ?>
 
@@ -122,7 +124,7 @@
 
             <div class=" text-center col-12 p-3 mt-5 alert alert-primary mx-auto " role="alert">
 
-            <?php showRunningThread($array_obj); ?>
+            <?php renderRunningThread($array_obj); ?>
             </div>
         </div >
         <div class="container">
@@ -132,9 +134,11 @@
                      */?>
                 <h2 class="mt-3 mb-5">DENNÁ ŠTATISTIKA</h2>
                 <div class="ml-5">
-                    <div class="row"><h5 class="col-6 col-sm-3 "><span class="mr-5 " >Zákazník_A</span></h5><h5 class="col-6 col-sm-3"><?php   echo gmdate("H:i:s",$customer_a_obj->getTotal())  ;?></h5></div>
-                    <div class="row"><h5 class="col-6 col-sm-3"><span class="mr-5 ">Zákazník_B</span></h5><h5 class="col-6 col-sm-3"><?php   echo gmdate("H:i:s",$customer_b_obj->getTotal())  ;?></h5></div>
-                    <div class="row"><h5 class="col-6 col-sm-3"><span class="mr-5 ">Pauza</span><span ></h5><h5 class="col-6 col-sm-3"><?php   echo gmdate("H:i:s",$pause_obj->getTotal()) ;?></span></h5></div>
+                    <?php renderDailyStatistics($array_obj); ?>
+                    <!-- <?php foreach($array_obj as $obj):?>
+                        <div class="row"><h5 class="col-6 col-sm-3"><span class="mr-5 "><?php   echo $obj->getNameObj() ;?> </span></h5><h5 class="col-6 col-sm-3"><?php   echo gmdate("H:i:s",$obj->getTotal()) ;?></h5></div>
+                    <?php endforeach;  ?> -->
+
                 </div>
 
             <?php /**

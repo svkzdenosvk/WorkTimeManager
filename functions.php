@@ -141,22 +141,34 @@
         return $string;
     }
     
+
+    
+/***********************************************************************************************************************
+/************************************************RENDER FUNCTIONS*******************************************************
+/**********************************************************************************************************************/
+
     /*******************************************************************************************************************
      * this f. show message about which thread is running (customer_A|customer_B|pause)
-     * @param array
+     * @param array (of objects)
      * @return void
      */
-    function showRunningThread($array_obj){
-         /**
-          * show message about which thread is running
-          */
-         //$array_obj[] - this array is defined on top
+    function renderRunningThread($array_obj){
+        
         array_map(function($obj) {
 
             if ($obj->getRunning()) echo $obj->getMessage();
 
         },$array_obj);
     }
+
+    function renderDailyStatistics($array_obj){
+
+         foreach($array_obj as $obj){
+             
+            echo '<div class="row"><h5 class="col-6 col-sm-3"><span class="mr-5 ">'. $obj->getNameObj() .' </span></h5><h5 class="col-6 col-sm-3">'.  gmdate("H:i:s",$obj->getTotal()).' </h5></div>';
+         }
+        
+    } 
 
 
 /***********************************************************************************************************************

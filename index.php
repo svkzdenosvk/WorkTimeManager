@@ -43,7 +43,6 @@
 
         $array_obj=array( $customer_a_obj, $customer_b_obj, $pause_obj);
 
-        echo $customer_b_obj->getNameObj();
 
     require_once "inc/inc.post.php";
 ?>
@@ -89,42 +88,23 @@
             <?php endif;?>
 
         <div class="row w-50 mx-auto mt-3 ">
-            <div>
+            <div class="w-100">
 
-                <?php /**
-                        * form Customer_A
-                        **echo "invisible" means, that if thread is running, button is not shown
-                        */?>
-                <form class=" <?php if($customer_a_obj->getRunning()){ echo "invisible";} ?> col-4 text-center" action="/" method="post">
-                    <button type="submit" name="<?php echo objPropertyName_to_varString($customer_a_obj)?>" class="btn btn-success mt-5  ">
-                        <i class="fa fa-play fa-lg"></i> Zákazník_A
-                    </button>
-                </form>
+                 <?php
+                /**
+                 * show buttons to start counting time  
+                 */?>
+                <?php foreach($array_obj as $obj):?>
+                    <form class=" <?php if($obj->getRunning()){ echo "invisible";} ?> col-4 text-center <?php echo strcmp($obj->getNameObj(),"Pauza")==0?" ml-auto mr-5":""?>" action="/" method="post">
+                         <button type="submit" name="<?php echo objPropertyName_to_varString($obj)?>" class="btn btn-<?php echo strcmp($obj->getNameObj(),"Pauza")==0?"warning ":"success"?>  mt-5  ">
+                             <i class="fa fa-<?php echo strcmp($obj->getNameObj(),"Pauza")==0?"pause ":"play"?> fa-lg"></i> <?php echo $obj->getNameObj() ?> 
+                         </button>
+                    </form>
+                <?php endforeach;  ?> 
+                    
+                <div class=" text-center col-12 p-3 mt-5 alert alert-primary mx-auto " role="alert">
 
-                <?php /**
-                        * form Customer_B
-                        **echo "invisible" means, that if thread is running, button is not shown
-                        */?>
-                <form  class="  <?php if($customer_b_obj->getRunning()){ echo "invisible";}?>  col-4 text-center" action="/" method="post">
-                    <button type="submit" name="<?php echo objPropertyName_to_varString($customer_b_obj)?>" class="btn btn-success mt-5 ">
-                        <i class="fa fa-play fa-lg"></i> Zákazník_B
-                    </button>
-                </form>
-            </div>
-
-            <?php /**
-                    * form Pause
-                    **echo "invisible" means, that if thread is running, button is not shown
-                    */?>
-            <form  class="  <?php if($pause_obj->getRunning()){ echo "invisible";}?> col-4 text-center ml-5 mr-5" action="/" method="post">
-                <button type="submit" name="<?php echo objPropertyName_to_varString($pause_obj)?>" class="btn btn-warning mt-5 ">
-                    <i class="fa fa-pause fa-lg"></i> Pauza
-                </button>
-            </form>
-
-            <div class=" text-center col-12 p-3 mt-5 alert alert-primary mx-auto " role="alert">
-
-            <?php renderRunningThread($array_obj); ?>
+                <?php renderRunningThread($array_obj); ?>
             </div>
         </div >
         <div class="container">
@@ -134,11 +114,7 @@
                      */?>
                 <h2 class="mt-3 mb-5">DENNÁ ŠTATISTIKA</h2>
                 <div class="ml-5">
-                    <?php renderDailyStatistics($array_obj); ?>
-                    <!-- <?php foreach($array_obj as $obj):?>
-                        <div class="row"><h5 class="col-6 col-sm-3"><span class="mr-5 "><?php   echo $obj->getNameObj() ;?> </span></h5><h5 class="col-6 col-sm-3"><?php   echo gmdate("H:i:s",$obj->getTotal()) ;?></h5></div>
-                    <?php endforeach;  ?> -->
-
+                    <?php renderDayStatistics($array_obj); ?>
                 </div>
 
             <?php /**

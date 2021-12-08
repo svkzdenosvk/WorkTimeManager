@@ -150,7 +150,7 @@
     /*******************************************************************************************************************
      * this f. show message about which thread is running (customer_A|customer_B|pause)
      * @param array (of objects)
-     * @return void
+     * @return void (just echo)
      */
     function renderRunningThread($array_obj){
         
@@ -161,7 +161,18 @@
         },$array_obj);
     }
 
-    function renderDailyStatistics($array_obj){
+
+    /*******************************************************************************************************************
+     * this f. show statistic  in current day 
+     * @param array (of objects)
+     * @return void (just echo)
+     */
+    /*if not working corretly -> in index:
+          <?php foreach($array_obj as $obj):?>
+              <div class="row"><h5 class="col-6 col-sm-3"><span class="mr-5 "><?php   echo $obj->getNameObj() ;?> </span></h5><h5 class="col-6 col-sm-3"><?php   echo gmdate("H:i:s",$obj->getTotal()) ;?></h5></div>
+          <?php endforeach;  ?> -->
+        */
+    function renderDayStatistics($array_obj){
 
          foreach($array_obj as $obj){
              
@@ -170,6 +181,13 @@
         
     } 
 
+    function renderThreadButtons($array_obj){
+
+      
+
+          
+    }
+   
 
 /***********************************************************************************************************************
 /****************************************REGISTRATION, LOGIN, DB FUNCTIONS**********************************************

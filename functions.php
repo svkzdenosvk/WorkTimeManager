@@ -25,9 +25,17 @@
      */
     function objPropertyName_to_varString(StopWatch $stopwatch_obj){
 
-        return strtolower(remove_accents($stopwatch_obj->getNameObj()));
+        $someString=remove_accents($stopwatch_obj->getNameObj());
+
+        //just english version for coding 
+        $someString=str_replace("Zakaznik","Customer",$someString);
+        $someString=str_replace("Pauza","Pause",$someString);
+        
+
+        return strtolower($someString);
     }
 
+  
 
     /*******************************************************************************************************************
      * f. is copied from stackoverflow
@@ -152,7 +160,7 @@
      * @param array (of objects)
      * @return void (just echo)
      */
-    function renderRunningThread($array_obj){
+    function renderRunningThread(array $array_obj){
         
         array_map(function($obj) {
 
@@ -172,7 +180,7 @@
               <div class="row"><h5 class="col-6 col-sm-3"><span class="mr-5 "><?php   echo $obj->getNameObj() ;?> </span></h5><h5 class="col-6 col-sm-3"><?php   echo gmdate("H:i:s",$obj->getTotal()) ;?></h5></div>
           <?php endforeach;  ?> -->
         */
-    function renderDayStatistics($array_obj){
+    function renderDayStatistics(array $array_obj){
 
          foreach($array_obj as $obj){
              
@@ -181,13 +189,57 @@
         
     } 
 
-    function renderThreadButtons($array_obj){
+    /*******************************************************************************************************************
+     * this f. show buttons 
+     * @param array (of objects)
+     * @return void (just echo "view")
+     */
+    function renderThreadButtons(array $array_obj){
 
-      
-
+      require "inc/_partial_pages/btns.html";
           
     }
-   
+
+    /*******************************************************************************************************************
+     * this f. is partial f. 
+     * @param string
+     * @return void (just echo "view")
+     */
+    function _renderControlBtn(string $element){
+
+        echo <<<END
+            <form style="margin-top:-5%;"  class=" text-center  float-right  mr-5" action="/" method="post">
+               {$element}
+            </form> 
+            END;
+
+    }
+
+    /*******************************************************************************************************************
+     * this f. render control btn Save
+     * @return void (just echo "view")
+     */
+    function renderControlBtnSave(){
+
+        $el ='<button type="submit" name="save" class="btn btn-info mt-5">
+                  <i class="fa fa-archive fa-lg"></i> Uložiť
+              </button>';
+
+        _renderControlBtn($el);
+    }
+
+    /*******************************************************************************************************************
+     * this f. render control btn Reset
+     * @return void (just echo "view")
+     */
+    function renderControlBtnReset(){
+
+        $el ='<button type="submit" name="reset" class="btn btn-danger mt-5">
+                  <i class="fa fa-refresh fa-lg"></i> Reset
+              </button>';
+
+        _renderControlBtn($el);
+    }
 
 /***********************************************************************************************************************
 /****************************************REGISTRATION, LOGIN, DB FUNCTIONS**********************************************

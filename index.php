@@ -94,13 +94,8 @@
                 /**
                  * show buttons to start counting time  
                  */?>
-                <?php foreach($array_obj as $obj):?>
-                    <form class=" <?php if($obj->getRunning()){ echo "invisible";} ?> col-4 text-center <?php echo strcmp($obj->getNameObj(),"Pauza")==0?" ml-auto mr-5":""?>" action="/" method="post">
-                         <button type="submit" name="<?php echo objPropertyName_to_varString($obj)?>" class="btn btn-<?php echo strcmp($obj->getNameObj(),"Pauza")==0?"warning ":"success"?>  mt-5  ">
-                             <i class="fa fa-<?php echo strcmp($obj->getNameObj(),"Pauza")==0?"pause ":"play"?> fa-lg"></i> <?php echo $obj->getNameObj() ?> 
-                         </button>
-                    </form>
-                <?php endforeach;  ?> 
+                 <?php renderThreadButtons($array_obj);?>
+             
                     
                 <div class=" text-center col-12 p-3 mt-5 alert alert-primary mx-auto " role="alert">
 
@@ -114,26 +109,24 @@
                      */?>
                 <h2 class="mt-3 mb-5">DENNÁ ŠTATISTIKA</h2>
                 <div class="ml-5">
-                    <?php renderDayStatistics($array_obj); ?>
+                    <?php renderDayStatistics($array_obj); ?> 
+                    
                 </div>
 
-            <?php /**
-                    * form Save
-                    */?>
-            <form style="margin-top:-5%;"  class=" text-center  float-right  mr-5" action="/" method="post">
-                <button type="submit" name="save" class="btn btn-info mt-5">
-                    <i class="	fa fa-archive fa-lg"></i> Uloziť
-                </button>
-            </form>
+                <?php /**
+                        * form Save
+                        */               
+                        renderControlBtnSave();
+                        ?>
+            
 
-            <?php /**
-                    * form Reset
-                    */?>
-            <form style="margin-top:-5%;" class=" text-center  float-right  mr-5" action="/" method="post">
-                <button type="submit" name="reset" class="btn btn-danger mt-5">
-                    <i class="fa fa-refresh fa-lg"></i> Reset
-                </button>
-            </form>
+                <?php /**
+                        * form Reset
+                        */
+                        renderControlBtnReset();
+                        ?>
+             
+          
             <h2  class="mt-5 ">DLHODOBÁ ŠTATISTIKA</h2>
             <div class=" ml-5">
 

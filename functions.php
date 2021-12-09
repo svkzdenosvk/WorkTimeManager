@@ -241,6 +241,35 @@
         _renderControlBtn($el);
     }
 
+     /*******************************************************************************************************************
+     * this f. is partial f. 
+     * @param string
+     * @return void (just echo "view")
+     */
+    function _renderMonthBtn(string $string1, string $string2){
+
+        echo <<<END
+             <form  class=" text-left " action="/" method="post">
+                <button type="submit" name="{$string1}" class="btn btn-primary mt-3">
+                    <i class="fa fa-bar-chart fa-lg"></i>{$string2}
+                </button>
+             </form> 
+             END;
+
+    }
+
+    function renderLastMonthBtn(){
+        $string1 ="last-month";
+        $string2="Minulý mesiac";
+        _renderMonthBtn($string1, $string2);
+    }
+
+    function renderCurrentMonthBtn(){
+        $string1 ="actual-month";
+        $string2="Aktuálny mesiac";
+        _renderMonthBtn($string1, $string2);
+    }
+
 /***********************************************************************************************************************
 /****************************************REGISTRATION, LOGIN, DB FUNCTIONS**********************************************
 /**********************************************************************************************************************/

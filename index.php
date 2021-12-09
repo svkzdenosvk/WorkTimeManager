@@ -132,12 +132,9 @@
 
                 <?php /**
                         * actual month form
-                        */?>
-                <form  class=" text-left " action="/" method="post">
-                    <button type="submit" name="actual-month" class="btn btn-primary mt-3">
-                        <i class="fa fa-bar-chart fa-lg"></i> Aktuálny mesiac
-                    </button>
-                </form>
+                        */
+                        renderCurrentMonthBtn();?>
+               
                 <div class="ml-5 mt-2">
                     <p class="m-0"><?php if(isset($_POST["actual-month"])) echo "V aktuálnom mesiaci ste na Zákazníka A odpracovali <span class='font-weight-bold'>". ($act_month_zak_a??"")."</span>"?></p>
                     <p class="m-0"><?php if(isset($_POST["actual-month"])) echo "V aktuálnom mesiaci ste na Zákazníka B odpracovali <span class='font-weight-bold'>".($act_month_zak_b??"")."</span>"?></p>
@@ -146,12 +143,9 @@
             <div class=" ml-5">
                 <?php /**
                         * last month form
-                        */?>
-                <form  class=" text-left " action="/" method="post">
-                <button type="submit" name="last-month" class="btn btn-primary mt-3">
-                    <i class="fa fa-bar-chart fa-lg"></i> Minulý mesiac
-                </button>
-                </form>
+                        */
+                        renderLastMonthBtn();?>
+              
                 <div class="ml-5 mt-2">
                     <p class="m-0"><?php if(isset($_POST["last-month"])) echo "V minulom mesiaci ste na Zákazníka A odpracovali <span class='font-weight-bold'>". ($last_month_zak_a??"")."</span>"?></p>
                     <p class="m-0"><?php if(isset($_POST["last-month"])) echo "V minulom mesiaci ste na Zákazníka B odpracovali <span class='font-weight-bold'>".($last_month_zak_b??"")."</span>"?></p>

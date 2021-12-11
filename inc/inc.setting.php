@@ -6,7 +6,7 @@
     //this would be in config file
     const CUST_A = "customer_a_obj";
     const CUST_B = "customer_b_obj";
-    const PAUSE = "pause_obj";
+    const PAUSE  = "pause_obj";
 
     /**
      *   settings for PDO database connection
@@ -16,7 +16,8 @@
    $username = "root";
    $password = "";
 
-//        settings for live server
+
+   //        settings for live server
 
 
     try {

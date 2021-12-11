@@ -1,8 +1,12 @@
 <?php
+
+
+
     /*******************************************************************************************************************
-     * if button zak_a was clicked ..stopwatch for zak_a is running and others are stopped
+     * if button zak_a was clicked ..stopwatch for cust_a is running and others are stopped
      */
     if(isset($_POST[objPropertyName_to_varString($customer_a_obj)])){
+      
 
         if($customer_a_obj->getRunning()==false){
 
@@ -26,11 +30,11 @@
      * if button pause was clicked ..stopwatch for pause is running and others are stopped
      */
     if(isset($_POST[objPropertyName_to_varString($pause_obj)])){
-
-        if($pause_obj->getRunning()==false){
-
-            $pause_obj->starting();
-            setcookie(PAUSE, serialize($pause_obj), time()+86400, '/');
+      
+        
+        if($customer_a_obj->getRunning()==true){
+            $customer_a_obj->pausing();
+            setcookie(CUST_A, serialize($customer_a_obj), time()+86400, '/');
         }
 
         if($customer_b_obj->getRunning()==true){
@@ -38,27 +42,30 @@
             setcookie(CUST_B, serialize($customer_b_obj), time()+86400, '/');
         }
 
-        if($customer_a_obj->getRunning()==true){
-            $customer_a_obj->pausing();
-            setcookie(CUST_A, serialize($customer_a_obj), time()+86400, '/');
+        if($pause_obj->getRunning()==false){
+
+            $pause_obj->starting();
+            setcookie(PAUSE, serialize($pause_obj), time()+86400, '/');
         }
+       
     }
 
 
     /*******************************************************************************************************************
-     * if button zak_b was clicked ..stopwatch for zak_b is running and others are stopped
+     * if button zak_b was clicked ..stopwatch for cust_b is running and others are stopped
      */
     if(isset($_POST[objPropertyName_to_varString($customer_b_obj)])){
+       
+
+        if($customer_a_obj->getRunning()==true){
+            $customer_a_obj->pausing();
+            setcookie(CUST_A, serialize($customer_a_obj), time()+86400, '/');
+        }
 
         if($customer_b_obj->getRunning()==false){
 
             $customer_b_obj->starting();
             setcookie(CUST_B, serialize($customer_b_obj), time()+86400, '/');
-        }
-
-        if($customer_a_obj->getRunning()==true){
-            $customer_a_obj->pausing();
-            setcookie(CUST_A, serialize($customer_a_obj), time()+86400, '/');
         }
 
         if($pause_obj->getRunning()==true){

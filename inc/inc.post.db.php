@@ -3,7 +3,9 @@
     /*******************************************************************************************************************
      *save post
      */
-    $userEmail=$customer_a_obj->getUser()->getEmail();
+    $userEmail=$customer_a_obj->getUser()->getEmail(); //- ak tak toto otvorit
+    ////$userEmail=$array_obj[0]->getUser()->getEmail();
+
 
     if(isset($_POST['save'])){
 

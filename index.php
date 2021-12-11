@@ -39,7 +39,7 @@
          */
         $customer_a_obj = isset($_COOKIE[CUST_A])? unserialize($_COOKIE[CUST_A]):new StopWatch("Zákazník_A",$user);
         $customer_b_obj = isset($_COOKIE[CUST_B])? unserialize($_COOKIE[CUST_B]):new StopWatch("Zákazník_B",$user);
-        $pause_obj = isset($_COOKIE[PAUSE])? unserialize($_COOKIE[PAUSE]):new StopWatch("Pauza",$user);
+        $pause_obj      = isset($_COOKIE[PAUSE])? unserialize($_COOKIE[PAUSE]):new StopWatch("Pauza",$user);
 
         $array_obj=array( $customer_a_obj, $customer_b_obj, $pause_obj);
 

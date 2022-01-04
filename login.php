@@ -15,6 +15,7 @@
         /**
          * if login form was submit->validation
          */
+        require_once("inc/inc.login.validation.php")
         // if(isset($_POST['login'])){
 
         //     /**
@@ -87,7 +88,7 @@
         //          }
         //     }
         // }
-        require_once("inc/inc.login.validation.php")
+       
     ?>
 
     <?php

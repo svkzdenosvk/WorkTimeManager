@@ -6,7 +6,7 @@
     /*******************************************************************************************************************
      * f. is copied from stackoverflow
      * this f. makes from number of seconds -> 00:00:00 (Hours:Minutes:Second)
-     * @param number $seconds
+     * @param  $seconds:number
      * @return string
      */
     function timeFormat ($seconds){

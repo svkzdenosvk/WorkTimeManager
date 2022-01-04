@@ -136,8 +136,8 @@
                         renderCurrentMonthBtn();?>
                
                 <div class="ml-5 mt-2">
-                    <p class="m-0"><?php if(isset($_POST["actual-month"])) echo "V aktuálnom mesiaci ste na Zákazníka A odpracovali <span class='font-weight-bold'>". ($act_month_zak_a??"")."</span>"?></p>
-                    <p class="m-0"><?php if(isset($_POST["actual-month"])) echo "V aktuálnom mesiaci ste na Zákazníka B odpracovali <span class='font-weight-bold'>".($act_month_zak_b??"")."</span>"?></p>
+                    <p class="m-0"><?php if(isset($_POST["actual-month"])) echo "V aktuálnom mesiaci ste na Zákazníka A odpracovali <span class='font-weight-bold'>". ($act_month_cust_a??"")."</span>"?></p>
+                    <p class="m-0"><?php if(isset($_POST["actual-month"])) echo "V aktuálnom mesiaci ste na Zákazníka B odpracovali <span class='font-weight-bold'>".($act_month_cust_b??"")."</span>"?></p>
                 </div>
             </div>
             <div class=" ml-5">
@@ -147,8 +147,8 @@
                         renderLastMonthBtn();?>
               
                 <div class="ml-5 mt-2">
-                    <p class="m-0"><?php if(isset($_POST["last-month"])) echo "V minulom mesiaci ste na Zákazníka A odpracovali <span class='font-weight-bold'>". ($last_month_zak_a??"")."</span>"?></p>
-                    <p class="m-0"><?php if(isset($_POST["last-month"])) echo "V minulom mesiaci ste na Zákazníka B odpracovali <span class='font-weight-bold'>".($last_month_zak_b??"")."</span>"?></p>
+                    <p class="m-0"><?php if(isset($_POST["last-month"])) echo "V minulom mesiaci ste na Zákazníka A odpracovali <span class='font-weight-bold'>". ($last_month_cust_a??"")."</span>"?></p>
+                    <p class="m-0"><?php if(isset($_POST["last-month"])) echo "V minulom mesiaci ste na Zákazníka B odpracovali <span class='font-weight-bold'>".($last_month_cust_b??"")."</span>"?></p>
                 </div>
             </div>
 
@@ -163,15 +163,15 @@
                     </button>
 
                     <label class="mt-3" >Od: </label>
-                    <input type="date" name="od_date" required>
+                    <input type="date" name="since_date" required>
 
                     <label class="mt-3" >Do: </label>
-                    <input type="date"  name="do_date">
+                    <input type="date"  name="to_date">
 
                 </form>
                     <div class=" mt-2">
-                        <p class=" m-0"><?php if(isset($_POST["day_range"])) echo "Za vybraté obdobie ste na Zákazníka A odpracovali <span class='font-weight-bold'>". (empty( $spec_period_zak_a)?"": $spec_period_zak_a)."</span>"?></p>
-                        <p class=" m-0"><?php if(isset($_POST["day_range"])) echo "Za vybraté obdobie ste na Zákazníka B odpracovali <span class='font-weight-bold'>".(empty($spec_period_zak_b)?"":$spec_period_zak_b)."</span>"?></p>
+                        <p class=" m-0"><?php if(isset($_POST["day_range"])) echo "Za vybraté obdobie ste na Zákazníka A odpracovali <span class='font-weight-bold'>". (empty( $spec_period_cust_a)?"": $spec_period_cust_a)."</span>"?></p>
+                        <p class=" m-0"><?php if(isset($_POST["day_range"])) echo "Za vybraté obdobie ste na Zákazníka B odpracovali <span class='font-weight-bold'>".(empty($spec_period_cust_b)?"":$spec_period_cust_b)."</span>"?></p>
                     </div>
 
             </div>

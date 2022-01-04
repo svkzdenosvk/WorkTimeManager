@@ -17,7 +17,7 @@
             $customer_a_obj->pausing();
         }
 
-        $zak_a=$customer_a_obj->getTotal();
+        $cust_a=$customer_a_obj->getTotal();
 
         /**
          *if time for zakaznik_b going -> then pausing
@@ -26,12 +26,12 @@
         if($customer_b_obj->getRunning()){
             $customer_b_obj->pausing();
         }
-        $zak_b=$customer_b_obj->getTotal();
+        $cust_b=$customer_b_obj->getTotal();
 
 
         $stmt = $conn->prepare("INSERT INTO day_work (zakaznik_a, zakaznik_b, user)  VALUES(:zakaznik_a, :zakaznik_b, :user)");
-        $stmt->bindParam(':zakaznik_a',$zak_a );
-        $stmt->bindParam(':zakaznik_b',  $zak_b);
+        $stmt->bindParam(':zakaznik_a',$cust_a );
+        $stmt->bindParam(':zakaznik_b',  $cust_b);
         $stmt->bindParam(':user',  $userEmail);
 
 
@@ -86,8 +86,8 @@
         /**
          *add data from DB to variables to show in index
          */
-        $act_month_zak_a = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_a)"]));
-        $act_month_zak_b = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_b)"]));
+        $act_month_cust_a = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_a)"]));
+        $act_month_cust_b = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_b)"]));
 
     }
 
@@ -113,8 +113,8 @@
         /**
          *add data from DB to variables to show in index
          */
-        $last_month_zak_a = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_a)"]));
-        $last_month_zak_b = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_b)"]));
+        $last_month_cust_a = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_a)"]));
+        $last_month_cust_b = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_b)"]));
 
     }
 
@@ -127,15 +127,15 @@
         /**
          *from_date is required, if to_date is not set(applies current date)
          */
-        if (isset($_POST['od_date'])){
+        if (isset($_POST['since_date'])){
 
-            $od= date('Y-m-d', strtotime($_POST['od_date']));
-            $do= date('Y-m-d H:i:s', strtotime($_POST['do_date'].' 23:59:59.993'));
+            $since= date('Y-m-d', strtotime($_POST['since_date']));
+            $to= date('Y-m-d H:i:s', strtotime($_POST['to_date'].' 23:59:59.993'));
 
 
-            $stmt = $conn->prepare("SELECT SUM(zakaznik_a), SUM(zakaznik_b) FROM day_work WHERE datum BETWEEN :od AND :do AND user = :user ");
-            $stmt->bindParam(':od',  $od );
-            $stmt->bindParam(':do', $do);
+            $stmt = $conn->prepare("SELECT SUM(zakaznik_a), SUM(zakaznik_b) FROM day_work WHERE datum BETWEEN :since AND :toDate AND user = :user ");
+            $stmt->bindParam(':since',  $since );
+            $stmt->bindParam(':toDate', $to);
             $stmt->bindParam(':user', $userEmail );
 
 
@@ -148,8 +148,8 @@
             /**
              *add data from DB to variables to show in index("/")
              */
-            $spec_period_zak_a = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_a)"]));
-            $spec_period_zak_b = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_b)"]));
+            $spec_period_cust_a = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_a)"]));
+            $spec_period_cust_b = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_b)"]));
         }
 
     }

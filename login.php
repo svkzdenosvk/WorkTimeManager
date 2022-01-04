@@ -13,7 +13,7 @@
         $emailErr = $passErr ="";
 
         /**
-         * if form was submit->validation
+         * if login form was submit->validation
          */
         if(isset($_POST['login'])){
 

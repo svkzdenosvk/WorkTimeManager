@@ -44,7 +44,7 @@
      */
     function renderThreadButtons(array $array_obj){
 
-      require "inc/_partial_pages/btns.phtml";
+      require "inc/_partial_pages/btns.html";
           
     }
 

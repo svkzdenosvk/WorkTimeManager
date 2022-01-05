@@ -14,10 +14,10 @@
     function save(PDO $conn, $name, $email, $pass){
         $password = password_hash($pass,PASSWORD_DEFAULT);
 
-        $stmt = $conn->prepare("INSERT INTO users (meno, email, heslo)  VALUES(:meno, :email, :password)");
+        $stmt = $conn->prepare("INSERT INTO users (name_, email, pass)  VALUES(:meno, :email, :pass)");
         $stmt->bindParam(':meno', $name);
         $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':password', $password);
+        $stmt->bindParam(':pass', $password);
 
         $stmt->execute();
 
@@ -103,7 +103,7 @@
      * @return (associative) array $data
      */
     function selectWhereMonthFromDB(PDO $conn, $month, $userEmail){
-        $stmt = $conn->prepare("SELECT SUM(zakaznik_a), SUM(zakaznik_b) FROM day_work WHERE MONTH(datum) = :month AND user = :user");
+        $stmt = $conn->prepare("SELECT SUM(customer_a), SUM(customer_b) FROM day_work WHERE MONTH(date_) = :month AND user = :user");
         $stmt->bindParam(':month', $month );
         $stmt->bindParam(':user', $userEmail );
 

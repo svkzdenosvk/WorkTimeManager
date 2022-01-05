@@ -41,7 +41,7 @@ if(isset($_POST['login'])){
                  * if email from table users and that written in input are equal ->then select all data by this email from table users
                  */
                 if (strcasecmp($email,$emailVal) == 0){
-                    $stmt = $conn->prepare("SELECT meno, email, heslo FROM users WHERE email = :email");
+                    $stmt = $conn->prepare("SELECT name_, email, pass FROM users WHERE email = :email");
                     $stmt->bindParam(':email', $email );
                     $stmt->execute();
 
@@ -52,8 +52,8 @@ if(isset($_POST['login'])){
                     /**
                      * check password towards email, if correct->set COOKIE['logged'] and redirect with logged user
                      */
-                    if(password_verify($pass,$dataLogin[0]['heslo'])){
-                        $user=new User($dataLogin[0]['meno'],$dataLogin[0]['email']);
+                    if(password_verify($pass,$dataLogin[0]['pass'])){
+                        $user=new User($dataLogin[0]['name_'],$dataLogin[0]['email']);
                         $serializeUser=serialize($user);
                                                                          //expire after cca 5 year
                         setcookie('logged', $serializeUser, time()+ (5 * 365 * 24 * 60 * 60), '/');

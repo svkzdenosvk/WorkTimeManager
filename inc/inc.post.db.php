@@ -29,9 +29,9 @@
         $cust_b=$customer_b_obj->getTotal();
 
 
-        $stmt = $conn->prepare("INSERT INTO day_work (zakaznik_a, zakaznik_b, user)  VALUES(:zakaznik_a, :zakaznik_b, :user)");
-        $stmt->bindParam(':zakaznik_a',$cust_a );
-        $stmt->bindParam(':zakaznik_b',  $cust_b);
+        $stmt = $conn->prepare("INSERT INTO day_work (customer_a, customer_b, user)  VALUES(:cust_a, :cust_b, :user)");
+        $stmt->bindParam(':cust_a',$cust_a );
+        $stmt->bindParam(':cust_b',  $cust_b);
         $stmt->bindParam(':user',  $userEmail);
 
 
@@ -86,8 +86,8 @@
         /**
          *add data from DB to variables to show in index
          */
-        $act_month_cust_a = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_a)"]));
-        $act_month_cust_b = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_b)"]));
+        $act_month_cust_a = timeFormat((int)htmlspecialchars($data[0]["SUM(customer_a)"]));
+        $act_month_cust_b = timeFormat((int)htmlspecialchars($data[0]["SUM(customer_b)"]));
 
     }
 
@@ -113,8 +113,8 @@
         /**
          *add data from DB to variables to show in index
          */
-        $last_month_cust_a = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_a)"]));
-        $last_month_cust_b = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_b)"]));
+        $last_month_cust_a = timeFormat((int)htmlspecialchars($data[0]["SUM(customer_a)"]));
+        $last_month_cust_b = timeFormat((int)htmlspecialchars($data[0]["SUM(customer_b)"]));
 
     }
 
@@ -133,7 +133,7 @@
             $to= date('Y-m-d H:i:s', strtotime($_POST['to_date'].' 23:59:59.993'));
 
 
-            $stmt = $conn->prepare("SELECT SUM(zakaznik_a), SUM(zakaznik_b) FROM day_work WHERE datum BETWEEN :since AND :toDate AND user = :user ");
+            $stmt = $conn->prepare("SELECT SUM(customer_a), SUM(customer_b) FROM day_work WHERE date_ BETWEEN :since AND :toDate AND user = :user ");
             $stmt->bindParam(':since',  $since );
             $stmt->bindParam(':toDate', $to);
             $stmt->bindParam(':user', $userEmail );
@@ -148,8 +148,8 @@
             /**
              *add data from DB to variables to show in index("/")
              */
-            $spec_period_cust_a = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_a)"]));
-            $spec_period_cust_b = timeFormat((int)htmlspecialchars($data[0]["SUM(zakaznik_b)"]));
+            $spec_period_cust_a = timeFormat((int)htmlspecialchars($data[0]["SUM(customer_a)"]));
+            $spec_period_cust_b = timeFormat((int)htmlspecialchars($data[0]["SUM(customer_b)"]));
         }
 
     }

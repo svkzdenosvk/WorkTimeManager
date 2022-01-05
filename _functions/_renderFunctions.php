@@ -38,7 +38,7 @@
     } 
 
     /*******************************************************************************************************************
-     * this f. show buttons 
+     * this f. show buttons (2 greens and 1 yellow)
      * @param array (of objects)
      * @return void (just echo "view")
      */
@@ -49,7 +49,7 @@
     }
 
     /*******************************************************************************************************************
-     * this f. is partial f. 
+     * this f. is partial f. (for render save button and reset button)
      * @param string
      * @return void (just echo "view")
      */
@@ -90,7 +90,7 @@
     }
 
      /*******************************************************************************************************************
-     * this f. is partial f. 
+     * this f. is partial f. (for render last month button and current month button)
      * @param string
      * @return void (just echo "view")
      */
@@ -106,12 +106,18 @@
 
     }
 
+    /********************************************************************************************************************
+     * this f. render last month button
+     */
     function renderLastMonthBtn(){
         $string1 ="last-month";
         $string2="Minulý mesiac";
         _renderMonthBtn($string1, $string2);
     }
 
+    /********************************************************************************************************************
+     * this f. render current month button
+     */
     function renderCurrentMonthBtn(){
         $string1 ="actual-month";
         $string2="Aktuálny mesiac";

@@ -3,15 +3,15 @@
     /*******************************************************************************************************************
      *save post
      */
-    $userEmail=$customer_a_obj->getUser()->getEmail(); //- ak tak toto otvorit
+    $userEmail=$customer_a_obj->getUser()->getEmail(); 
     ////$userEmail=$array_obj[0]->getUser()->getEmail();
 
 
     if(isset($_POST['save'])){
 
         /**
-         *if time for zakaznik_a going -> then pausing
-         * and save total seconds of work for zakaznik_a to var $zak_a
+         *if time for customer_a going -> then pausing
+         * and save total seconds of work for customer_a to var $cust_a
          */
         if($customer_a_obj->getRunning()){
             $customer_a_obj->pausing();
@@ -20,8 +20,8 @@
         $cust_a=$customer_a_obj->getTotal();
 
         /**
-         *if time for zakaznik_b going -> then pausing
-         * and save total seconds of work for zakaznik_b to var $zak_b
+         *if time for customer_b is going -> then pausing
+         * and save total seconds of work for customer_b to var $cust_b
          */
         if($customer_b_obj->getRunning()){
             $customer_b_obj->pausing();

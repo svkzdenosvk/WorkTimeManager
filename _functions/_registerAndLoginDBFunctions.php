@@ -45,7 +45,7 @@
 
 
     /*******************************************************************************************************************
-     * f. automaticly redirect to index when find out COOKIE of Stopwatch object exists
+     * f. automaticly redirect to index (login) when find out COOKIE of Stopwatch object exists
      * @param (StopWatch) $cookie_obj
      */
     function logByCookieStopwatchObj( $cookie_obj){
@@ -58,7 +58,7 @@
 
 
     /*******************************************************************************************************************
-     * f. automaticly redirect to index when find out COOKIE of User object exists
+     * f. automaticly redirect to index (login) when find out COOKIE of User object exists
      * @param (User) $cookie_obj
      */
     function logByCookieUser( $cookie_obj){
@@ -116,7 +116,7 @@
     }
 
     /*******************************************************************************************************************
-     * f. select data from DB by MONTH
+     * f. select email from db table
      * ->this f. was created because of duplicated code in $_POST['actual_month'] and $_POST['last_month']
      * @param PDO $conn
      * @return (associative) array $data
